@@ -1,0 +1,50 @@
+ .btn-teal,
+ .btn-teal:hover{
+
+    background: #00aba9;
+    color: white;
+  }
+
+  .btn-infos,
+  .btn-infos:hover,
+  .btn-infos:active{
+
+    background: #4285F4;
+    color: white;
+  }
+
+  .btn-dark,
+  .btn-dark:hover,
+  .btn-dark:active{
+
+    background: #1d1d1d;
+    color: white;
+  }
+  
+  .btn-blue,
+  .btn-blue:hover,
+  .btn-blue:active{
+    background:  #034f84;
+    color: white;
+  }
+
+  .btn-edit,
+  .btn-edit:hover,
+  .btn-edit:active{
+
+    background: #1e7145;
+    color: white;
+  }
+  .btn-dark2,
+  .btn-dark2:hover,
+  .btn-dark2:active{
+
+    background: #323240;
+    color: white;
+  }
+
+  .input-dark{
+      border: solid 1px black;
+      border-radius: 3px;
+      background: white;
+    }
