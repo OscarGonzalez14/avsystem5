@@ -17,7 +17,8 @@ var tablas_compras_ingreso_bodegas;
 function init(){
   get_numero_ingreso();
   get_correlativo_traslado();
-  stockBdCentral()
+  stockBdCentral();
+  listarArosBodegaCentral();
 }
  function ingresar_compras_bodega() {
   $('#modal_ingreso_bodega').modal('show');

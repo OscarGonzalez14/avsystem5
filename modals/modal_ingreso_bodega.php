@@ -24,7 +24,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-        <button type="button" class="btn btn-sm btn-outline-success btn-flat" data-toggle="modal" data-target="#agregar-aros-ingresar-bdcentral" onClick="listarArosBodegaCentral()"><i class="fas fa-glasses"></i> Agregar Aro</button>       
+        <button type="button" class="btn btn-sm btn-outline-success btn-flat" data-toggle="modal" data-target="#agregar-aros-ingresar-bdcentral"><i class="fas fa-glasses"></i> Agregar Aro</button>       
 
         <button class="btn btn-sm btn-outline-success btn-flat float-right" style="margin:2px" data-toggle="modal" data-target="#" onClick="agregarStockGrupal();"><i class="fas fa-box"></i> Agregar todos</button>     
 
