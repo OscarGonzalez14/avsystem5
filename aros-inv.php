@@ -1,20 +1,22 @@
 <?php
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){
-require_once('header_dos.php');
+  require_once('header_dos.php');  
+  
 require_once('modals/modal_ingreso_bodega.php');
-require_once('modals/nuevo_aro.php');
-require_once('modals/nueva_marca.php');
-//require_once('modals/editar_aro.php');
 ?>
+<style>
+   .dataTables_Filter{
+      float: right !important;
+    }
+</style>
 <div class="content-wrapper" >
 <!--$('[name="country-of-operation-edit[]"]').val()-->
 <div style="margin: 1px">
 	<div class="callout callout-info">
         <h5 align="center" style="margin:0px"><i class="fas fa-glasses" style="color:green"></i> <strong>BODEGA CENTRAL</strong></h5>
         <?php include 'sources-view/nav-bar-aros.php'?>             
-    </div>
-	
+    </div>	
 </div>
 
 <table width="100%" class="table-bordered table-hover" id="data_stock_bdcentral" data-order='[[ 0, "desc" ]]' style="margin:5px">
@@ -31,7 +33,7 @@ require_once('modals/nueva_marca.php');
           <th>Distribuir</th>
           </tr>
         </thead>
-        <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;" id="ingreso-ind-temp">                                  
+        <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">                                  
         </tbody>
   </table>
    
@@ -114,6 +116,48 @@ require_once('modals/nueva_marca.php');
   </div>
 </div>
 
+
+<!--MODAL MODAL INGRESAR AROS -->
+
+<div class="modal" id="agregar-aros-ingresar-bdcentral">
+  <div class="modal-dialog" style="max-width:65%">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background:">
+        <h4 class="modal-title">Ingresar aros a bodega</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <button type="button" class="btn btn-sm btn-outline-secondary btn-flat" data-toggle="modal" data-target="#nuevo_aro" data-backdrop="static" data-keyboard="false" onClick="cargar_marca()"><i class="fas fa-plus"></i> Nuevo Aro</button>
+        <table width="100%" class="table-hover table-bordered" id="aros-agregar-bdcentral">
+        <thead style="background:#0b1118;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
+          <tr>
+          <th>ID</th>
+          <th>Modelo</th>
+          <th>Marca</th>
+          <th>Color</th>
+          <th>Medidas</th>
+          <th>Diseño</th>
+          <th>Material</th>
+          <th>Agregar</th>
+          </tr>
+        </thead>
+        <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;" >                                  
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<?php
+require_once('modals/nuevo_aro.php');
+require_once('modals/nueva_marca.php');
+?>
+<!--MODAL MODAL INGRESAR AROS -->
+
 <!--MODAL RESUMEN INGRESOS BODEGA -->
 
 <div class="modal" id="ingresos-bodega-grupal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -159,6 +203,8 @@ require_once('modals/nueva_marca.php');
 </div>
 
 <!--MODAL RESUMEN INGRESOS BODEGA -->
+
+
 
 <input type="hidden" id="usuario" value="<?php echo $_SESSION["usuario"];?>">
 <input type="hidden" id="sucursal" value="Bodega Central">

@@ -199,11 +199,33 @@ case "ingresoIndividualBodega":
     $productos = new Productos();
 
     $aros = $productos->get_aros();
-    $lista_aros = Array();
+    /*$lista_aros = Array();
     foreach($aros as $a){
       array_push($lista_aros,array('id'=>$a["id_producto"],'text'=>"Mod.:".$a["modelo"]." ".$a["marca"]." C.:".$a["color"]." Med.:".$a["medidas"]));
     }
-    echo json_encode($lista_aros);   
+    echo json_encode($lista_aros);  */ 
+
+    $data= Array();
+      foreach($aros as $row){
+        $sub_array = array();
+        $sub_array[] = $row["id_producto"];
+        $sub_array[] = $row["modelo"];
+        $sub_array[] = $row["marca"];
+        $sub_array[] = $row["color"];
+        $sub_array[] = $row["medidas"];
+        $sub_array[] = $row["diseno"];
+        $sub_array[] = $row["materiales"];
+        $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="addProductoBd('.$row["id_producto"].',\''."Mod.:".$row["modelo"]." Marca.:".$row["marca"]." Col.:".$row["color"]." Med.:".$row["medidas"]."Mat.:".$row["materiales"].'\')"
+        ><i class="fas fa-plus" aria-hidden="true" style="color:blue"></i></button>';
+        $data[] = $sub_array;
+      }
+  
+        $results = array(
+        "sEcho"=>1, //Información para el datatables
+        "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+        "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+        "aaData"=>$data);
+        echo json_encode($results);
     break;
 
 

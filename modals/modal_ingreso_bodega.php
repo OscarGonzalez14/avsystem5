@@ -24,25 +24,11 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-        <button type="button" class="btn btn-sm btn-outline-secondary btn-flat" data-toggle="modal" data-target="#nuevo_aro" data-backdrop="static" data-keyboard="false" onClick="cargar_marca()"><i class="fas fa-plus"></i> Nuevo Aro</button>
+        <button type="button" class="btn btn-sm btn-outline-success btn-flat" data-toggle="modal" data-target="#agregar-aros-ingresar-bdcentral" onClick="listarArosBodegaCentral()"><i class="fas fa-glasses"></i> Agregar Aro</button>       
 
         <button class="btn btn-sm btn-outline-success btn-flat float-right" style="margin:2px" data-toggle="modal" data-target="#" onClick="agregarStockGrupal();"><i class="fas fa-box"></i> Agregar todos</button>     
 
-        <div class="row">
-          <div class="col-sm-7 select2-primary">
-            <label for="sel1">Seleccionar aro:</label>
-            <select class="form-control select2" name="" id="aros-list" multiple="multiple"
-                 data-dropdown-css-class="select2-purple" clear_i></select>
-           </div>
-          <div class="col-sm-3">
-         
-          </div>
-          <div class="col-sm-2">
-
-          </div>
-        </div>
-        <br>
-        <table width="100%" class="table-hover table-bordered">
+        <table width="100%" class="table-bordered">
         <thead style="color:white;font-family: Helvetica, Arial, sans-serif;font-size: 13px;text-align: center" class='bg-info'>
           <tr>
           <th style="width:5%">#</th>

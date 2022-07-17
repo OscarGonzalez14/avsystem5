@@ -157,7 +157,7 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
         aros_creados.push(obj);
         ubicarArosInvidividual();
         clear_inputs_inv();
-        $('#marca_aros').val(null).trigger('change');
+        $("#aros-agregar-bdcentral").DataTable().ajax.reload();
         listarArosIngresoMultiple()
       }else if(data.result=='not'){
           Swal.fire('Producto ya Existe!','','error')

@@ -574,7 +574,7 @@ public function registrarDetalleIngreso($id_producto,$cantidad_ingreso,$sucursal
 public function getStockBdCentral(){
 
   $conectar= parent::conexion();
-  $sql= "select e.id_ingreso,p.marca,p.modelo,p.color,p.medidas,p.diseno,p.materiales,e.stock,e.num_compra  from productos as p inner join existencias as e on p.id_producto=e.id_producto where e.bodega='Bodega Central' order by e.id_ingreso DESC;";
+  $sql= "select e.id_producto,e.id_ingreso,p.marca,p.modelo,p.color,p.medidas,p.diseno,p.materiales,e.stock,e.num_compra  from productos as p inner join existencias as e on p.id_producto=e.id_producto where e.bodega='Bodega Central' order by e.id_ingreso DESC;";
   $sql=$conectar->prepare($sql);
   $sql->execute();
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);

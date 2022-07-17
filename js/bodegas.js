@@ -861,22 +861,20 @@ function envioBodegaIndividual(){
 
 
 }
+
 var aros_bodega = [];
-$('#aros-list').on('select2:select', function (e) {
-  let data = e.params.data;
-  let id_producto = data.id;
-  let descripcion = data.text;
-  document.getElementById("select-all-bod-chk").checked = false
+function addProductoBd(id_producto,descripcion){
+document.getElementById("select-all-bod-chk").checked = false
 let obj = {
   id_producto : id_producto,
   descripcion : descripcion,
   cantidad : 1,
   costo: 0,pventa:0
 }
-aros_bodega.push(obj)
-$('#aros-list').val(null).trigger('change');
+aros_bodega.push(obj);
+$("#agregar-aros-ingresar-bdcentral").modal('hide')
 listarArosUbicarBodega();
-});
+};
 
 function listarArosUbicarBodega(){
   $("#ingreso-grupal-temp").html("");
@@ -1080,6 +1078,57 @@ function stockBdCentral(){
         console.log(e.responseText);
         }
         },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+    "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+          "sProcessing":     "Procesando...",
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+          "sZeroRecords":    "No se encontraron resultados",
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+          "sInfoPostFix":    "",
+          "sSearch":         "Buscar:",
+          "sUrl":            "",
+          "sInfoThousands":  ",",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+              "sFirst":    "Primero",
+              "sLast":     "Último",
+              "sNext":     "Siguiente",
+              "sPrevious": "Anterior"
+          },
+          "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          }
+
+         }//cerrando language
+
+  }).DataTable();
+}
+
+function listarArosBodegaCentral(){
+
+  tabla_reporte_ingresos_bodega=$('#aros-agregar-bdcentral').dataTable({
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [
+                'excelHtml5'
+            ],
+    "ajax":{
+        url: 'ajax/bodegas.php?op=listar_aros_bodega',
+        type : "post",
+        error: function(e){
+        console.log(e.responseText);
+        }
+    },
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
