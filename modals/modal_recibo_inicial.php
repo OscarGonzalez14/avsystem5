@@ -89,7 +89,8 @@
           <option value='Credomatic'>Credomatic</option>
           <option value='Cuscatlan'>Cuscatlan</option>
           <option value='Agricola'>Agricola</option>
-          <option value='Davivienda'>Davivienda</option></select>
+          <option value='Davivienda'>Davivienda</option>
+          <option value='Transferencia'>Transferencia</option></select>
         <td><input type='date' class='form-control' id='proxi_abono' name='proxi_abono'></td>
 
         </tbody>

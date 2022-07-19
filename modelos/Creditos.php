@@ -412,7 +412,10 @@ public function aprobar_orden(){
                 $sufijo="SA";
             }elseif ($sucursal=="San Miguel") {
                 $prefijo="AV";
-                $sufijo="SM";    
+                $sufijo="SM"; 
+            }elseif ($sucursal=="Chalatenango") {
+                $prefijo="AV";
+                $sufijo="CH";      
             }elseif ($sucursal=="Empresarial-Santa Ana") {/////////////////CORRELATIVOS EMPRESARIALES
                 $prefijo="EM";
                 $sufijo="SA";
@@ -422,6 +425,9 @@ public function aprobar_orden(){
             }elseif ($sucursal=="Empresarial-Metrocentro") {
                 $prefijo="EM";
                 $sufijo="MT";
+            }elseif ($sucursal=="Empresarial-Chalatenango") {
+                $prefijo="EM";
+                $sufijo="CH";
             }
 
        

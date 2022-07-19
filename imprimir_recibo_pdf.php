@@ -22,7 +22,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 
 if ($sucursal == "Metrocentro"  or  $sucursal == "Empresarial-Metrocentro") {
   $giro = "OTROS SERVICIO RELACIONADOS CON LA SALUD";
-  $encabezado = "OPTICA AV PLUS S.A de C.V.";
+  $encabezado = "OPTICA AV PLUS S.A DE C.V.";
   $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
   $telefono = "2260-1653";
   $wha = "7469-2542";
@@ -36,11 +36,18 @@ if ($sucursal == "Metrocentro"  or  $sucursal == "Empresarial-Metrocentro") {
   $correo = "opticaavplussanmiguel@gmail.com";
 }elseif ($sucursal == "Santa Ana"  or  $sucursal == "Empresarial-Santa Ana"){
   $giro = "OTROS SERVICIO RELACIONADOS CON LA SALUD";
-    $encabezado = "OPTICA AV PLUS S.A de C.V.";
+    $encabezado = "OPTICA AV PLUS S.A DE C.V.";
     $direccion = " 61 Calle Pte. Block K9 #10, Col, Avenida El Trebol, Santa Ana";
     $telefono = "2445 3150";
     $wha = "-";
     $correo = "opticaavplussantana@gmail.com";
+}elseif ($sucursal == "Chalatenango"  or  $sucursal == "Empresarial-Chalatenango"){
+  $giro = "OTROS SERVICIO RELACIONADOS CON LA SALUD";
+    $encabezado = "OPTICA AV PLUS S.A DE C.V.";
+    $direccion = "Carr. Troncal Del Nte. 48 ½, Plaza Don Yon, local #6, 3<sup>ra</sup> Etapa, Coyolito, Chalatenango";
+    $telefono = "2260-1653";
+    $wha = "7469-2542";
+    $correo = "opticaavpluschalatenango@gmail.com";
 }
 
 $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);
@@ -87,15 +94,15 @@ $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_ve
 <tr>
 <td width="10%"><img src="images/logooficial.jpg" width="180" height="100"  /></td>
 
-<td width="70%">
-<table style="width:95%;">
+<td width="75%">
+<table style="width:100%;">
 
  <tr>
     <td style="text-align:center; font-size:20px";font-family: Helvetica, Arial, sans-serif;><strong><?php echo $encabezado;?></strong></td>
   </tr>
 
   <tr>
-    <td style="text-align:center; font-size:14px;font-family: Helvetica, Arial, sans-serif;"><strong>GIRO:</strong> <?php echo $giro; ?> </td>
+    <td style="text-align:center; font-size:13px;font-family: Helvetica, Arial, sans-serif;"><strong>GIRO:</strong> <?php echo $giro; ?> </td>
   </tr>
   <tr>
     <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><?php echo $direccion;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
@@ -114,7 +121,7 @@ $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_ve
     <td style="text-align:right; font-size:12px"><strong>RECIBO</strong></td>
   </tr>
   <tr>
-    <td style="color:red;text-align:right; font-size:14px"><strong >No.&nbsp;<span><?php echo $n_recibo;?></strong></td>
+    <td style="color:red;text-align:right; font-size:13px"><strong >No.&nbsp;<span><?php echo $n_recibo;?></strong></td>
   </tr>
 
 </table><!--fin segunda tabla-->
@@ -264,15 +271,15 @@ $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_ve
 <tr>
 <td width="10%"><img src="images/logooficial.jpg" width="180" height="100"  /></td>
 
-<td width="70%">
-<table style="width:95%;">
+<td width="75%">
+<table style="width:100%;">
 
  <tr>
     <td style="text-align:center; font-size:20px";font-family: Helvetica, Arial, sans-serif;><strong><?php echo $encabezado;?></strong></td>
   </tr>
 
   <tr>
-    <td style="text-align:center; font-size:14px;font-family: Helvetica, Arial, sans-serif;"><strong>GIRO: </strong> <?php echo $giro; ?></td>
+    <td style="text-align:center; font-size:13px;font-family: Helvetica, Arial, sans-serif;"><strong>GIRO: </strong> <?php echo $giro; ?></td>
   </tr>
   <tr>
     <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><?php echo $direccion;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>

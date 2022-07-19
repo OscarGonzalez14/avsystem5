@@ -33,6 +33,12 @@ if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
     $telefono = "2445 3150";
     $wha = "-";
     $dir2="Santa Ana";
+}elseif ($sucursal == "Chalatenango"  or  $sucursal == "Empresarial-Chalatenango"){
+    $encabezado = "OPTICA AV PLUS S.A DE C.V.";
+    $direccion = "Carr. Troncal Del Nte. 48 ½, Plaza Don Yon, local #6, 3<sup>ra</sup> Etapa, Coyolito, Chalatenango";
+    $telefono = "2260-1653";
+    $wha = "7469-2542";
+    $dir2="Chalatenango";
 }
 //$datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);
 date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
