@@ -482,7 +482,7 @@ if ($_POST["tipo_pago"]=="Cargo Automatico") {
   }elseif ($sucursal=="San Miguel") {
     $prefijo="SM";
   }elseif ($sucursal=="Chalatenango") {
-    $prefijo=" CH";
+    $prefijo="CH";
   }
   ########## FIN PREFIJOS #######  
   $resultado_correlativo = $ventas->get_correlativo_orden($sucursal);

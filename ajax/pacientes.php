@@ -17,7 +17,8 @@
     $prefijo="SA";
   }elseif ($sucursal=="San Miguel"){
     $prefijo="SM";
-  }
+  }elseif ($sucursal=="Chalatenango"){
+    $prefijo="CH";
 
   if ($sucursal=="Empresarial") {
    $sucursal_correlativo = "Empresarial-".$sucursal_usuario;
@@ -33,6 +34,8 @@
     $sufijo = "SM";
   }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Santa Ana"){
     $sufijo = "SA";
+  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Chalantenango"){
+    $sufijo = "CH";
   }
 
   if ($sucursal == "Empresarial") {
