@@ -6,9 +6,11 @@ if(isset($_SESSION["usuario"])){
 require_once('modals/modal_ingreso_bodega.php');
 ?>
 <style>
-   .dataTables_Filter{
-      float: right !important;
-    }
+html, body 
+{ 
+ height: 100%;
+ overflow: hidden
+}
 </style>
 <div class="content-wrapper" >
 <!--$('[name="country-of-operation-edit[]"]').val()-->
@@ -35,6 +37,19 @@ require_once('modals/modal_ingreso_bodega.php');
         </thead>
         <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">                                  
         </tbody>
+
+        <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th id="total-stock" style="text-align: center"></th>
+          <th></th>
+        </tfoot>
   </table>
    
 <style>
@@ -54,6 +69,55 @@ require_once('modals/modal_ingreso_bodega.php');
   margin: 1em;
  }
 </style>
+
+
+<!--MODAL DISTRIBUCION DE PRODUCTOS-->
+
+
+<div class="modal" id="modal-distribuir" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-size:5px:padding:5px">DISTRIBUIR PRODUCTOS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <h5 id="titulo-dist" style="font-size:16px;padding:5px;text-align:center"></h5>
+      <div class="form-row" autocomplete="off">
+        
+        <div class="form-group col-md-12">
+            <label for="ubicacion">Sucursal</label>
+            <select name="" id="ubicacion_distrib" class="form-control clear_i">
+                <option value="0" selected>Seleccionar...</option>
+                <option value="Metrocentro">Metrocentro</option>
+                <option value="Chalatenango">Chalatenango</option>
+                <option value="Cascadas">Cascadas</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="ubicacion">Stock</label>
+            <input type="text" class="form-control" id="stock-bd-cental-distr" readonly>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="ubicacion">Cantidad</label>
+            <input type="text" class="form-control" id="cant-distr">
+        </div>
+
+      </div>
+      </div>
+      <input type="hidden" id="id-prod-distr">
+      <input type="hidden" id="num-compra-dist">
+      <input type="hidden" id="pventa-dist">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-block" onClick="distribuirSucursal()">Ingresar a bodega</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal ubicacion individual-->
 <div class="modal" id="ubicacion-ind">
@@ -206,6 +270,8 @@ require_once('modals/nueva_marca.php');
 
 
 
+
+
 <input type="hidden" id="usuario" value="<?php echo $_SESSION["usuario"];?>">
 <input type="hidden" id="sucursal" value="Bodega Central">
 <input type="hidden" id="idx-prod">
@@ -218,6 +284,7 @@ require_once('modals/nueva_marca.php');
 <script src='js/bootbox.min.js'></script>
 <script src='js/productos.js'></script>
 <script src='js/marca.js'></script>
+<script src="js/sum.js"></script>
 <script src='js/bodegas.js'></script>
 <script>
     $(function () {

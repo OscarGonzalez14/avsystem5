@@ -242,7 +242,7 @@ case "ingresoIndividualBodega":
         $sub_array[] = $row["diseno"];
         $sub_array[] = $row["materiales"];
         $sub_array[] = $row["stock"];
-        $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-dolly" aria-hidden="true" style="color:blue"></i></button>';
+        $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="modalDistribuir('.$row["id_producto"].',\''.$row["num_compra"].'\',\''.$row["stock"].'\',\''.$row["precio_venta"].'\',\''.$row["marca"]." - Mod.: ".$row["modelo"]." - Color.: ".$row["color"].'\')"><i class="fas fa-dolly" aria-hidden="true" style="color:blue"></i></button>';
         $data[] = $sub_array;
       }
   
@@ -254,5 +254,9 @@ case "ingresoIndividualBodega":
         echo json_encode($results);
   
       break;
+
+      case "distribuir_aros_sucursal":
+        $bodegas->distribuirArosSucursal($_POST["id_producto"],$_POST["cantidad"],$_POST["numero_compra"],$_POST["usuario"],$_POST["sucursal"],$_POST["precio_venta"]);
+        break;
 
 }

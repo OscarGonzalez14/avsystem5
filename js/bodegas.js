@@ -15,10 +15,11 @@ $(document).ready(ocultar_btns_post_ingreso);
 //////////////////////////////
 var tablas_compras_ingreso_bodegas;
 function init(){
+  listarArosBodegaCentral();
   get_numero_ingreso();
   get_correlativo_traslado();
   stockBdCentral();
-  listarArosBodegaCentral();
+
 }
  function ingresar_compras_bodega() {
   $('#modal_ingreso_bodega').modal('show');
@@ -1079,6 +1080,10 @@ function stockBdCentral(){
         console.log(e.responseText);
         }
         },
+        drawCallback: function () {
+          var sumatoria_stock = $('#data_stock_bdcentral').DataTable().column(7).data().sum();
+          $('#total-stock').html(sumatoria_stock+" aros");  
+        },
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
@@ -1164,4 +1169,52 @@ function listarArosBodegaCentral(){
 
   }).DataTable();
 }
+
+
+function modalDistribuir(id_producto,numero_compra,stock,pventa,descripcion){
+  $("#modal-distribuir").modal("show");
+  document.getElementById("stock-bd-cental-distr").value = stock;
+  document.getElementById("num-compra-dist").value = numero_compra;
+  document.getElementById("id-prod-distr").value = id_producto;
+  document.getElementById("pventa-dist").value = pventa;
+  document.getElementById("titulo-dist").innerHTML = descripcion;
+  
+}
+
+function distribuirSucursal(){
+  let stock = parseInt(document.getElementById("stock-bd-cental-distr").value);
+  let id_producto = document.getElementById('id-prod-distr').value;
+  let cantidad = document.getElementById('cant-distr').value;
+  let numero_compra = document.getElementById('num-compra-dist').value;
+  let usuario = $("#usuario").val();
+  let sucursal = $("#ubicacion_distrib").val();  
+  let precio_venta =document.getElementById("pventa-dist").value;
+  if(cantidad > stock){   
+    Swal.fire('La cantidad excede el stock','','error');
+    return false;
+  }
+  if(cantidad != "" && sucursal != "0"){
+    $.ajax({
+      url:"ajax/bodegas.php?op=distribuir_aros_sucursal",
+      method:"POST",
+      data : {id_producto:id_producto,cantidad:cantidad,numero_compra:numero_compra,usuario:usuario,sucursal:sucursal,precio_venta:precio_venta},
+      cache:false,
+      dataType:"json",
+      success:function(info){
+       if(info.mensaje=="registroOk"){
+          Swal.fire('Ingreso a bodega exitoso','','success');
+          $("#modal-distribuir").modal("hide");
+          $("#ubicacion_distrib").val("0")
+          $("#cant-distr").val("");
+          $("#data_stock_bdcentral").DataTable().ajax.reload(null,false);
+       }
+  
+      }
+    }); 
+  }else{
+    Swal.fire('Sucursal o cantidad estan vacios','','error');
+  }
+
+}
+
 init();

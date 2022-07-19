@@ -34,6 +34,7 @@ function guardarMarca(){
 }
 
 function cargar_marca(){
+	
 	$.ajax({
 		url:"ajax/marca.php?op=get_marcas",
       	method:"POST",
