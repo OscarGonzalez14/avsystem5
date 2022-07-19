@@ -92,7 +92,7 @@ data-dropdown-css-class="select2-purple" clear_i></select>
     <button type="button" class="btn btn-info btn-block" onClick="guardarAro();"><i class="fas fa-save"></i> GUARDAR</button>
   </div>
 
-  <table width="100%" class="table-bordered table-hover" id="data_table_aros_ubicar">
+  <!--<table width="100%" class="table-bordered table-hover" id="data_table_aros_ubicar">
       <thead style="background:#0b1118;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
           <tr>
           <th>Marca</th>
@@ -105,7 +105,7 @@ data-dropdown-css-class="select2-purple" clear_i></select>
         </thead>
         <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;" id="ingreso-ind-temp">                                  
         </tbody>
-  </table>
+  </table>-->
 
       </div>
       <input type="hidden" id="categoria_producto" value="aros"/>

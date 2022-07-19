@@ -16,9 +16,9 @@ require_once('modals/editar_aro.php');
 
 <div style="margin: 1px">
 	<div class="callout callout-info">
-        <h5 align="center"><i class="fas fa-glasses" style="color:green"></i> <strong>LISTADO AROS</strong></h5>              
+        <h5 align="center"><i class="fas fa-glasses" style="color:green"></i> <strong>STOCK GENERAL AROS</strong></h5>              
     </div>
-	<table class="table" id="data_lista_aros_creados" width="100%">
+	<table class="table-bordered table-hover" id="data_lista_aros_creados" width="100%">
         <thead style="background:#034f84;color:white;max-height:10px">
           <tr>
             <th style="text-align:center">ID</th>

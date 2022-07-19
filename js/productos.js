@@ -145,7 +145,8 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
       
       if(data.result=="yes") {
         Swal.fire('Se creado un nuevo aro!','','success')
-        let obj = {
+        $("#")
+        /*let obj = {
           marca_aros:marca_aros,
           modelo_aro:modelo_aro,
           color_aro:color_aro,
@@ -154,7 +155,7 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
           materiales_aro:materiales_aro,
           id_producto: data.last_id
         }
-        aros_creados.push(obj);
+        aros_creados.push(obj);*/
         ubicarArosInvidividual();
         clear_inputs_inv();
         $("#aros-agregar-bdcentral").DataTable().ajax.reload();

@@ -17,6 +17,8 @@
     $prefijo="SA";
   }elseif ($sucursal=="San Miguel"){
     $prefijo="SM";
+  }elseif($sucursal=="Chalatenango"){
+    $prefijo="CH";
   }
 
   if ($sucursal=="Empresarial") {
