@@ -144,8 +144,8 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
       
       
       if(data.result=="yes") {
-        Swal.fire('Se creado un nuevo aro!','','success')
-        $("#")
+        //Swal.fire('Se creado un nuevo aro!','','success')
+        $("#nuevo_aro").modal("hide")
         /*let obj = {
           marca_aros:marca_aros,
           modelo_aro:modelo_aro,
@@ -159,7 +159,7 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
         ubicarArosInvidividual();
         clear_inputs_inv();
         $("#aros-agregar-bdcentral").DataTable().ajax.reload();
-        listarArosIngresoMultiple()
+        //listarArosIngresoMultiple()
       }else if(data.result=='not'){
           Swal.fire('Producto ya Existe!','','error')
           return false;
