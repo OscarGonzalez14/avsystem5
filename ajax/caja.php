@@ -19,6 +19,12 @@ switch($_GET["op"]){
     	$prefijo="QSA";
     }elseif ($sucursal=="San Miguel") {
     	$prefijo="QSM";
+    }elseif ($sucursal=="Chalatenango") {
+      $prefijo="QCH";
+    }elseif ($sucursal=="Ahuachapán") {
+      $prefijo="QAH";
+    }elseif ($sucursal=="Cascadas") {
+      $prefijo="QCA";
     }
 
     if(is_array($datos)==true and count($datos)>0){

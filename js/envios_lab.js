@@ -81,13 +81,15 @@ function registrarEnvioLab(){
   let sucursal = $("#sucursal_orden_lab").val();
   let prioridad = $("#prioridad_orden_lab").val();
   let observaciones = $("#observaciones_orden_lab").val();
+  let sucursal_usuario = $("#sucursal_usuario").val();
+  let sucursal = $("#sucursal").val();
 
   //if (cod_orden != "" && paciente) {}
     $.ajax({
       url:"ajax/laboratorios.php?op=registrarEnvioLab",
       method:"POST",
       cache:false,
-      data: {cod_orden:cod_orden,paciente:paciente,empresa:empresa,laboratorio:laboratorio,lente:lente,modelo_aro:modelo_aro,marca_aro:marca_aro,color_aro:color_aro,diseno_aro:diseno_aro,usuario:usuario,sucursal:sucursal,prioridad:prioridad,observaciones:observaciones},
+      data: {cod_orden:cod_orden,paciente:paciente,empresa:empresa,laboratorio:laboratorio,lente:lente,modelo_aro:modelo_aro,marca_aro:marca_aro,color_aro:color_aro,diseno_aro:diseno_aro,usuario:usuario,sucursal:sucursal,prioridad:prioridad,observaciones:observaciones,sucursal:sucursal,sucursal_usuario:sucursal_usuario},
       dataType:"json",
       success:function(data){
        console.log(data)   

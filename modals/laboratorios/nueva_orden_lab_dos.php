@@ -95,6 +95,9 @@
         <option value="">Seleccionar sucursal...</option>
         <option value="Metrocentro">Metrocentro</option>
         <option value="Arce">Arce</option>
+        <option value="Chalatenango">Chalatenango</option>
+        <option value="Cascadas">Cascadas</option>
+        <option value="Ahuachapan">Ahuachapan</option>
     </select>
     </div>
 

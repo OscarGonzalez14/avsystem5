@@ -8,7 +8,7 @@ require_once("../config/conexion.php");
     $conectar= parent::conexion();
     $sql= "select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion
 from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta
-where c.tipo_credito='Contado' and p.sucursal=? order by c.id_credito DESC;";
+where c.tipo_credito='Contado' and v.sucursal=? order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();
@@ -17,7 +17,7 @@ where c.tipo_credito='Contado' and p.sucursal=? order by c.id_credito DESC;";
 
 public function get_creditos_contado_emp($sucursal,$sucursal_usuario){
     $conectar= parent::conexion();
-    $sql= "select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta where c.tipo_credito='Contado' and (p.sucursal=? or p.sucursal=?) order by c.id_credito DESC;";
+    $sql= "select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta where c.tipo_credito='Contado' and (v.sucursal=? or v.sucursal=?) order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$sucursal_usuario);
     $sql->bindVAlue(2,"Empresarial-".$sucursal_usuario);
@@ -31,7 +31,7 @@ public function get_creditos_contado_emp($sucursal,$sucursal_usuario){
     $suc = "%".$sucursal."%";
     $sql= "select c.numero_venta,p.nombres,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion
         from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta
-        where c.forma_pago='Cargo Automatico' and p.sucursal like ? order by c.id_credito DESC;";
+        where c.forma_pago='Cargo Automatico' and v.sucursal like ? order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$suc);
     $sql->execute();
@@ -43,7 +43,7 @@ public function get_creditos_contado_emp($sucursal,$sucursal_usuario){
     $conectar= parent::conexion();
     $sql= "select c.numero_venta,p.nombres,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,c.cancelacion,v.evaluado
         from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta
-        where c.forma_pago='Descuento en Planilla' and p.sucursal=? and p.empresas=? group by c.numero_venta order by c.id_credito DESC;";
+        where c.forma_pago='Descuento en Planilla' and v.sucursal=? and p.empresas=? group by c.numero_venta order by c.id_credito DESC;";
 
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
@@ -415,7 +415,13 @@ public function aprobar_orden(){
                 $sufijo="SM"; 
             }elseif ($sucursal=="Chalatenango") {
                 $prefijo="AV";
-                $sufijo="CH";      
+                $sufijo="CH";
+            }elseif ($sucursal=="Ahuachapán") {
+                $prefijo="AV";
+                $sufijo="AH";
+            }elseif ($sucursal=="Cascadas") {
+                $prefijo="AV";
+                $sufijo="CA";      
             }elseif ($sucursal=="Empresarial-Santa Ana") {/////////////////CORRELATIVOS EMPRESARIALES
                 $prefijo="EM";
                 $sufijo="SA";
@@ -428,6 +434,12 @@ public function aprobar_orden(){
             }elseif ($sucursal=="Empresarial-Chalatenango") {
                 $prefijo="EM";
                 $sufijo="CH";
+            }elseif ($sucursal=="Empresarial-Ahuachapán") {
+                $prefijo="EM";
+                $sufijo="AH";
+            }elseif ($sucursal=="Empresarial-Cascadas") {
+                $prefijo="EM";
+                $sufijo="CA";
             }
 
        

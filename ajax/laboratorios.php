@@ -41,6 +41,12 @@ switch ($_GET["op"]){
 
 ////////////////////////////LISTAR ORDENES CREADAS
      case 'listar_ordenes':
+     if ($_POST["sucursal"]=="Empresarial") {
+    $sucursal = $_POST["sucursal_usuario"];
+    }else{
+    $sucursal = $_POST["sucursal"];    
+      }
+
       $datos = $laboratorios->get_ordenes_creadas();
       $data = Array();
       $i=0;
@@ -626,9 +632,7 @@ case 'listar_ordenes_general':
         }elseif($row["estado"]==4){
           $estado="Rechazado";
         }elseif($row["estado"]==5){
-          $estado="Rechazado";
-        }elseif($row["estado"]==6){
-          $estado="Reenviado";
+          $estado="Entregado";
         }
 
         $sub_array = array();
