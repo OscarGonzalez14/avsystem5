@@ -119,6 +119,10 @@ if ($_POST["sucursal_correlativo"]=="Empresarial") {
   $prefijo="SM";
   }elseif ($sucursal_usuario=="Chalatenango") {
   $prefijo="CH";
+  }elseif ($sucursal_usuario=="Ahuachapán") {
+  $prefijo="AH";
+  }elseif ($sucursal_usuario=="Cascadas") {
+  $prefijo="CA";
   }
 
   if(is_array($datos)==true and count($datos)>0){
@@ -143,6 +147,10 @@ if ($sucursal=="Metrocentro") {
   $prefijo="SM";
 }elseif ($sucursal=="Chalatenango") {
   $prefijo="CH";
+}elseif ($sucursal=="Ahuachapán") {
+  $prefijo="AH";
+}elseif ($sucursal=="Cascadas") {
+  $prefijo="CA";
 }
 if(is_array($datos)==true and count($datos)>0){
   foreach($datos as $row){                  
@@ -461,6 +469,10 @@ if ($_POST["tipo_pago"]=="Cargo Automatico") {
     $prefijo = "SM";
   }elseif($sucursal == "Chalatenango") {
     $prefijo = "CH";
+  }elseif($sucursal == "Ahuachapán") {
+    $prefijo = "AH";
+  }elseif($sucursal == "Cascadas") {
+    $prefijo = "CA";
   }
   ########## FIN PREFIJOS #######  
   $resultado_correlativo = $ventas->get_correlativo_cargo($sucursal);
@@ -483,6 +495,10 @@ if ($_POST["tipo_pago"]=="Cargo Automatico") {
     $prefijo="SM";
   }elseif ($sucursal=="Chalatenango") {
     $prefijo="CH";
+  }elseif ($sucursal=="Ahuachapán") {
+    $prefijo="AH";
+  }elseif ($sucursal=="Cascadas") {
+    $prefijo="CA";
   }
   ########## FIN PREFIJOS #######  
   $resultado_correlativo = $ventas->get_correlativo_orden($sucursal);

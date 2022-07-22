@@ -34,6 +34,7 @@ if(isset($_SESSION["usuario"])){
         </div>
       </div><!-- /.container-fluid -->
     </section>
+    
   <section class="content" style="border-right:50px">
     <div class="container-fluid">
       <div class="col-md-12">
@@ -45,24 +46,24 @@ if(isset($_SESSION["usuario"])){
           <table id="oid_aprobadas" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
             <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
               <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
-                <td  style="text-align:center;">ID</td>
-                <td  style="text-align:center;"># Orden</td>
-                <td  style="text-align:center;">Titular</td>
-                <td  style="text-align:center;">Empresa</td>
-                <td  style="text-align:center;">Fecha creación</td>
-                <td  style="text-align:center;">Estado</td>
-                <td style="text-align:center;">Ver detalles</td>
-                <td style="text-align:center;">Orden</td>
-                <td style="text-align:center;">Pagaré</td>
+                <td># Orden</td>
+                <td>Titular</td>
+                <td>Empresa</td>
+                <td>Fecha creación</td>
+                <td>Sucursal</td>
+                <td>Asesor</td>
+                <td>Estado</td>
+                <td>Acciones</td>
               </tr>
             </thead>
-            <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">                                        
+            <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">     
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </section>
+
 </div>
 <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>

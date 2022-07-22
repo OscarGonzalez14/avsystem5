@@ -26,7 +26,7 @@ if ($sucursal == "Metrocentro"  or  $sucursal == "Empresarial-Metrocentro") {
   $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
   $telefono = "2260-1653";
   $wha = "7469-2542";
-  $correo = "metrocentro@opticaavplussv.com";
+  $correo = "metrocentro@opticasavplus.com";
 }elseif ($sucursal == "San Miguel" or  $sucursal == "Empresarial-San Miguel") {
   $giro = "Venta al por mayor de artículos de óptica";
   $encabezado = "OPTICA AV PLUS";
@@ -47,7 +47,21 @@ if ($sucursal == "Metrocentro"  or  $sucursal == "Empresarial-Metrocentro") {
     $direccion = "Carr. Troncal Del Nte. 48 ½, Plaza Don Yon, local #6, 3<sup>ra</sup> Etapa, Coyolito, Chalatenango";
     $telefono = "2260-1653";
     $wha = "7469-2542";
-    $correo = "opticaavpluschalatenango@gmail.com";
+    $correo = "chalatenango@opticasavplus.com";
+}elseif ($sucursal == "Ahuachapán"  or  $sucursal == "Empresarial-Ahuachapán"){
+  $giro = "OTROS SERVICIO RELACIONADOS CON LA SALUD";
+    $encabezado = "OPTICA AV PLUS S.A DE C.V.";
+    $direccion = "Ahuachapán 2<sup>da</sup> Avenida Sur #1-5 entre 1 Calle Gerardo Barrios ";
+    $telefono = "2260-1653";
+    $wha = "7469-2542";
+    $correo = "ahuachapan@opticasavplus.com";
+}elseif ($sucursal == "Cascadas"  or  $sucursal == "Empresarial-Cascadas"){
+  $giro = "OTROS SERVICIO RELACIONADOS CON LA SALUD";
+    $encabezado = "OPTICA AV PLUS S.A DE C.V.";
+    $direccion = "Centro Comercial Las Cascadas, La Libertad Hiper local#219";
+    $telefono = "2260-1653";
+    $wha = "7469-2542";
+    $correo = "cascadas@opticasavplus.com";
 }
 
 $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);

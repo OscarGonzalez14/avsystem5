@@ -109,6 +109,12 @@ switch($_GET["op"]){
         $prefijo="SA";
     }elseif ($sucursal=="San Miguel") {
         $prefijo="SM";
+    }elseif ($sucursal=="Chalatenango") {
+        $prefijo="CH";
+    }elseif ($sucursal=="Ahuachapán") {
+        $prefijo="AH";
+    }elseif ($sucursal=="Cascadas") {
+        $prefijo="CA";
     }
     if(is_array($datos)==true and count($datos)>0){
         foreach($datos as $row){                                

@@ -27,6 +27,10 @@ switch ($_GET["op"]) {
         $prefijo="SM";
       }elseif ($sucursal_usuario == "Chalatenango") {
         $prefijo="CH";
+      }elseif ($sucursal_usuario == "Ahuachapán") {
+        $prefijo="AH";
+      }elseif ($sucursal_usuario == "Cascadas") {
+        $prefijo="CA";
       }
         if(is_array($datos)==true and count($datos)>0){
         foreach($datos as $row){                  
@@ -49,6 +53,10 @@ switch ($_GET["op"]) {
         $prefijo="SM";
       }elseif ($sucursal=="Chalatenango") {
         $prefijo="CH";
+      }elseif ($sucursal=="Ahuachapán") {
+        $prefijo="AH";
+      }elseif ($sucursal=="Cascadas") {
+        $prefijo="CA";
       }
         if(is_array($datos)==true and count($datos)>0){
         foreach($datos as $row){                  

@@ -155,6 +155,9 @@ div .post_compra{
             <option value='Metrocentro'>Metrocentro</option>
             <option value='Santa Ana'>Santa Ana</option>
             <option value='San Miguel'>San Miguel</option>
+            <option value='Chalatenango'>Chalatenango</option>
+            <option value='Cascadas'>Cascadas</option>
+            <option value='Ahuachapán'>Ahuachapán</option>
           </select>
         </div>   
 
