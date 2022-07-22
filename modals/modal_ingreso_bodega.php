@@ -13,7 +13,7 @@
 
 <!-- The Modal -->
   <div id="modal_ingreso_bodega" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" style="max-width:95%">
+    <div class="modal-dialog modal-dialog modal-dialog-scrollable" style="max-width:95%">
       <div class="modal-content">
       
         <!-- Modal Header -->
