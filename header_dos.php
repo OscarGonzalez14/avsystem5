@@ -230,6 +230,7 @@ $level_user = $_SESSION["id_user_emp"];
         
 
         <?php 
+        if ($level_user=="Admin") {
           echo '
           <li class="nav-item">
             <a href="aros-inv.php" class="nav-link">
@@ -240,6 +241,7 @@ $level_user = $_SESSION["id_user_emp"];
               </p>
             </a>
           </li>';
+        }
       ?>
         
         <?php
