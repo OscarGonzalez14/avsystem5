@@ -8,7 +8,7 @@ public function listar_cpendientes_contado($sucursal,$ver_creditos){
     $conectar= parent::conexion();
     $suc = "%".$sucursal."%";
 
-    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,p.sucursal,u.usuario,SUBSTRING(c.fecha_adquirido,1,10) as fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo > 0 and p.sucursal like ? order by c.id_credito DESC;";
+    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,p.sucursal,u.usuario,SUBSTRING(c.fecha_adquirido,1,10) as fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo > 0 and v.sucursal like ? order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$suc);
     $sql->execute();
@@ -19,7 +19,7 @@ public function listar_cpendientes_contado($sucursal,$ver_creditos){
     $conectar= parent::conexion();
     $suc = "%".$sucursal."%";
 
-    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,v.sucursal,u.usuario,c.fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo = 0 and p.sucursal like ? order  by c.id_credito DESC;";
+    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,v.sucursal,u.usuario,c.fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo = 0 and v.sucursal like ? order  by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$suc);
     $sql->execute();
@@ -27,12 +27,20 @@ public function listar_cpendientes_contado($sucursal,$ver_creditos){
     } 
 
 /////////////////////////   LISTAR CREDITOS DE CARGO AUTOMATICO  ////////////////////
-    public function get_creditos_cauto($sucursal){
+    public function listar_cpendientes_cauto($sucursal,$ver_credito){
     $conectar= parent::conexion();
     $suc = "%".$sucursal."%";
-    $sql= "select c.numero_venta,p.nombres,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion
-        from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta
-        where c.forma_pago='Cargo Automatico' and v.sucursal like ? order by c.id_credito DESC;";
+    $sql= "select c.numero_venta,p.nombres,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,v.sucursal,u.usuario,c.fecha_adquirido,p.telefono from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta inner join usuarios as u on v.id_usuario=u.id_usuario where c.forma_pago='Cargo Automatico' and c.saldo > 0 and v.sucursal like ? order by c.id_credito DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$suc);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function listar_cfinalizados_cauto($sucursal,$ver_credito){
+    $conectar= parent::conexion();
+    $suc = "%".$sucursal."%";
+    $sql= "select c.numero_venta,p.nombres,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,v.sucursal,u.usuario,c.fecha_adquirido,p.telefono from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta inner join usuarios as u on v.id_usuario=u.id_usuario where c.forma_pago='Cargo Automatico' and c.saldo = 0 and p.sucursal like ? order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$suc);
     $sql->execute();

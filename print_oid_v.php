@@ -45,7 +45,7 @@ if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
     $direccion = "Carr. Troncal Del Nte. 48 ½, Plaza Don Yon, local #6, 3<sup>ra</sup> Etapa, Coyolito, Chalatenango";
     $telefono = "-";
     $wha = "-";
-    $correo = "opticaavpluschalatenango@gmail.com";
+    $correo = "chalatenango@opticasavplus.com";
     $dir2="Chalatenango";
     $info="";
 }elseif ($sucursal == "Ahuachapán"  or  $sucursal == "Empresarial-Ahuachapán"){

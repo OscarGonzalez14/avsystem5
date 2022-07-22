@@ -84,7 +84,6 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
     $sub_array[] = $row["fecha_adquirido"];
     $sub_array[] = $row["sucursal"];  
     $sub_array[] = "$".number_format((float)$row["monto"],2,".",","); 
-    //$sub_array[] = "$".number_format((float)$row["monto"]-$row["saldo"],2,".",",");
     $sub_array[] = "$".number_format($row["saldo"],2,".",",");
     $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>
 
@@ -113,7 +112,12 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
   }else{
     $sucursal = $_POST["sucursal"];    
   }
-  $datos=$creditos->get_creditos_cauto($sucursal);
+
+  if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
+  $datos=$creditos->listar_cpendientes_cauto($sucursal,$_POST['ver_credito']);
+  }elseif($_POST["ver_credito"]=="Creditos_Finalizados"){
+  $datos=$creditos->listar_cfinalizados_cauto($sucursal,$_POST["ver_credito"]);
+  }
   $data= Array();
   foreach($datos as $row){
     $sub_array = array();
@@ -149,14 +153,19 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
 
     $sub_array[] = $row["numero_venta"];
     $sub_array[] = $row["nombres"];
-    $sub_array[] = $row["empresas"];
-    $sub_array[] = $row["evaluado"];    
-    $sub_array[] = "$".number_format($row["monto"],2,".",","); 
-    $sub_array[] = "$".number_format($row["saldo"],2,".",",");    
+    $sub_array[] = $row["evaluado"]; 
+    $sub_array[] = $row["empresas"]; 
+    $sub_array[] = $row["telefono"];
+    $sub_array[] = $row["fecha_adquirido"];
+    $sub_array[] = $row["sucursal"];  
+    $sub_array[] = "$".number_format((float)$row["monto"],2,".",","); 
+    $sub_array[] = "$".number_format($row["saldo"],2,".",",");
 
-    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';
-     $sub_array[] = '<button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>';
-   $sub_array[] = '<button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
+    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>
+
+    <button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>
+
+    <button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
                                                 
     $data[] = $sub_array;
   }

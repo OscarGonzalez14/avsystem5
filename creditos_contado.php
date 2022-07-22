@@ -52,7 +52,7 @@ if(isset($_SESSION["usuario"])){
             <div class="card-body">
               <!--ESTE DATATABLE SE RECARGA DESDE  credit-->
               <table id="creditos_de_contado" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
-                <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
+                <thead style="background:#034f84;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
                   <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
                     <td># Venta</td>
                     <td>Titular</td>
@@ -61,7 +61,6 @@ if(isset($_SESSION["usuario"])){
                     <td>Fecha venta</td>
                     <td>Sucursal</td>
                     <td>Monto</td>
-                    <!--<td>Cobrado</td>-->
                     <td>Saldo</td>
                     <td>Acciones</td>
                   </tr>

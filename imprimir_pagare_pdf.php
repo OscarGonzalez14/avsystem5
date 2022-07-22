@@ -44,14 +44,12 @@ if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
     $direccion = "Ahuachapán 2<sup>da</sup> Avenida Sur #1-5 entre 1 Calle Gerardo Barrios ";
     $telefono = "-";
     $wha = "-";
-    $correo = "ahuachapan@opticasavplus.com";
     $dir2="Ahuachapán";
 }elseif ($sucursal == "Cascadas"  or  $sucursal == "Empresarial-Cascadas"){
     $encabezado = "OPTICA AV PLUS S.A DE C.V.";
     $direccion = "Centro Comercial Las Cascadas, La Libertad Hiper local#219";
     $telefono = "-";
     $wha = "-";
-    $correo = "cascadas@opticasavplus.com";
     $dir2="Cascadas";
 }
 //$datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);

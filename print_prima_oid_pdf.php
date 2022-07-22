@@ -40,7 +40,7 @@ if ($sucursal == "Metrocentro") {
     $direccion = "Carr. Troncal Del Nte. 48 ½, Plaza Don Yon, local #6, 3<sup>ra</sup> Etapa, Coyolito, Chalatenango";
     $telefono = "-";
     $wha = "-";
-    $correo = "opticaavpluschalatenango@gmail.com";
+    $correo = "chalatenango@opticasavplus.com";
 }elseif ($sucursal == "Ahuachapán"  or  $sucursal == "Empresarial-Ahuachapán"){
     $encabezado = "OPTICA AV PLUS S.A DE C.V.";
     $direccion = "Ahuachapán 2<sup>da</sup> Avenida Sur #1-5 entre 1 Calle Gerardo Barrios ";
@@ -48,7 +48,6 @@ if ($sucursal == "Metrocentro") {
     $wha = "-";
     $correo = "ahuachapan@opticasavplus.com";
 }elseif ($sucursal == "Cascadas"  or  $sucursal == "Empresarial-Cascadas"){
-    $encabezado = "OPTICA AV PLUS S.A DE C.V.";
     $direccion = "Centro Comercial Las Cascadas, La Libertad Hiper local#219";
     $telefono = "-";
     $wha = "-";
