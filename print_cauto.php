@@ -14,7 +14,7 @@ $reporteria=new Reporteria();
   $n_orden =$_GET["n_orden"];
   $sucursal = $_GET["sucursal"];
 if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
-  $encabezado = "OPTICA AVPLUS S.A de C.V.";
+  $encabezado = "OPTICA AVPLUS S.A DE C.V.";
   $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
   $telefono = "2260-1653";
   $wha = "7469-2542";
@@ -34,7 +34,7 @@ if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
   <b>Giro:</b> Venta al por mayor de artículos de óptica";
   $correo = "opticaavplussanmiguel@gmail.com";
 }elseif ($sucursal == "Santa Ana" or $sucursal == "Empresarial-Santa Ana"){
-    $encabezado = "OPTICA AVPLUS S.A de C.V.";
+    $encabezado = "OPTICA AVPLUS S.A DE C.V.";
     $direccion = " 61 Calle Pte. Block K9 #10, Col, Avenida El Trebol, Santa Ana";
     $telefono = "2445 3150";
     $wha = "-";

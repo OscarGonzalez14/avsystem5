@@ -94,6 +94,7 @@ html, body
                 <option value="Metrocentro">Metrocentro</option>
                 <option value="Chalatenango">Chalatenango</option>
                 <option value="Cascadas">Cascadas</option>
+                <option value="Ahuachapán">Ahuachapán</option>
             </select>
         </div>
 
