@@ -207,12 +207,6 @@ case "ingresoIndividualBodega":
     $productos = new Productos();
 
     $aros = $productos->get_aros();
-    /*$lista_aros = Array();
-    foreach($aros as $a){
-      array_push($lista_aros,array('id'=>$a["id_producto"],'text'=>"Mod.:".$a["modelo"]." ".$a["marca"]." C.:".$a["color"]." Med.:".$a["medidas"]));
-    }
-    echo json_encode($lista_aros);  */ 
-
     $data= Array();
       foreach($aros as $row){
         $sub_array = array();
@@ -242,7 +236,9 @@ case "ingresoIndividualBodega":
       $data= Array();
       foreach($datos as $row){
         $sub_array = array();
-        $sub_array[] = $row["id_ingreso"];
+        $sub_array[] = "<input type='checkbox' class='form-check-input ubicar-bodega' id=item-dist".$row['id_producto']." onClick='agregarItemBodegaDist(this.id)' style='margin-left:auto; margin-right:auto'
+        data-modelo=\"".$row["modelo"]."\"
+        >.</td>";
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["marca"];
         $sub_array[] = $row["color"];

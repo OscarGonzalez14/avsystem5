@@ -9,7 +9,8 @@ require_once('modals/modal_ingreso_bodega.php');
 html, body 
 { 
  height: 100%;
- overflow: hidden
+ overflow: hidden;
+ overflow-y: visible;
 }
 </style>
 <div class="content-wrapper" >
@@ -24,7 +25,7 @@ html, body
 <table width="100%" class="table-bordered table-hover" id="data_stock_bdcentral" data-order='[[ 0, "desc" ]]' style="margin:5px">
       <thead style="background:#0b1118;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
           <tr>
-          <th>ID</th>
+          <th>Sel.</th>
           <th>Modelo</th>
           <th>Marca</th>
           <th>Color</th>
@@ -40,6 +41,7 @@ html, body
 
         <tfoot>
         <tr>
+          
           <th></th>
           <th></th>
           <th></th>

@@ -1173,7 +1173,7 @@ function stockBdCentral(){
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
-    "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+    "iDisplayLength": 500,//Por cada 10 registros hace una paginación
     "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
@@ -1303,4 +1303,11 @@ function distribuirSucursal(){
 
 }
 
+
+function agregarItemBodegaDist(id){
+  let tag = document.getElementById(id);
+ 
+ let modelo =  tag.dataset.modelo;
+ console.log(modelo)
+}
 init();
