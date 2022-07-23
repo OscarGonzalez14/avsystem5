@@ -667,4 +667,85 @@ if($sql2->rowCount() > 0 and $sql5->rowCount() > 0){
 
 }
 
+
+///////////////////INGRESO AGRUPADO /////
+public function ingresoAgrupado($ubicacion,$usuario,$sucursal,$numero_compra,$numero_ingreso,$costo_u,$precio_venta){
+  $conectar = parent::conexion();
+  date_default_timezone_set('America/El_Salvador'); 
+  $hoy = date("d-m-Y H:i:s");
+
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayProdGrupal']); 
+
+  $total_compra_agrupada = 0.00;
+  $ingreso = $this->registrarIngreso($numero_ingreso,$usuario,$hoy,$sucursal);
+
+  foreach($detalles as $k => $v){
+    $cantidad_ingreso = $v->cantidad;
+    $descripcion = $v->descripcion;
+    $id_producto = $v->idProd;
+    $total_compra_agrupada = $total_compra_agrupada + (float)($cantidad_ingreso*$costo_u);
+    $sql="select stock from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_producto);
+    $sql->bindValue(2,$sucursal);
+    $sql->bindValue(3,$ubicacion);
+    $sql->bindValue(4,$numero_compra);
+    $sql->execute();
+    $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if(is_array($resultado)==true and count($resultado)>0){
+      foreach($resultado as $row){
+        $stock_prod = $row["stock"];
+    }
+    }else{
+      $stock_prod = 0;
+    }
+  
+    $nuevo_stock = $stock_prod + $cantidad_ingreso;
+   
+    if(is_array($resultado)==true and count($resultado)>0) {                     
+     
+    $sql4 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?";
+    $sql4 = $conectar->prepare($sql4);
+    $sql4->bindValue(1,$nuevo_stock);
+    $sql4->bindValue(2,$id_producto);
+    $sql4->bindValue(3,$sucursal);
+    $sql4->bindValue(4,$ubicacion);
+    $sql4->execute();
+
+  }else{
+    $sql="insert into existencias values (null,?,?,?,?,?,?,?,?);";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_producto);
+    $sql->bindValue(2,$cantidad_ingreso);
+    $sql->bindValue(3,$sucursal);
+    $sql->bindValue(4,$ubicacion);
+    $sql->bindValue(5,$hoy);
+    $sql->bindValue(6,$usuario);
+    $sql->bindValue(7,$numero_compra);
+    $sql->bindValue(8,$precio_venta);
+    $sql->execute();
+  } //cierre la condicional
+
+  $total_compra = $cantidad_ingreso * $costo_u;
+  
+  $detCompra = $this->registrarDetalleCompra($numero_compra,"-",$cantidad_ingreso,$costo_u,$precio_venta,$total_compra,"0",$usuario,$id_producto,$hoy,$cantidad_ingreso);
+
+  $detIngreso = $this->registrarDetalleIngreso($id_producto,$cantidad_ingreso,$sucursal,$ubicacion,$hoy,$usuario,$numero_compra,$costo_u,$precio_venta,$numero_ingreso);
+
+  }//FIN FOREACH 
+
+  $compra = $this->registraCompra($numero_compra,"-","Andres Vasquez","Contado","Efectivo","12",$hoy,"CCF","12345",$usuario,$total_compra_agrupada,"1",$sucursal);
+  
+  if($compra = "okCompra" and  $detCompra = "okDetCompra" and  $ingreso = "okIngreso" and $detIngreso = "okDetIngreso"){
+    $confirm = "insertOk";
+}else{
+    $confirm = "errorInsert";
+}
+ $msj = ["mensaje"=>$confirm];
+ echo json_encode($msj); 
+}
+
+
 }

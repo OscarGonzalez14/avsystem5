@@ -71,6 +71,7 @@ html, body
 </style>
 
 
+
 <!--MODAL DISTRIBUCION DE PRODUCTOS-->
 
 
@@ -182,6 +183,8 @@ html, body
 </div>
 
 
+
+
 <!--MODAL MODAL INGRESAR AROS -->
 
 <div class="modal" id="agregar-aros-ingresar-bdcentral">
@@ -266,8 +269,40 @@ require_once('modals/nueva_marca.php');
     </div>
   </div>
 </div>
+</div>
 
 <!--MODAL RESUMEN INGRESOS BODEGA -->
+<!--INGRESOS AGRUPADOS-->
+<div class="modal fade" id="ingreso-agrupado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">INGRESOS AGRUPADOS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 style="text-align:center; font-size:18px"><b>Total aros: <span id="total-aros-agrupados" style="color:blue"></span></b></h5>
+
+        <div class="form-row" autocomplete="off">
+          <div class="form-group col-md-6">
+            <label for="ubicacion">$ Costo unitario</label>
+            <input type="number" class="form-control clear_i" id="costo_ind_agrupados">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="ubicacion">P. venta(Unidad)</label>
+            <input type="number" class="form-control clear_i" id="pventa_agrupados">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-block"  OnClick="IngresarAgrupados()">Ingresar a bodega</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 
 

@@ -1062,6 +1062,92 @@ function ingresosGrupal(){
   });
 
 }
+////////////////// AGRUPADOS /////////////
+
+function agregarStockAgrupado(){
+  itemsSelectGrupal = [];
+  let items_prod = document.getElementsByClassName('ubicar-bodega');
+  for (var i = 0; i < items_prod.length; i++) {
+    let id = items_prod[i].id;
+    let checkbox = document.getElementById(id);
+    let check_state = checkbox.checked;
+    if(check_state){
+      let idy = document.getElementById(checkbox.id).value;
+      let productos = {
+        idProd : aros_bodega[idy].id_producto,
+        descripcion : aros_bodega[idy].descripcion,
+        cantidad: aros_bodega[idy].cantidad,
+        costo: aros_bodega[idy].costo,
+        pventa: aros_bodega[idy].pventa,
+        indice: idy
+      }
+      itemsSelectGrupal.push(productos)
+    }
+
+  }
+  //console.log(itemsSelectGrupal)
+  calculaValidaSelectAgrupados()
+
+}
+
+function calculaValidaSelectAgrupados(){
+  let tam_array =itemsSelectGrupal.length;
+  let total_cantidad= 0;
+  if(tam_array>0){
+    for (var j = 0; j < itemsSelectGrupal.length; j++) {
+      let cantidad = itemsSelectGrupal[j].cantidad;     
+      if(cantidad!=0){
+        total_cantidad = parseFloat(total_cantidad) + parseFloat(cantidad);      
+      }else{
+        Swal.fire('Especificar la cantidad de cada item','','warning'); return false
+      }
+    }
+    
+    $("#ingreso-agrupado").modal();
+    $("#total-aros-agrupados").html(total_cantidad);
+    /*$("#costos-grup").html("$"+total_costo.toFixed(2));
+    $("#pventa-grup").html("$"+total_pventa.toFixed(2));*/
+  }else{
+    Swal.fire('Debe seleccionar productos','','error')
+  }
+}
+
+
+function IngresarAgrupados(){
+
+  let usuario = $("#usuario").val();
+  let sucursal = $("#sucursal").val();
+  let ubicacion = $("#ubicacion_ind_grup").val();
+  let costo_u = $("#costo_ind_agrupados").val();
+  let pventa = $("#pventa_agrupados").val();
+
+  $.ajax({
+    url:"ajax/bodegas.php?op=ingreso_agrupado",
+    method:"POST",
+    data:{'arrayProdGrupal':JSON.stringify(itemsSelectGrupal),'usuario':usuario,'sucursal':sucursal,'ubicacion':ubicacion,'costo_u':costo_u,'pventa':pventa},
+    cache: false,
+    dataType:"json",
+    success:function(data){ 
+      console.log(data)
+      if(data.mensaje=='insertOk'){
+        Swal.fire('Se ha ingresado a Bodega','','success');
+        $("#costo_ind_agrupados").val("");
+        $("#pventa_agrupados").val("");
+        $("#ingreso-agrupado").modal("hide");
+        for (var i = 0; i < itemsSelectGrupal.length; i++) {
+          let idx = itemsSelectGrupal[i].idProd;
+          let index = aros_bodega.map(producto => producto.id_producto).indexOf(idx)
+          aros_bodega.splice(index, 1);
+      
+        }
+        listarArosUbicarBodega();
+        $("#data_stock_bdcentral").DataTable().ajax.reload(null,false);
+      }
+    }
+
+  });
+
+}
 
 
 function stockBdCentral(){
