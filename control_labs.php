@@ -1,7 +1,6 @@
 <?php 
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){
-  
 require_once("modelos/Externos.php");
 $users = new Externos();
 $opto = $users->get_usuarios_ventas(); 

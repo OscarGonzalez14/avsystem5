@@ -615,7 +615,7 @@ case 'listar_ordenes_entregadas':
 ///*******LISTAR ORDENES EN GENERAL ******°°°|||
 case 'listar_ordenes_general':
 
-  $datos = $laboratorios->get_ordenes_general();
+  $datos = $laboratorios->get_ordenes_general($_POST["sucursal_act"]);
       $data = Array();
       $estado = "";
 

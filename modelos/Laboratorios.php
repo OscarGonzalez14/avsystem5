@@ -356,10 +356,11 @@ public function state_order($codigo){
 }
 
 ////////// ORDENES EN GENERAL ////
-public function get_ordenes_general(){
+public function get_ordenes_general($sucursal){
 	$conectar = parent::conexion();
-	$sql = "select estado,paciente,empresa,sucursal,laboratorio,id_orden_lab,cod_orden,fecha_creacion from ordenes_lab group by id_orden_lab;";
+	$sql = "select estado,paciente,empresa,sucursal,laboratorio,id_orden_lab,cod_orden,fecha_creacion from ordenes_lab where sucursal=? group by id_orden_lab;";
 	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1, $sucursal);
 	$sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }

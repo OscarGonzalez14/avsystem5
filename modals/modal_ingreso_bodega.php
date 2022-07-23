@@ -23,7 +23,7 @@
 
         <button class="btn btn-sm btn-outline-success btn-flat float-right" style="margin:2px" data-toggle="modal" data-target="#" onClick="agregarStockGrupal();"><i class="fas fa-box"></i> Agregar todos</button> 
         
-        <button class="btn btn-sm btn-outline-success btn-flat float-right" style="margin:2px" data-toggle="modal" data-target="#" onClick="agregarStockAgrupado();"><i class="fas fa-box"></i> Ingreso agrupado</button>  
+        <button class="btn btn-sm btn-outline-primary btn-flat float-right" style="margin:2px" data-toggle="modal" data-target="#" onClick="agregarStockAgrupado();"><i class="fas fa-boxes"></i> Ingreso agrupado</button>  
 
         <table width="100%" class="table-bordered">
         <thead style="color:white;font-family: Helvetica, Arial, sans-serif;font-size: 13px;text-align: center" class='bg-info'>
