@@ -42,12 +42,12 @@ switch ($_GET["op"]){
 ////////////////////////////LISTAR ORDENES CREADAS
      case 'listar_ordenes':
      if ($_POST["sucursal"]=="Empresarial") {
-    $sucursal = $_POST["sucursal_usuario"];
+      $sucursal = $_POST["sucursal_usuario"];
     }else{
-    $sucursal = $_POST["sucursal"];    
+      $sucursal = $_POST["sucursal"];    
       }
 
-      $datos = $laboratorios->get_ordenes_creadas();
+      $datos = $laboratorios->get_ordenes_creadas($sucursal);
       $data = Array();
       $i=0;
       $titulo="";
@@ -98,7 +98,7 @@ switch ($_GET["op"]){
    ////////////////////////////LISTAR ORDENES CREADAS
     case 'listar_ordenes_enviadas':
 
-      $datos = $laboratorios->get_ordenes_enviadas();
+      $datos = $laboratorios->get_ordenes_enviadas($_POST["sucursal"]);
 
       $data = Array();
       $i=0;
