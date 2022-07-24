@@ -1167,7 +1167,7 @@ function stockBdCentral(){
         }
         },
         drawCallback: function () {
-          var sumatoria_stock = $('#data_stock_bdcentral').DataTable().column(7).data().sum();
+          var sumatoria_stock = $('#data_stock_bdcentral').DataTable().column(8).data().sum();
           $('#total-stock').html(sumatoria_stock+" aros");  
         },
     "bDestroy": true,
@@ -1195,10 +1195,7 @@ function stockBdCentral(){
               "sNext":     "Siguiente",
               "sPrevious": "Anterior"
           },
-          "oAria": {
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-          }
+          
 
          }//cerrando language
 
@@ -1303,11 +1300,92 @@ function distribuirSucursal(){
 
 }
 
-
+var arosEnviarSucursal =[];
 function agregarItemBodegaDist(id){
-  let tag = document.getElementById(id);
+ let tag = document.getElementById(id);
  
- let modelo =  tag.dataset.modelo;
- console.log(modelo)
+ let check_state = tag.checked;
+   if(check_state){
+    let modelo =  tag.dataset.modelo;
+    let idprod = tag.dataset.idprod;
+    let marca = tag.dataset.marca; 
+    let medidas = tag.dataset.medidas;
+    let color = tag.dataset.color;
+    let stock = parseInt(tag.dataset.stock);
+    let numero_compra = tag.dataset.compra; 
+   
+    let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`}
+    arosEnviarSucursal.push(arosObj);
+    console.log(arosEnviarSucursal) 
+  }else{
+    const o = arosEnviarSucursal.find(elemento=>{
+      return elemento.id === id      
+    })
+    
+    if(o != undefined){
+      const indice  = arosEnviarSucursal.findIndex(element=>{
+        return element.id === id
+      })
+      arosEnviarSucursal.splice(indice, 1);
+    }
+  } 
+ document.getElementById("aros-sel-suc").innerHTML = arosEnviarSucursal.length + " modelos seleccionados";
+
 }
+
+function seleccionarEnviarSucursal(id){
+  arosEnviarSucursal = [];
+  let checkbox = document.getElementById(id);
+  let chk_estado = checkbox.checked;
+  let elements_chk = document.getElementsByClassName("env-sucursales");
+  if(chk_estado){
+    for (var i = 0; i < elements_chk.length; i++) {
+      let id = elements_chk[i].id;
+      document.getElementById(id).checked = true;
+      let tag = document.getElementById(id);
+      let modelo =  tag.dataset.modelo;
+      let idprod = tag.dataset.idprod;
+      let marca = tag.dataset.marca; 
+      let medidas = tag.dataset.medidas;
+      let color = tag.dataset.color;
+      let stock = parseInt(tag.dataset.stock);
+      let numero_compra = tag.dataset.compra; 
+    
+      let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`}
+      arosEnviarSucursal.push(arosObj);
+    }
+  }else{
+    for (var i = 0; i < elements_chk.length; i++) {
+      let id = elements_chk[i].id;
+      document.getElementById(id).checked = false;
+    }
+    arosEnviarSucursal = [];
+  }
+  document.getElementById("aros-sel-suc").innerHTML = arosEnviarSucursal.length + " modelos seleccionados";
+}
+
+function enviarArosSucursalLote(){
+  let arrayTam = arosEnviarSucursal.length;
+  if(arrayTam<1){Swal.fire('Lista vacia','','error');
+  return false;}
+  const sumall = arosEnviarSucursal.map(item => item.stock).reduce((prev, curr) => prev + curr, 0);
+  document.getElementById("sum-aros-enviar").innerHTML = `${sumall} AROS PARA ENVIAR`
+  $("#env-suc-lote").modal()
+  $("#data-aros-env-lote").html("");
+  var filas = '';  
+  for(let i=0;i<arrayTam;i++){
+    filas = filas +    
+    "<tr style='text-align:center' id='item_t"+i+"'>"+ 
+    "<td style='width:60%'>"+arosEnviarSucursal[i].desc+"</td>"+
+    "<td style='width:20%'>"+arosEnviarSucursal[i].stock+"</td>"+
+    "<td style='width:20%'><input type='text' class='form-control next-input' value="+arosEnviarSucursal[i].stock+"></td>"+
+    "</tr>";
+    
+  }
+  //check_selected();
+  $("#data-aros-env-lote").html(filas);  
+  
+}
+
+
 init();

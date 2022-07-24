@@ -234,10 +234,18 @@ case "ingresoIndividualBodega":
     case "get_inventario_bdcentral":
       $datos=$bodegas->getStockBdCentral();
       $data= Array();
+      $cont = 1;
       foreach($datos as $row){
         $sub_array = array();
-        $sub_array[] = "<input type='checkbox' class='form-check-input ubicar-bodega' id=item-dist".$row['id_producto']." onClick='agregarItemBodegaDist(this.id)' style='margin-left:auto; margin-right:auto'
+        $sub_array[] = $row["id_ingreso"];
+        $sub_array[] = "<input type='checkbox' class='form-check-input env-sucursales' id=item-dist".$row['id_producto'].$row['id_producto'].$cont."  onClick='agregarItemBodegaDist(this.id)' style='margin-left:auto; margin-right:auto'
+        data-idprod=".$row["id_producto"]."
         data-modelo=\"".$row["modelo"]."\"
+        data-marca=\"".$row["marca"]."\"
+        data-medidas=\"".$row["medidas"]."\"
+        data-color=\"".$row["color"]."\"
+        data-stock=\"".$row["stock"]."\"
+        data-compra=\"".$row["num_compra"]."\"
         >.</td>";
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["marca"];
@@ -248,6 +256,7 @@ case "ingresoIndividualBodega":
         $sub_array[] = $row["stock"];
         $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="modalDistribuir('.$row["id_producto"].',\''.$row["num_compra"].'\',\''.$row["stock"].'\',\''.$row["precio_venta"].'\',\''.$row["marca"]." - Mod.: ".$row["modelo"]." - Color.: ".$row["color"].'\')"><i class="fas fa-dolly" aria-hidden="true" style="color:blue"></i></button>';
         $data[] = $sub_array;
+        $cont++;
       }
   
         $results = array(

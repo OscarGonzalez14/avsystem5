@@ -21,11 +21,12 @@ html, body
         <?php include 'sources-view/nav-bar-aros.php'?>             
     </div>	
 </div>
-
+<b><span id="aros-sel-suc" style=" float:right;font-size:16px;margin-right: 5px"></span></b>
 <table width="100%" class="table-bordered table-hover" id="data_stock_bdcentral" data-order='[[ 0, "desc" ]]' style="margin:5px">
       <thead style="background:#0b1118;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
           <tr>
-          <th>Sel.</th>
+          <th>ID</th>
+          <th><input type="checkbox" id="select-all-enviarsuc" class="form-check-label" onClick="seleccionarEnviarSucursal(this.id)"></th>
           <th>Modelo</th>
           <th>Marca</th>
           <th>Color</th>
@@ -41,7 +42,7 @@ html, body
 
         <tfoot>
         <tr>
-          
+          <th></th>
           <th></th>
           <th></th>
           <th></th>
@@ -306,9 +307,55 @@ require_once('modals/nueva_marca.php');
 </div>
 </div>
 
+<!--MODAL PARA ENVIAR A SUCURSAL LOTE-->
 
+<div class="modal" id="env-suc-lote">
+  <div class="modal-dialog" style="max-width:45%">
+    <div class="modal-content">
 
+      <!-- Modal Header -->
+      <div class="modal-header bg-dark" style="padding:8px;font-size:18px">
+        <h5 class="modal-title w-100 text-center position-absolute"><u><span id="sum-aros-enviar"></span></u></h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
 
+      <!-- Modal body -->
+      <div class="modal-body">
+      <div class="row" style="display:flex;flex-wrap: wrap;">
+        <div class="col-sm-8">
+        <select name="" id="ubicacion_distrib" class="form-control clear_i select2-primary" style="border: 1px solid #7A92A1;margin:5px">
+                <option value="0" selected>Seleccionar Sucursal...</option>
+                <option value="Metrocentro">Metrocentro</option>
+                <option value="Chalatenango">Chalatenango</option>
+                <option value="Cascadas">Cascadas</option>
+                <option value="Ahuachapán">Ahuachapán</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+        <button type="button" class="btn btn-outline-success btn-flat float-right" style="margin-top:5px"><i class="fas fa-dolly"></i> Enviar a sucursal</button>
+        </div>
+      </div>
+      
+       <table  width="100%" style="text-align: center:margin-top:5px" class="table-bordered">
+       <thead class="bg-info">
+          <tr>
+            <th style='width:60%'>Descripcion</th>
+            <th style='width:20%'>Stock actual</th>
+            <th style='width:20%'>Cant. enviar</th>
+          </tr>
+        </thead>
+        <tbody id="data-aros-env-lote"></tbody>
+       </table>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-block">Enviar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <input type="hidden" id="usuario" value="<?php echo $_SESSION["usuario"];?>">
 <input type="hidden" id="sucursal" value="Bodega Central">
