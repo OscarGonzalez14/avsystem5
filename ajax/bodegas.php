@@ -246,6 +246,7 @@ case "ingresoIndividualBodega":
         data-color=\"".$row["color"]."\"
         data-stock=\"".$row["stock"]."\"
         data-compra=\"".$row["num_compra"]."\"
+        data-pventa=\"".$row["precio_venta"]."\"
         >.</td>";
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["marca"];
@@ -271,5 +272,10 @@ case "ingresoIndividualBodega":
       case "distribuir_aros_sucursal":
         $bodegas->distribuirArosSucursal($_POST["id_producto"],$_POST["cantidad"],$_POST["numero_compra"],$_POST["usuario"],$_POST["sucursal"],$_POST["precio_venta"]);
         break;
+
+      case "ingreso_productos_lote":
+          $correlativo = $bodegas->getCorrelativoDistribucion();
+          $bodegas->distribuirArosLote($correlativo);
+      break;
 
 }

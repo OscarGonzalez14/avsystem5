@@ -1312,9 +1312,10 @@ function agregarItemBodegaDist(id){
     let medidas = tag.dataset.medidas;
     let color = tag.dataset.color;
     let stock = parseInt(tag.dataset.stock);
-    let numero_compra = tag.dataset.compra; 
+    let numero_compra = tag.dataset.compra;
+    let precio_venta = tag.dataset.pventa; 
    
-    let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`}
+    let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`,cantidad:stock,precio_venta}
     arosEnviarSucursal.push(arosObj);
     console.log(arosEnviarSucursal) 
   }else{
@@ -1328,7 +1329,8 @@ function agregarItemBodegaDist(id){
       })
       arosEnviarSucursal.splice(indice, 1);
     }
-  } 
+  }
+
  document.getElementById("aros-sel-suc").innerHTML = arosEnviarSucursal.length + " modelos seleccionados";
 
 }
@@ -1349,9 +1351,10 @@ function seleccionarEnviarSucursal(id){
       let medidas = tag.dataset.medidas;
       let color = tag.dataset.color;
       let stock = parseInt(tag.dataset.stock);
-      let numero_compra = tag.dataset.compra; 
+      let numero_compra = tag.dataset.compra;
+      let precio_venta = tag.dataset.pventa; 
     
-      let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`}
+      let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`,cantidad:stock,precio_venta}
       arosEnviarSucursal.push(arosObj);
     }
   }else{
@@ -1378,7 +1381,7 @@ function enviarArosSucursalLote(){
     "<tr style='text-align:center' id='item_t"+i+"'>"+ 
     "<td style='width:60%'>"+arosEnviarSucursal[i].desc+"</td>"+
     "<td style='width:20%'>"+arosEnviarSucursal[i].stock+"</td>"+
-    "<td style='width:20%'><input type='text' class='form-control next-input' value="+arosEnviarSucursal[i].stock+"></td>"+
+    "<td style='width:20%'><input type='text' class='form-control next-input' value="+arosEnviarSucursal[i].cantidad+"></td>"+
     "</tr>";
     
   }
@@ -1387,5 +1390,28 @@ function enviarArosSucursalLote(){
   
 }
 
+function distribuirProductosLote(){
+  let usuario = $("#usuariouser_id").val();
+  let sucursal = $("#ubicacion_distrib_lote").val();
+  if(sucursal=='0'){ Swal.fire('Seleccionar sucursal','','error');}
+  $.ajax({
+    url:"ajax/bodegas.php?op=ingreso_productos_lote",
+    method:"POST",
+    data:{'arrayProdLote':JSON.stringify(arosEnviarSucursal),'usuario':usuario,'sucursal':sucursal},
+    cache: false,
+    dataType:"json",
+    success:function(data){ 
+      if(data.mensaje=="registroOk"){
+        Swal.fire('Ingreso a bodega exitoso','','success');
+        $("#env-suc-lote").modal("hide");
+        $("#ubicacion_distrib_lote").val("0")
+        arosEnviarSucursal = [];
+        $("#data_stock_bdcentral").DataTable().ajax.reload(null,false);
+     }
+    }
+
+  });
+  
+}
 
 init();

@@ -323,7 +323,7 @@ require_once('modals/nueva_marca.php');
       <div class="modal-body">
       <div class="row" style="display:flex;flex-wrap: wrap;">
         <div class="col-sm-8">
-        <select name="" id="ubicacion_distrib" class="form-control clear_i select2-primary" style="border: 1px solid #7A92A1;margin:5px">
+        <select name="" id="ubicacion_distrib_lote" class="form-control clear_i select2-primary" style="border: 1px solid #7A92A1;margin:5px">
                 <option value="0" selected>Seleccionar Sucursal...</option>
                 <option value="Metrocentro">Metrocentro</option>
                 <option value="Chalatenango">Chalatenango</option>
@@ -332,7 +332,7 @@ require_once('modals/nueva_marca.php');
             </select>
         </div>
         <div class="col-sm-4">
-        <button type="button" class="btn btn-outline-success btn-flat float-right" style="margin-top:5px"><i class="fas fa-dolly"></i> Enviar a sucursal</button>
+        <button type="button" class="btn btn-outline-success btn-flat float-right" style="margin-top:5px" onClick="distribuirProductosLote()"><i class="fas fa-dolly"></i> Enviar a sucursal</button>
         </div>
       </div>
       
@@ -349,15 +349,13 @@ require_once('modals/nueva_marca.php');
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-block">Enviar</button>
-      </div>
 
     </div>
   </div>
 </div>
 
 <input type="hidden" id="usuario" value="<?php echo $_SESSION["usuario"];?>">
+<input type="hidden" id="usuariouser_id" value="<?php echo $_SESSION["id_usuario"];?>">
 <input type="hidden" id="sucursal" value="Bodega Central">
 <input type="hidden" id="idx-prod">
 
