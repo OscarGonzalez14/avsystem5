@@ -1381,7 +1381,7 @@ function enviarArosSucursalLote(){
     "<tr style='text-align:center' id='item_t"+i+"'>"+ 
     "<td style='width:60%'>"+arosEnviarSucursal[i].desc+"</td>"+
     "<td style='width:20%'>"+arosEnviarSucursal[i].stock+"</td>"+
-    "<td style='width:20%'><input type='text' class='form-control next-input' value="+arosEnviarSucursal[i].cantidad+"></td>"+
+    "<td style='width:20%'><input type='text' class='form-control next-input' id=itemdist"+i+" value="+arosEnviarSucursal[i].cantidad+" onkeyup='validaCantidadDist(this.id,event, this, "+(i)+");'></td>"+
     "</tr>";
     
   }
@@ -1412,6 +1412,18 @@ function distribuirProductosLote(){
 
   });
   
+}
+
+function validaCantidadDist(id,event, obj, idx){
+  event.preventDefault();
+  let stock = arosEnviarSucursal[idx].stock;
+  let cantidad_act = parseInt(obj.value);
+  console.log(id)
+  if(cantidad_act > stock){
+    Swal.fire('Error!, Ha excedido el stock','','error');
+    document.getElementById(id).value= stock;
+    document.getElementById(id).focus();
+  }
 }
 
 init();
