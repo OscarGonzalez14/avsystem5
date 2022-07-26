@@ -1393,7 +1393,7 @@ function enviarArosSucursalLote(){
 function distribuirProductosLote(){
   let usuario = $("#usuariouser_id").val();
   let sucursal = $("#ubicacion_distrib_lote").val();
-  if(sucursal=='0'){ Swal.fire('Seleccionar sucursal','','error');}
+  if(sucursal=='0'){ Swal.fire('Seleccionar sucursal','','error'); return false}
   $.ajax({
     url:"ajax/bodegas.php?op=ingreso_productos_lote",
     method:"POST",
@@ -1422,7 +1422,12 @@ function validaCantidadDist(id,event, obj, idx){
   if(cantidad_act > stock){
     Swal.fire('Error!, Ha excedido el stock','','error');
     document.getElementById(id).value= stock;
+    arosEnviarSucursal[idx].cantidad = parseInt(stock);
     document.getElementById(id).focus();
+    document.getElementById(id).style.border='solid 1px red';
+  }else{
+    arosEnviarSucursal[idx].cantidad = parseInt(obj.value);
+    document.getElementById(id).style.border='solid 1px green';
   }
 }
 
