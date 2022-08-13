@@ -64,4 +64,18 @@ function emitir_ccf(id_paciente,numero_venta,nombres){
 
   }
 
+  document.querySelectorAll(".chk_ventas_rep").forEach(i => i.addEventListener("click", e => {
+
+    let sucursales = [];
+    $("input[name='sucursales_chk']:checked").each(function (){
+      sucursales.push(($(this).attr("value")));
+    });
+    let empresarial = [];
+    for (i = 0; i < sucursales.length; i++) {
+      empresarial.push(sucursales[i]+"-Empresarial")
+    } 
+    console.log(sucursales);
+    console.log(empresarial);
+  }));
+
 init();

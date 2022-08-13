@@ -15,4 +15,18 @@ public function listar_facturas($sucursal){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function reporte_general_ventas_admin($sucurales,$incio,$fin){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+    $suc = "%".$sucursal."%";
+
+    $sql="select *from ventas where STR_TO_DATE(substr(fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE('01-08-2022','%d-%m-%Y') AND STR_TO_DATE('13-08-2022','%d-%m-%Y') and sucursal in('Metrocentro','Empresarial-Metrocentro') ORDER BY id_ventas DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$suc);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
 }
