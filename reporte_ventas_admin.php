@@ -10,7 +10,7 @@ if(isset($_SESSION["usuario"])){
       <div class="row" style="margin-left:15px;font-family: Helvetica, Arial, sans-serif;font-size: 12px">
         <div class="col-sm-3">
         <label for="">Rango fechas</label>
-          <input type="text" class="form-control float-right" id="rango-cobro" name="daterange"  value="2000-05-05">
+          <input type="text" class="form-control float-right" id="rango-cobro" name="daterange"  value="00000">
         </div>
 
         <div class="col-sm-9" style="margin-top:35px">
@@ -29,10 +29,10 @@ if(isset($_SESSION["usuario"])){
             <input type="checkbox" name="sucursales_chk" value="Ahuachapan" id="ahuachapan" class="chk_ventas_rep">
             <label for="ahuachapan">Ahuach.</label>
              &nbsp;&nbsp;&nbsp;
-            <input type="radio">
+            <input type="radio" name="chk_empreariales_item" id="chk_emp" class="chk_ventas_rep">
             <label style='color:blue'>Emp-Suc.</label>
 
-            <input type="radio">
+            <input type="radio" name="chk_empreariales_item" id="chk_emp_solo" class="chk_ventas_rep">
             <label style='color:blue'>Solo-Emp.</label>
 
             &nbsp;&nbsp;&nbsp;
@@ -51,19 +51,17 @@ if(isset($_SESSION["usuario"])){
           <div class="card" style="margin: 1px">
             <div class="card-body">
               <!--ESTE DATATABLE SE RECARGA DESDE  credit-->
-              <table id="creditos_de_contado" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
+              <table id="reporte_ventas_admin" width="100%" style="text-align: center;text-align:center"  class="table-hover table-bordered display nowrap">
                 <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
                   <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
-                    <td># Venta</td>
-                    <td>Titular</td>
-                    <td>Paciente evaluado</td>
-                    <td>Contacto</td>
+
+                    <td>#Venta</td>
                     <td>Fecha venta</td>
+                    <td>Tipo venta</td>
+                    <td>Titular</td>
                     <td>Sucursal</td>
                     <td>Monto</td>
-                    <!--<td>Cobrado</td>-->
                     <td>Saldo</td>
-                    <td>Acciones</td>
                   </tr>
                 </thead>
                 <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">     
