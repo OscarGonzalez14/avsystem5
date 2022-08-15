@@ -276,6 +276,21 @@ $level_user = $_SESSION["id_user_emp"];
           }
         ?>
         
+        <?php
+          if ($level_user=="Admin") {
+            echo '
+            <li class="nav-item">
+            <a href="reporte_ventas_admin.php" class="nav-link">
+              <i class="nav-icon  fas fa-file-alt"></i>
+              <p>
+                Reporte de ventas
+                <span class="right badge badge-danger" style="visibility:hidden">New</span>
+              </p>
+            </a>
+          </li> 
+            ';
+          }
+        ?>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
