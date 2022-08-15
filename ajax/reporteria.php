@@ -43,10 +43,11 @@ switch ($_GET["op"]) {
 		$args = $_POST["Args"];
 		$rango = $args[0];
 		$sucursales = $args[1];
+		$consolidado = $args[2];
 		
-		$data = $reportes->reporte_general_ventas_admin($sucursales,$rango);
-
-		foreach($data as $row){
+		$datos = $reportes->reporte_general_ventas_admin($sucursales,$rango,$consolidado);
+        $data= Array();
+		foreach($datos as $row){
 			$sub_array = array();
 
 			$sub_array[] = $row["numero_venta"];

@@ -29,15 +29,15 @@ if(isset($_SESSION["usuario"])){
             <input type="checkbox" name="sucursales_chk" value="Ahuachapan" id="ahuachapan" class="chk_ventas_rep">
             <label for="ahuachapan">Ahuach.</label>
              &nbsp;&nbsp;&nbsp;
-            <input type="radio" name="chk_empreariales_item" id="chk_emp" class="chk_ventas_rep">
+            <input type="checkbox" name="chk_empreariales_item" id="chk_emp" class="chk_ventas_rep">
             <label style='color:blue'>Emp-Suc.</label>
 
-            <input type="radio" name="chk_empreariales_item" id="chk_emp_solo" class="chk_ventas_rep">
+            <input type="checkbox" name="chk_empreariales_item" id="chk_emp_solo" class="chk_ventas_rep">
             <label style='color:blue'>Solo-Emp.</label>
 
             &nbsp;&nbsp;&nbsp;
-            <input type="radio">
-            <label style='color:green'>Det. ventas.</label>
+            <input  type="checkbox" name="chk_empreariales_item" id="consolidados_ventas" class="chk_ventas_rep">
+            <label style='color:green'>Consolidados.</label>
         </div>
 
 

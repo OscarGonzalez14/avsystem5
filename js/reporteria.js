@@ -72,6 +72,7 @@ function emitir_ccf(id_paciente,numero_venta,nombres){
     sucursales = [];
     empresarial = [];
     data = [];
+
     let rango_fecha = document.getElementById("rango-cobro").value;
     let rango = rango_fecha.replace(" hasta ","*");
 
@@ -80,13 +81,17 @@ function emitir_ccf(id_paciente,numero_venta,nombres){
 
     let checkbox_solo = document.getElementById('chk_emp_solo');
     let check_state_solo = checkbox_solo.checked;
-    
+
+    let checkbox_consolidado = document.getElementById('consolidados_ventas');
+    let check_state_consolidado = checkbox_consolidado.checked;
+
+       
     $("input[name='sucursales_chk']:checked").each(function (){
       sucursales.push(($(this).attr("value")));
     });
 
     for (i = 0; i < sucursales.length; i++) {
-      empresarial.push(sucursales[i]+"-Empresarial")
+      empresarial.push("Empresarial-"+sucursales[i])
     } 
 
     if(check_state_emp==true && check_state_solo==false){
@@ -98,7 +103,7 @@ function emitir_ccf(id_paciente,numero_venta,nombres){
     }
     let data_ventas = data.toString();
        
-    dtTemplateReporteria("reporte_ventas_admin","reporte_ventas_global",rango,data_ventas)
+    dtTemplateReporteria("reporte_ventas_admin","reporte_ventas_global",rango,data_ventas,check_state_consolidado)
 
   }));
 
