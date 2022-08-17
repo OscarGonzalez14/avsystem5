@@ -63,7 +63,8 @@ public function login(){
       in_array(7,$valores)?$_SESSION['Caja Chica']=1:$_SESSION['Caja Chica']=0;
       in_array(8,$valores)?$_SESSION['EnviosLab']=1:$_SESSION['EnviosLab']=0;
       in_array(9,$valores)?$_SESSION['Control_labs']=1:$_SESSION['Control_labs']=0;
-      in_array(10,$valores)?$_SESSION['Bodega central']=1:$_SESSION['Bodega central']=0;        
+      in_array(10,$valores)?$_SESSION['Bodega central']=1:$_SESSION['Bodega central']=0;    
+      in_array(11,$valores)?$_SESSION['Reporteria_ventas_admin']=1:$_SESSION['Reporteria_ventas_admin']=0;     
         
       header("Location:home.php");
       exit();

@@ -1,4 +1,3 @@
-
 <?php
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
