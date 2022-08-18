@@ -275,6 +275,18 @@ $level_user = $_SESSION["id_user_emp"];
             ';
           }
         ?>
+        <?php if ($_SESSION["reportes_admin"]) {
+           echo '
+          <li class="nav-item">
+            <a href="reporte_ventas_admin.php" class="nav-link">
+              <i class="nav-icon fas fa-box"></i>
+              <p>
+                Reportes Adminsitrativos
+                <span class="right badge badge-danger" style="visibility:hidden">New</span>
+              </p>
+            </a>
+          </li>';
+        }?>
         
         </ul>
       </nav>
