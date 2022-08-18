@@ -161,4 +161,53 @@ function emitir_ccf(id_paciente,numero_venta,nombres){
      
 }
 
+document.querySelectorAll(".chk_corte_admin").forEach(i => i.addEventListener("click", e => {
+  let sucursal_chk = $("input[type='radio'][name='rep_corte_chk']:checked").val();
+  let checkbox_emp = document.getElementById('chk_corte_emp');
+  let check_state_emp = checkbox_emp.checked;
+  let sucursal_corte = '';
+  let fecha = document.getElementById("fecha_corte").value;
+  check_state_emp ? sucursal_corte = `Empresarial-${sucursal_chk}` : sucursal_corte=sucursal_chk;
+  if(sucursal_chk != undefined){
+    $("#sucursal_corte").html(sucursal_corte)
+  }else{
+    Swal.fire('Seleccione una sucursal!','','error'); return false;
+  }
+  
+}));
+
+function ImprimirCorteAdmin(){
+  let sucursal_chk = $("#sucursal_corte").html();
+  let fecha = document.getElementById("fecha_corte").value;
+  if (sucursal_chk != undefined && fecha !=""){
+
+    let form = document.createElement("form");
+    form.target = "_blank";
+    form.method = "POST";
+    form.action = "admin_corte_diario.php";
+    form.id = 'imp_corte_diario';
+
+    let input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "fecha_corte";
+    input.value = fecha;
+    form.appendChild(input);
+
+    let sucursal = document.createElement("input");
+    sucursal.type = "hidden";
+    sucursal.name = "sucursal_corte";
+    sucursal.value = sucursal_chk;
+    form.appendChild(sucursal);
+
+    document.body.appendChild(form);
+    const formulario = document.getElementById("imp_corte_diario");
+    formulario.submit();
+    document.body.removeChild(form);   
+  }else{
+    Swal.fire('Seleccione una sucursal y fecha!','','error'); return false;
+  }
+  
+}
+
+
 init();

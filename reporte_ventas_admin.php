@@ -4,8 +4,16 @@ require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
   require_once("header_dos.php");
   ?>
+    <style>
+    body{
+      font-family: Helvetica, Arial, sans-serif;
+    }
+  </style>
+  <body>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+
+
 
       <div class="row" style="margin-left:15px;font-family: Helvetica, Arial, sans-serif;font-size: 12px">
         <div class="col-sm-3">
@@ -38,6 +46,8 @@ if(isset($_SESSION["usuario"])){
             &nbsp;&nbsp;&nbsp;
             <input  type="checkbox" name="chk_empreariales_item" id="consolidados_ventas" class="chk_ventas_rep">
             <label style='color:green'>Consolidados.</label>
+            &nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#cortes-diarios-admin-modal">Cortes</button>
         </div>
 
 
@@ -71,6 +81,53 @@ if(isset($_SESSION["usuario"])){
           </div>
         </div>
       </section>
+
+      <!--MODAL CORTE_DIARIO ADMINISTRADOR-->
+      <div class="modal" id="cortes-diarios-admin-modal"  data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header bg-dark" style="padding:8px;">
+          <h4 class="modal-title modal-title  w-100 text-center position-absolute" style="font-family: Helvetica, Arial, sans-serif;font-size: 14px;">CORTE DIARIO ADMINISTRADOR</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" >
+         <div class="opciones-sucursal" style="font-family: Helvetica, Arial, sans-serif;font-size: 12px;">
+         <input type="radio" name="rep_corte_chk" value="Metrocentro" id="metrocentro_corte" class="chk_corte_admin">
+            <label for="metrocentro_corte">Metro.</label>
+
+            <input type="radio" name="rep_corte_chk" value="Cascadas" id="cascadas_corte" class="chk_corte_admin">
+            <label for="cascadas_corte">Casc.</label>
+
+            <input type="radio" name="rep_corte_chk" value="Chalatenango" id="chalatennago_corte" class="chk_corte_admin">
+            <label for="chalatennago_corte">Chalate.</label>
+
+            <input type="radio" name="rep_corte_chk" value="Santa Ana" id="santana_corte" class="chk_corte_admin">
+            <label for="santana_corte">S. Ana</label>
+
+            <input type="radio" name="rep_corte_chk" value="Ahuachapan" id="ahuachapan_corte" class="chk_corte_admin">
+            <label for="ahuachapan_corte">Ahuach.</label>
+             &nbsp;&nbsp;&nbsp;
+            <input type="checkbox"  id="chk_corte_emp" class="chk_corte_admin">
+            <label style='color:blue'>Emp.</label>
+         </div>
+         <span id="sucursal_corte"></span>
+         <input type="date" id="fecha_corte" name="fecha_corte" class="form-control" >
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-block btn-outline-secondary btn-flat" onClick="ImprimirCorteAdmin()">Imprimir corte</button>
+        </div>
+
+      </div>
+    </div>
+</div>
+  </body>
+<!-- FIN MODAL CORTE_DIARIO ADMINISTRADOR-->
 
       <?php require_once("footer.php");?>
       <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>

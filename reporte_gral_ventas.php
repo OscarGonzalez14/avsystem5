@@ -18,6 +18,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
                         <input type="date" id="fecha_corte" name="fecha_corte" class="form-control" value="<?php echo $hoy?>">
                         <input type="hidden" name="sucursal_user" id="sucursal_user" value="<?php echo $_SESSION["sucursal_usuario"];?>"/>
                         <input type="hidden" name="usuario" value="<?php echo $_SESSION["usuario"];?>">
+                        <input type="hidden" name="tipo_corte" value="normal">
                     </div>
 
                     <div class="col-sm-2">
