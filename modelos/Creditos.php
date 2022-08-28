@@ -3,30 +3,40 @@ require_once("../config/conexion.php");
 
 	class Creditos extends Conectar{
 
-	
-public function listar_cpendientes_contado($sucursal,$ver_creditos){
+public function get_creditos_contado($sucursal){
     $conectar= parent::conexion();
     $suc = "%".$sucursal."%";
 
-    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,p.sucursal,u.usuario,SUBSTRING(c.fecha_adquirido,1,10) as fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo > 0 and p.sucursal like ? order by c.id_credito DESC;";
+    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,p.sucursal,u.usuario,SUBSTRING(c.fecha_adquirido,1,10) as fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and v.sucursal like ? order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$suc);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function listar_cfinalizados_contado($sucursal,$ver_credito){
+public function get_pendientes_contado($sucursal){
     $conectar= parent::conexion();
     $suc = "%".$sucursal."%";
 
-    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,v.sucursal,u.usuario,c.fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo = 0 and p.sucursal like ? order  by c.id_credito DESC;";
+    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,p.sucursal,u.usuario,SUBSTRING(c.fecha_adquirido,1,10) as fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo > 0 and v.sucursal like ? order by c.id_credito DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$suc);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-    } 
+    }
 
-/////////////////////////   LISTAR CREDITOS DE CARGO AUTOMATICO  ////////////////////
+public function get_finalizados_contado($sucursal){
+    $conectar= parent::conexion();
+    $suc = "%".$sucursal."%";
+
+    $sql ="select c.numero_venta,p.nombres,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion,p.sucursal,u.usuario,SUBSTRING(c.fecha_adquirido,1,10) as fecha_adquirido,p.telefono from creditos as c inner join ventas as v on c.numero_venta=v.numero_venta inner join pacientes as p on v.id_paciente=p.id_paciente inner join usuarios as u on v.id_usuario=u.id_usuario where c.tipo_credito='Contado' and c.saldo=0 and v.sucursal like ? order by c.id_credito DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$suc);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }    
+
+////////////////////////   LISTAR CREDITOS DE CARGO AUTOMATICO  ////////////////////
     public function get_creditos_cauto($sucursal){
     $conectar= parent::conexion();
     $suc = "%".$sucursal."%";

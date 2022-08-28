@@ -388,3 +388,71 @@ $(selector).bootstrapDualListbox(methodName, parameter);</pre>
   </table>
 
 </div>
+
+
+
+
+
+<script>
+  ////////////////LISTAR CREDITOS DE CONTADO
+$(document).on('click', '.cat_creditos', function(){
+  var estado_credito = $(this).attr("name");
+  if (estado_credito == "contado_pendientes") {
+    $("#estado_p").html("PENDIENTES");
+  }else if(categoria == "contado_finalizados"){
+    $("#estado_f").html("FINALIZADOS");
+}
+
+  var sucursal= $("#sucursal").val();
+  let sucursal_usuario = $("#sucursal_usuario").val();
+  tabla_creditos_sucursal=$('#creditos_de_contado').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [
+      'excelHtml5',
+      'copyHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=estado_creditos_contado',
+        type : "post",
+        dataType : "json",
+        data:{sucursal:sucursal,sucursal_usuario:sucursal_usuario},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
+      "iDisplayLength": 40,//Por cada 40 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      "language": {
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sSearch":         "Buscar:",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+          "sFirst":    "Primero",
+          "sLast":     "Último",
+          "sNext":     "Siguiente",
+          "sPrevious": "Anterior"
+        },
+        "oAria": {
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+         }//cerrando language
+       }).DataTable();
+}
+</script>
