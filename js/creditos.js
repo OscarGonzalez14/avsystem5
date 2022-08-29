@@ -1335,7 +1335,8 @@ function listar_creditos_cauto(){
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [
-      'excelHtml5'
+      'excelHtml5',
+      'copyHtml5'
       ],
       "ajax":
       {
@@ -1632,7 +1633,7 @@ function calcularMontoCcf(){
     "aProcessing": true,//Activamos el procesamiento del datatables
     "aServerSide": true,//Paginación y filtrado realizados por el servidor
     dom: 'Bfrtip',//Definimos los elementos del control de tabla
-    buttons: ['excelHtml5'],
+    buttons: ['excelHtml5','copyHtml5'],
     "ajax":{
       url:"ajax/creditos.php?op=filtra_creditos",
       type : "POST",

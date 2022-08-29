@@ -43,10 +43,10 @@ if(isset($_SESSION["usuario"])){
             <section class="content">
               <div class="container_fluid">
                 <div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-10">
                     <ol class="breadcrumb float-xs-left">
-                      <li class="breadcrumb-item" class="bg-primary" class="" onClick=""><a class="bg-warning cat_contado" style="background:#FF7F50;padding: 5px;border-radius: 8px" name="contado_pendientes">Pendientes</a></li>
-                      <li class="breadcrumb-item" class="bg-primary" class="" onclick=""><a class="bg-success cat_contado" style="background:#8B0000;padding: 5px;border-radius: 8px" name="contado_finalizados">Finalizados</a></li>
+                      <li class="breadcrumb-item" class="bg-primary" class="" onClick=""><a class="bg-warning cat_contado" style="background:#FCFAF9;padding: 5px;border-radius: 8px" name="contado_pendientes">Pendientes</a></li>
+                      <li class="breadcrumb-item" class="bg-primary" class="" onclick=""><a class="bg-success cat_contado" style="background:#FCFAF9;padding: 5px;border-radius: 8px" name="contado_finalizados">Finalizados</a></li>
                     </ol> 
                   </div>
                 </div>

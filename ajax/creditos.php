@@ -221,15 +221,20 @@ if ($_POST["estado_credito"]=="contado_pendientes") {
     }
 
     $sub_array[] = $row["numero_venta"];
+    $sub_array[] = $row["fecha_venta"];
     $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
     $sub_array[] = $row["empresas"];
-    $sub_array[] = $row["evaluado"];    
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = $row["plazo"]." meses";     
     $sub_array[] = "$".number_format($row["monto"],2,".",","); 
     $sub_array[] = "$".number_format($row["saldo"],2,".",",");    
 
-    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';
-     $sub_array[] = '<button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>';
-   $sub_array[] = '<button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
+    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>
+   
+    <button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>
+    
+    <button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
                                                 
     $data[] = $sub_array;
   }
@@ -380,6 +385,7 @@ if ($_POST["estado_credito"]=="contado_pendientes") {
         $sub_array[] = $row["usuario"];
         $sub_array[] = $row["sucursal"];
         $sub_array[] = $row["n_recibo"];
+        $sub_array[] = $row["forma_pago"];
         $sub_array[] = "$".number_format($row["monto_abono"],2,".",",");
                
         $data[] = $sub_array;
@@ -1060,11 +1066,12 @@ if ($_POST["sucursal"]=="Empresarial") {
 
     $sub_array[] = $row["numero_venta"];
     $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
     $sub_array[] = $row["empresas"];
-    $sub_array[] = $row["sucursal"];
     $sub_array[] = date("d-m-Y",strtotime($row["fecha_inicio"]));
     $sub_array[] = $row["fecha_finalizacion"];
-    $sub_array[] = $row["plazo"]." meses";  
+    $sub_array[] = $row["plazo"]." meses"; 
+    $sub_array[] = $row["sucursal"]; 
     $sub_array[] = "$".number_format($row["monto"],2,".",",");
     $sub_array[] = "$".number_format($row["monto"]/$row["plazo"],2,".",",");
     $sub_array[] = "$".number_format($row["saldo"],2,".",",");    

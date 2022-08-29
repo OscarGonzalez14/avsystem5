@@ -108,11 +108,12 @@ require_once("modals/modal_correlativo_factura.php");
            <tr>
             <th style='text-align: center;'>No. Venta</th>
             <th style='text-align: center;'>Titular de credito</th>
-            <th style='text-align: center;'>Empresa</th>
-            <th style='text-align: center;'>Sucursal</th>       
+            <th style='text-align: center;'>Telefono</th>
+            <th style='text-align: center;'>Empresa</th>      
             <th style='text-align: center;'>Inicio Crédito</th>
             <th style='text-align: center;'>Finalización Crédito</th>
             <th style='text-align: center;'>Plazo</th>
+            <th style='text-align: center;'>Sucursal</th> 
             <th style='text-align: center;'>Monto</th> 
             <th style='text-align: center;'>Cuota</th>
             <th style='text-align: center;'>Saldo</th>

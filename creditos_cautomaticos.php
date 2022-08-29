@@ -38,14 +38,15 @@ require_once("modals/modal_correlativo_factura.php");
            <thead style="background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">
             <tr>
             <th style='text-align: center;'>No. Venta</th>
+            <th style='text-align: center;'>Fecha aprobación</th>
             <th style='text-align: center;'>Titular de cuenta</th>
+            <th style='text-align: center;'>Teléfono</th>
             <th style='text-align: center;'>Empresa</th>
-            <th style='text-align: center;'>Paciente Evaluado</th>        
+            <th style='text-align: center;'>Paciente Evaluado</th>
+            <th style='text-align: center;'>Plazo</th>
             <th style='text-align: center;'>Monto</th>
             <th style='text-align: center;'>Saldo</th>
-            <th style='text-align: center;'>Abonar</th>
-            <th style='text-align: center;'>Historial</th>
-            <th style='text-align: center;'>Factura</th>
+            <th style='text-align: center;'>Acciones</th> 
           </tr>
      </thead>
      <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">

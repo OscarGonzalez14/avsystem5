@@ -55,6 +55,7 @@
                 <th>Recibió</th>
                 <th>Sucursal</th>
                 <th>No. Recibo</th>
+                <th>Forma de abono</th>
                 <th>Monto</th> 
                 </tr>
               </thead>
