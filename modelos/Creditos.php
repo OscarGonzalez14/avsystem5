@@ -49,6 +49,30 @@ public function get_finalizados_contado($sucursal){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function get_pendientes_cauto($sucursal){
+    $conectar= parent::conexion();
+    $suc = "%".$sucursal."%";
+    $sql= "select c.numero_venta,p.nombres,p.telefono,c.plazo,SUBSTRING(v.fecha_venta,1,10) as fecha_venta,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion
+        from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta
+        where c.forma_pago='Cargo Automatico' and v.sucursal like ? and c.saldo > 0 order by c.id_credito DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$suc);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_finalizados_cauto($sucursal){
+    $conectar= parent::conexion();
+    $suc = "%".$sucursal."%";
+    $sql= "select c.numero_venta,p.nombres,p.telefono,c.plazo,SUBSTRING(v.fecha_venta,1,10) as fecha_venta,p.empresas,c.monto,c.saldo,p.id_paciente,c.id_credito,v.evaluado,c.cancelacion
+        from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta
+        where c.forma_pago='Cargo Automatico' and v.sucursal like ? and c.saldo = 0 order by c.id_credito DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$suc);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 //////////////////////LISTAR CREDITOS DE DESCUENTO EN PLANILLA
     public function get_creditos_oid($sucursal,$empresa){
     $conectar= parent::conexion();
