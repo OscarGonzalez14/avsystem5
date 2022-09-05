@@ -673,6 +673,7 @@ if ($_POST['sucursal']=="Empresarial") {
         if ($row['estado']==1){
           $estado = 'Aprobada';
         }
+        $sub_array[] = $row["id_orden"];
         $sub_array[] = $row["numero_orden"];
         $sub_array[] = $row["nombres"];
         $sub_array[] = $row["empresas"];
