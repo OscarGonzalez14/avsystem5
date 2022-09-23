@@ -663,8 +663,218 @@ if($sql2->rowCount() > 0 and $sql5->rowCount() > 0){
   echo json_encode($msj);
 }
 
+}
 
 
+///////////////////INGRESO AGRUPADO /////
+public function ingresoAgrupado($ubicacion,$usuario,$sucursal,$numero_compra,$numero_ingreso,$costo_u,$precio_venta){
+  $conectar = parent::conexion();
+  date_default_timezone_set('America/El_Salvador'); 
+  $hoy = date("d-m-Y H:i:s");
+
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayProdGrupal']); 
+
+  $total_compra_agrupada = 0.00;
+  $ingreso = $this->registrarIngreso($numero_ingreso,$usuario,$hoy,$sucursal);
+
+  foreach($detalles as $k => $v){
+    $cantidad_ingreso = $v->cantidad;
+    $descripcion = $v->descripcion;
+    $id_producto = $v->idProd;
+    $total_compra_agrupada = $total_compra_agrupada + (float)($cantidad_ingreso*$costo_u);
+    $sql="select stock from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_producto);
+    $sql->bindValue(2,$sucursal);
+    $sql->bindValue(3,$ubicacion);
+    $sql->bindValue(4,$numero_compra);
+    $sql->execute();
+    $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if(is_array($resultado)==true and count($resultado)>0){
+      foreach($resultado as $row){
+        $stock_prod = $row["stock"];
+    }
+    }else{
+      $stock_prod = 0;
+    }
+  
+    $nuevo_stock = $stock_prod + $cantidad_ingreso;
+   
+    if(is_array($resultado)==true and count($resultado)>0) {                     
+     
+    $sql4 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?";
+    $sql4 = $conectar->prepare($sql4);
+    $sql4->bindValue(1,$nuevo_stock);
+    $sql4->bindValue(2,$id_producto);
+    $sql4->bindValue(3,$sucursal);
+    $sql4->bindValue(4,$ubicacion);
+    $sql4->execute();
+
+  }else{
+    $sql="insert into existencias values (null,?,?,?,?,?,?,?,?);";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_producto);
+    $sql->bindValue(2,$cantidad_ingreso);
+    $sql->bindValue(3,$sucursal);
+    $sql->bindValue(4,$ubicacion);
+    $sql->bindValue(5,$hoy);
+    $sql->bindValue(6,$usuario);
+    $sql->bindValue(7,$numero_compra);
+    $sql->bindValue(8,$precio_venta);
+    $sql->execute();
+  } //cierre la condicional
+
+  $total_compra = $cantidad_ingreso * $costo_u;
+  
+  $detCompra = $this->registrarDetalleCompra($numero_compra,"-",$cantidad_ingreso,$costo_u,$precio_venta,$total_compra,"0",$usuario,$id_producto,$hoy,$cantidad_ingreso);
+
+  $detIngreso = $this->registrarDetalleIngreso($id_producto,$cantidad_ingreso,$sucursal,$ubicacion,$hoy,$usuario,$numero_compra,$costo_u,$precio_venta,$numero_ingreso);
+
+  }//FIN FOREACH 
+
+  $compra = $this->registraCompra($numero_compra,"-","Andres Vasquez","Contado","Efectivo","12",$hoy,"CCF","12345",$usuario,$total_compra_agrupada,"1",$sucursal);
+  
+  if($compra = "okCompra" and  $detCompra = "okDetCompra" and  $ingreso = "okIngreso" and $detIngreso = "okDetIngreso"){
+    $confirm = "insertOk";
+}else{
+    $confirm = "errorInsert";
+}
+ $msj = ["mensaje"=>$confirm];
+ echo json_encode($msj); 
+}
+
+public function getCorrelativoDistribucion(){  
+  $conectar= parent::conexion();
+  $sql= "select max(id_distribucion)+1 as correlativo_dist from distribucion_productos limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->execute();
+  $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+  if(is_array($resultado)==true and count($resultado)>0){
+    foreach($resultado as $row){
+      $correlativo = "I-".$row["correlativo_dist"];
+  }
+  }else{
+    $correlativo = "I-1";
+  }
+
+  return $correlativo;
+
+}
+
+public function distribuirArosLote($correlativo){
+
+  $conectar= parent::conexion();
+
+  date_default_timezone_set('America/El_Salvador'); 
+  $hoy = date("Y-m-d");
+  $hora = date("H:i:s"); 
+  $items = array();
+  $items = json_decode($_POST['arrayProdLote']); 
+    $sql="insert into distribucion_productos values(null,?,?,?,?,?);";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $_POST["sucursal"]);
+    $sql->bindValue(2, $correlativo);
+    $sql->bindValue(3, $hoy);
+    $sql->bindValue(4, $hora);
+    $sql->bindValue(5, $_POST["usuario"]);
+    $sql->execute();
+
+    $sucursal = $_POST["sucursal"];
+    $usuario = $_POST["usuario"];
+    foreach($items as $k => $v){
+      $cantidad = $v->cantidad;
+      $id_producto = $v->idprod;
+      $precio_venta = $v->precio_venta;
+      $numero_compra = $v->numero_compra;
+
+      $sql="select stock from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=?;";
+      $sql=$conectar->prepare($sql);
+      $sql->bindValue(1,$id_producto);
+      $sql->bindValue(2,$sucursal);
+      $sql->bindValue(3,$sucursal);
+      $sql->bindValue(4,$numero_compra);
+      $sql->execute();
+      $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+      
+      if(is_array($resultado)==true and count($resultado)>0){
+        foreach($resultado as $row){
+          $stock_prod = $row["stock"];
+      }
+      }else{
+        $stock_prod = 0;
+      }
+
+      $nuevo_stock = $stock_prod + $cantidad;
+
+      if(is_array($resultado)==true and count($resultado)>0) {                     
+ 
+        $sql4 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?";
+        $sql4 = $conectar->prepare($sql4);
+        $sql4->bindValue(1,$nuevo_stock);
+        $sql4->bindValue(2,$id_producto);
+        $sql4->bindValue(3,$sucursal);
+        $sql4->bindValue(4,$sucursal);
+        $sql4->execute();
+        }else{
+        $sql="insert into existencias values (null,?,?,?,?,?,?,?,?);";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1,$id_producto);
+        $sql->bindValue(2,$cantidad);
+        $sql->bindValue(3,$sucursal);
+        $sql->bindValue(4,$sucursal);
+        $sql->bindValue(5,$hoy);
+        $sql->bindValue(6,$usuario);
+        $sql->bindValue(7,$numero_compra);
+        $sql->bindValue(8,$precio_venta);
+        $sql->execute();
+        } //cierre la condicional
+
+
+        if($sql->rowCount() > 0 or $sql4->rowCount() > 0){
+
+          $sql="select stock from existencias where id_producto=? and bodega='Bodega Central' and categoria_ub='bodega-cental' and num_compra=?;";
+          $sql2=$conectar->prepare($sql);
+          $sql2->bindValue(1,$id_producto);
+          $sql2->bindValue(2,$numero_compra);
+          $sql2->execute();
+          $resultado2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
+          
+          if(is_array($resultado2)==true and count($resultado2)>0){
+            foreach($resultado2 as $r){
+              $stock_producto = $r["stock"];
+          }
+          }
+          
+          $stock_act = $stock_producto - $cantidad;
+          
+          $sql5 = "update existencias set stock=? where id_producto=? and bodega='Bodega Central' and categoria_ub='bodega-cental' and num_compra=?;";
+          $sql5 = $conectar->prepare($sql5);
+          $sql5->bindValue(1,$stock_act);
+          $sql5->bindValue(2,$id_producto);
+          $sql5->bindValue(3,$numero_compra);
+          $sql5->execute();
+          
+        }
+
+
+        $sql7="insert into detalle_distribucion values (null,?,?);";
+        $sql7=$conectar->prepare($sql7);
+        $sql7->bindValue(1,$correlativo);
+        $sql7->bindValue(2,$id_producto);
+        $sql7->execute();
+
+    }//Fin foreach
+
+    if($sql2->rowCount() > 0 and $sql5->rowCount() > 0){
+      $msj = ["mensaje"=>'registroOk'];
+      echo json_encode($msj);
+      }else{
+      $msj = ["mensaje"=>'registroError'];
+      echo json_encode($msj);
+    }  
 }
 
 }

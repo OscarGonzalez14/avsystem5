@@ -15,4 +15,34 @@ public function listar_facturas($sucursal){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function reporte_general_ventas_admin($sucursales,$rango,$consolidado){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+    $rango_fecha = explode("*",$rango);
+    $inicio = $rango_fecha[0];
+    $fin = $rango_fecha[1];
+    $in_suc = explode(',',$sucursales);
+    if($consolidado=='false'){
+    $sql="select v.id_ventas,v.numero_venta,v.fecha_venta,c.forma_pago,c.monto,c.saldo,v.paciente,v.sucursal from ventas as v INNER join creditos as c on v.numero_venta=c.numero_venta where STR_TO_DATE(substr(v.fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE(?,'%d-%m-%Y') AND STR_TO_DATE(?,'%d-%m-%Y') and v.sucursal in('".implode("','",$in_suc)."') ORDER BY id_ventas DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$inicio);
+    $sql->bindValue(2,$fin);
+
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }else{
+        $sql="select v.id_ventas,v.numero_venta,v.fecha_venta,c.forma_pago,sum(c.monto) as monto,sum(c.saldo) as saldo,v.paciente,v.sucursal from ventas as v INNER join creditos as c on v.numero_venta=c.numero_venta where STR_TO_DATE(substr(v.fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE(?,'%d-%m-%Y') AND STR_TO_DATE(?,'%d-%m-%Y') and v.sucursal in('".implode("','",$in_suc)."') group by v.sucursal ORDER BY id_ventas DESC;";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1,$inicio);
+        $sql->bindValue(2,$fin);
+    
+        $sql->execute();
+        return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    $data = ["inicio"=>$inicio,"fin"=>$fin,"consolidado"=>$consolidado];
+    //echo json_encode($data);
+
+}
 }

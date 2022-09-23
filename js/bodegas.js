@@ -874,7 +874,7 @@ let obj = {
   costo: 0,pventa:0
 }
 aros_bodega.push(obj);
-$("#agregar-aros-ingresar-bdcentral").modal('hide')
+//$("#agregar-aros-ingresar-bdcentral").modal('hide')
 listarArosUbicarBodega();
 };
 
@@ -1062,6 +1062,92 @@ function ingresosGrupal(){
   });
 
 }
+////////////////// AGRUPADOS /////////////
+
+function agregarStockAgrupado(){
+  itemsSelectGrupal = [];
+  let items_prod = document.getElementsByClassName('ubicar-bodega');
+  for (var i = 0; i < items_prod.length; i++) {
+    let id = items_prod[i].id;
+    let checkbox = document.getElementById(id);
+    let check_state = checkbox.checked;
+    if(check_state){
+      let idy = document.getElementById(checkbox.id).value;
+      let productos = {
+        idProd : aros_bodega[idy].id_producto,
+        descripcion : aros_bodega[idy].descripcion,
+        cantidad: aros_bodega[idy].cantidad,
+        costo: aros_bodega[idy].costo,
+        pventa: aros_bodega[idy].pventa,
+        indice: idy
+      }
+      itemsSelectGrupal.push(productos)
+    }
+
+  }
+  //console.log(itemsSelectGrupal)
+  calculaValidaSelectAgrupados()
+
+}
+
+function calculaValidaSelectAgrupados(){
+  let tam_array =itemsSelectGrupal.length;
+  let total_cantidad= 0;
+  if(tam_array>0){
+    for (var j = 0; j < itemsSelectGrupal.length; j++) {
+      let cantidad = itemsSelectGrupal[j].cantidad;     
+      if(cantidad!=0){
+        total_cantidad = parseFloat(total_cantidad) + parseFloat(cantidad);      
+      }else{
+        Swal.fire('Especificar la cantidad de cada item','','warning'); return false
+      }
+    }
+    
+    $("#ingreso-agrupado").modal();
+    $("#total-aros-agrupados").html(total_cantidad);
+    /*$("#costos-grup").html("$"+total_costo.toFixed(2));
+    $("#pventa-grup").html("$"+total_pventa.toFixed(2));*/
+  }else{
+    Swal.fire('Debe seleccionar productos','','error')
+  }
+}
+
+
+function IngresarAgrupados(){
+
+  let usuario = $("#usuario").val();
+  let sucursal = $("#sucursal").val();
+  let ubicacion = $("#ubicacion_ind_grup").val();
+  let costo_u = $("#costo_ind_agrupados").val();
+  let pventa = $("#pventa_agrupados").val();
+
+  $.ajax({
+    url:"ajax/bodegas.php?op=ingreso_agrupado",
+    method:"POST",
+    data:{'arrayProdGrupal':JSON.stringify(itemsSelectGrupal),'usuario':usuario,'sucursal':sucursal,'ubicacion':ubicacion,'costo_u':costo_u,'pventa':pventa},
+    cache: false,
+    dataType:"json",
+    success:function(data){ 
+      console.log(data)
+      if(data.mensaje=='insertOk'){
+        Swal.fire('Se ha ingresado a Bodega','','success');
+        $("#costo_ind_agrupados").val("");
+        $("#pventa_agrupados").val("");
+        $("#ingreso-agrupado").modal("hide");
+        for (var i = 0; i < itemsSelectGrupal.length; i++) {
+          let idx = itemsSelectGrupal[i].idProd;
+          let index = aros_bodega.map(producto => producto.id_producto).indexOf(idx)
+          aros_bodega.splice(index, 1);
+      
+        }
+        listarArosUbicarBodega();
+        $("#data_stock_bdcentral").DataTable().ajax.reload(null,false);
+      }
+    }
+
+  });
+
+}
 
 
 function stockBdCentral(){
@@ -1081,13 +1167,13 @@ function stockBdCentral(){
         }
         },
         drawCallback: function () {
-          var sumatoria_stock = $('#data_stock_bdcentral').DataTable().column(7).data().sum();
+          var sumatoria_stock = $('#data_stock_bdcentral').DataTable().column(8).data().sum();
           $('#total-stock').html(sumatoria_stock+" aros");  
         },
     "bDestroy": true,
     "responsive": true,
     "bInfo":true,
-    "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+    "iDisplayLength": 500,//Por cada 10 registros hace una paginación
     "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
@@ -1109,10 +1195,7 @@ function stockBdCentral(){
               "sNext":     "Siguiente",
               "sPrevious": "Anterior"
           },
-          "oAria": {
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-          }
+          
 
          }//cerrando language
 
@@ -1215,6 +1298,137 @@ function distribuirSucursal(){
     Swal.fire('Sucursal o cantidad estan vacios','','error');
   }
 
+}
+
+var arosEnviarSucursal =[];
+function agregarItemBodegaDist(id){
+ let tag = document.getElementById(id);
+ 
+ let check_state = tag.checked;
+   if(check_state){
+    let modelo =  tag.dataset.modelo;
+    let idprod = tag.dataset.idprod;
+    let marca = tag.dataset.marca; 
+    let medidas = tag.dataset.medidas;
+    let color = tag.dataset.color;
+    let stock = parseInt(tag.dataset.stock);
+    let numero_compra = tag.dataset.compra;
+    let precio_venta = tag.dataset.pventa; 
+   
+    let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`,cantidad:stock,precio_venta}
+    arosEnviarSucursal.push(arosObj);
+    console.log(arosEnviarSucursal) 
+  }else{
+    const o = arosEnviarSucursal.find(elemento=>{
+      return elemento.id === id      
+    })
+    
+    if(o != undefined){
+      const indice  = arosEnviarSucursal.findIndex(element=>{
+        return element.id === id
+      })
+      arosEnviarSucursal.splice(indice, 1);
+    }
+  }
+
+ document.getElementById("aros-sel-suc").innerHTML = arosEnviarSucursal.length + " modelos seleccionados";
+
+}
+
+function seleccionarEnviarSucursal(id){
+  arosEnviarSucursal = [];
+  let checkbox = document.getElementById(id);
+  let chk_estado = checkbox.checked;
+  let elements_chk = document.getElementsByClassName("env-sucursales");
+  if(chk_estado){
+    for (var i = 0; i < elements_chk.length; i++) {
+      let id = elements_chk[i].id;
+      document.getElementById(id).checked = true;
+      let tag = document.getElementById(id);
+      let modelo =  tag.dataset.modelo;
+      let idprod = tag.dataset.idprod;
+      let marca = tag.dataset.marca; 
+      let medidas = tag.dataset.medidas;
+      let color = tag.dataset.color;
+      let stock = parseInt(tag.dataset.stock);
+      let numero_compra = tag.dataset.compra;
+      let precio_venta = tag.dataset.pventa; 
+    
+      let arosObj = {modelo,idprod,marca,medidas,color,id,numero_compra,stock,desc: `Mod .:${modelo} Color: ${color}`,cantidad:stock,precio_venta}
+      arosEnviarSucursal.push(arosObj);
+    }
+  }else{
+    for (var i = 0; i < elements_chk.length; i++) {
+      let id = elements_chk[i].id;
+      document.getElementById(id).checked = false;
+    }
+    arosEnviarSucursal = [];
+  }
+  document.getElementById("aros-sel-suc").innerHTML = arosEnviarSucursal.length + " modelos seleccionados";
+}
+
+function enviarArosSucursalLote(){
+  let arrayTam = arosEnviarSucursal.length;
+  if(arrayTam<1){Swal.fire('Lista vacia','','error');
+  return false;}
+  const sumall = arosEnviarSucursal.map(item => item.stock).reduce((prev, curr) => prev + curr, 0);
+  document.getElementById("sum-aros-enviar").innerHTML = `${sumall} AROS PARA ENVIAR`
+  $("#env-suc-lote").modal()
+  $("#data-aros-env-lote").html("");
+  var filas = '';  
+  for(let i=0;i<arrayTam;i++){
+    filas = filas +    
+    "<tr style='text-align:center' id='item_t"+i+"'>"+ 
+    "<td style='width:60%'>"+arosEnviarSucursal[i].desc+"</td>"+
+    "<td style='width:20%'>"+arosEnviarSucursal[i].stock+"</td>"+
+    "<td style='width:20%'><input type='text' class='form-control next-input' id=itemdist"+i+" value="+arosEnviarSucursal[i].cantidad+" onkeyup='validaCantidadDist(this.id,event, this, "+(i)+");'></td>"+
+    "</tr>";
+    
+  }
+  //check_selected();
+  $("#data-aros-env-lote").html(filas);  
+  
+}
+
+function distribuirProductosLote(){
+  let usuario = $("#usuariouser_id").val();
+  let sucursal = $("#ubicacion_distrib_lote").val();
+  if(sucursal=='0'){ Swal.fire('Seleccionar sucursal','','error'); return false}
+  $.ajax({
+    url:"ajax/bodegas.php?op=ingreso_productos_lote",
+    method:"POST",
+    data:{'arrayProdLote':JSON.stringify(arosEnviarSucursal),'usuario':usuario,'sucursal':sucursal},
+    cache: false,
+    dataType:"json",
+    success:function(data){ 
+      if(data.mensaje=="registroOk"){
+        Swal.fire('Ingreso a bodega exitoso','','success');
+        $("#env-suc-lote").modal("hide");
+        $("#ubicacion_distrib_lote").val("0")
+        arosEnviarSucursal = [];
+        $("#data_stock_bdcentral").DataTable().ajax.reload(null,false);
+     }
+    }
+
+  });
+  
+}
+
+function validaCantidadDist(id,event, obj, idx){
+  event.preventDefault();
+  let stock = arosEnviarSucursal[idx].stock;
+  let cantidad_act = parseInt(obj.value);
+  console.log(id)
+  if(cantidad_act > stock){
+    Swal.fire('Error!, Ha excedido el stock','','error');
+    document.getElementById(id).value= stock;
+    arosEnviarSucursal[idx].cantidad = parseInt(stock);
+    document.getElementById(id).focus();
+    document.getElementById(id).style.border='solid 1px red';
+  }else{
+    arosEnviarSucursal[idx].cantidad = parseInt(obj.value);
+    document.getElementById(id).style.border='solid 1px green';
+  }
 }
 
 init();

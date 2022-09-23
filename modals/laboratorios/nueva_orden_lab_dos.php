@@ -94,7 +94,7 @@
       <select class="form-control clear_orden_i validate" id="sucursal_orden_lab" required>
         <option value="">Seleccionar sucursal...</option>
         <option value="Metrocentro">Metrocentro</option>
-        <option value="Arce">Arce</option>
+        <!--<option value="Arce">Arce</option>-->
         <option value="Chalatenango">Chalatenango</option>
         <option value="Cascadas">Cascadas</option>
         <option value="Ahuachapan">Ahuachapan</option>

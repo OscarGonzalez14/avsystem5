@@ -35,10 +35,83 @@ switch ($_GET["op"]){
     $sucursal = $_POST["sucursal"];    
   }
 
-if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
-  $datos=$creditos->listar_cpendientes_contado($sucursal,$_POST['ver_credito']);
-}elseif($_POST["ver_credito"]=="Creditos_Finalizados"){
-  $datos=$creditos->listar_cfinalizados_contado($sucursal,$_POST["ver_credito"]);
+  $datos=$creditos->get_creditos_contado($sucursal);
+  $data= Array();
+  foreach($datos as $row){
+    $sub_array = array();
+
+    $icon="";
+    $atrib="";
+    $txt="";
+    $evento="";
+    $class="";
+    $href="";
+    $event = "";
+    $event_ccf ='';
+
+    if($row["saldo"] == 0 and $row["cancelacion"]==0){
+        $icon="fas fa-print";
+        $atrib = "btn btn-info";
+        $txt = '';
+        $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+        $event = 'print_invoices';
+        $event_ccf ='emitir_ccf';
+    }elseif($row["saldo"] == 0 and $row["cancelacion"]==1){
+      $icon="fas fa-print";
+      $atrib = "btn btn-danger";
+      $txt = '';
+      $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+      $event = 'print_invoices';
+      $event_ccf ='emitir_ccf';
+    }elseif ($row["saldo"] > 0) {
+        $icon=" fas fa-clock";
+        $atrib = "btn btn-secondary";
+        $txt = '';
+        $href='#';
+        $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+        $event = 'print_invoices';
+    }
+
+    $sub_array[] = $row["numero_venta"];
+    $sub_array[] = $row["fecha_adquirido"];
+    $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
+    $sub_array[] = $row["evaluado"]; 
+    $sub_array[] = $row["sucursal"];  
+    $sub_array[] = "$".number_format((float)$row["monto"],2,".",","); 
+    //$sub_array[] = "$".number_format((float)$row["monto"]-$row["saldo"],2,".",",");
+    $sub_array[] = "$".number_format($row["saldo"],2,".",",");
+    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>
+
+    <button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success btn-sm"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>
+
+    <button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>
+
+    <button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event_ccf.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\',\''.$row["nombres"].'\');" ><i class="'.$icon.'"></i>'.$txt.'</button>'; 
+    $data[] = $sub_array;
+  }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+	break;
+
+///LISTAR PENDIENTES O SALDADOS DE CONTADO
+case 'estado_creditos_contado':
+
+if ($_POST["sucursal"]=="Empresarial") {
+    $sucursal = $_POST["sucursal_usuario"];
+  }else{
+    $sucursal = $_POST["sucursal"];    
+  }
+
+if ($_POST["estado_credito"]=="contado_pendientes") {
+  $datos = $creditos->get_pendientes_contado($_POST["sucursal"]);
+}elseif ($_POST["estado_credito"]=="contado_finalizados") {
+  $datos = $creditos->get_finalizados_contado($_POST["sucursal"]);
 }
 
   $data= Array();
@@ -78,10 +151,10 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
     }
 
     $sub_array[] = $row["numero_venta"];
-    $sub_array[] = $row["nombres"];
-    $sub_array[] = $row["evaluado"]; 
-    $sub_array[] = $row["telefono"];
     $sub_array[] = $row["fecha_adquirido"];
+    $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
+    $sub_array[] = $row["evaluado"]; 
     $sub_array[] = $row["sucursal"];  
     $sub_array[] = "$".number_format((float)$row["monto"],2,".",","); 
     //$sub_array[] = "$".number_format((float)$row["monto"]-$row["saldo"],2,".",",");
@@ -102,7 +175,7 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
     echo json_encode($results);
-	break;
+  break; ///FIN LISTAR ESTADO DE CRED AL CONTADO
 
   ///////////////////GET CREDITOS CARGO AUTOMATICO
 
@@ -148,15 +221,20 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
     }
 
     $sub_array[] = $row["numero_venta"];
+    $sub_array[] = $row["fecha_venta"];
     $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
     $sub_array[] = $row["empresas"];
-    $sub_array[] = $row["evaluado"];    
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = $row["plazo"]." meses";     
     $sub_array[] = "$".number_format($row["monto"],2,".",","); 
-    $sub_array[] = "$".number_format($row["saldo"],2,".",",");    
+    $sub_array[] = "$".number_format($row["saldo"],2,".",",");     
 
-    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';
-     $sub_array[] = '<button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>';
-   $sub_array[] = '<button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
+    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>
+   
+    <button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>
+    
+    <button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
                                                 
     $data[] = $sub_array;
   }
@@ -169,6 +247,81 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
     echo json_encode($results);
   break;
 
+///LISTAR CREDITOS PENDIENTES O FINALIZADOS SEGUN LA NECESIDAD DEL USUARIO
+  case 'estado_creditos_cauto':
+
+  if ($_POST["sucursal"]=="Empresarial") {
+    $sucursal = $_POST["sucursal_usuario"];
+  }else{
+    $sucursal = $_POST["sucursal"];    
+  }
+  
+  if ($_POST["estado_cauto"]=="cautos_pendientes") {
+     $datos = $creditos->get_pendientes_cauto($_POST["sucursal"]);
+   }elseif ($_POST["estado_cauto"]=="cautos_finalizados") {
+     $datos = $creditos->get_finalizados_cauto($_POST["sucursal"]);
+    }
+
+  $data= Array();
+  foreach($datos as $row){
+    $sub_array = array();
+
+    $icon="";
+    $atrib="";
+    $txt="";
+    $evento="";
+    $class="";
+    $href="";
+    $event = "";
+
+    if($row["saldo"] == 0  and $row["cancelacion"]==0){
+        $icon="fas fa-print";
+        $atrib = "btn btn-info";
+        $txt = '';
+        $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+        $event = 'print_invoices';
+    }elseif($row["saldo"] == 0 and $row["cancelacion"]==1){
+      $icon="fas fa-print";
+      $atrib = "btn btn-danger";
+      $txt = '';
+      $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+      $event = 'print_invoices';
+      $event_ccf ='emitir_ccf';
+    }elseif ($row["saldo"] > 0) {
+        $icon=" fas fa-clock";
+        $atrib = "btn btn-secondary";
+        $txt = '';
+        $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+        $event = 'print_invoices';
+    }
+
+    $sub_array[] = $row["numero_venta"];
+    $sub_array[] = $row["fecha_venta"];
+    $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
+    $sub_array[] = $row["empresas"];
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = $row["plazo"]." meses";     
+    $sub_array[] = "$".number_format($row["monto"],2,".",","); 
+    $sub_array[] = "$".number_format($row["saldo"],2,".",",");    
+
+    $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>
+   
+    <button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>
+    
+    <button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';          
+                                                
+    $data[] = $sub_array;
+  }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+  break;
+   ///////////////////GET CREDITOS DESCUENTO EN PLANILLA
    ///////////////////GET CREDITOS DESCUENTO EN PLANILLA
 
   case 'listar_creditos_oid':
@@ -198,18 +351,21 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
         $txt = '';
         $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
         $event = 'print_invoices';
+        $event_ccf ='emitir_ccf';
     }elseif($row["saldo"] == 0  and $row["cancelacion"]=="1"){
         $icon="fas fa-print";
         $atrib = "btn btn-danger";
         $txt = '';
         $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
         $event = 'print_invoices';
+        $event_ccf ='emitir_ccf';
     }elseif ($row["saldo"] > 0) {
         $icon=" fas fa-print";
         $atrib = "btn btn-secondary";
         $txt = '';
         $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
         $event = "print_invoices";
+        $event_ccf ='emitir_ccf';
     }
 
     $sub_array[] = $row["numero_venta"];
@@ -221,7 +377,7 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
 
     $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';
      $sub_array[] = '<button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-xs bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>';
-    $sub_array[] = '<button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';           
+    $sub_array[] = '<button type="button"  class="btn '.$atrib.' btn-xs" onClick="'.$event.'('.$row["id_paciente"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button><button type="button"  class="btn '.$atrib.' btn-xs" onClick="emitir_ccf('.$row["id_paciente"].',\''.$row["numero_venta"].'\',\''.$row["nombres"].'\');" ><i class="'.$icon.'"></i>'.$txt.'</button>';           
                                                 
     $data[] = $sub_array;
   }
@@ -307,6 +463,7 @@ if ($_POST["ver_credito"]=="" or $_POST["ver_credito"]=="Creditos_Pendientes"){
         $sub_array[] = $row["usuario"];
         $sub_array[] = $row["sucursal"];
         $sub_array[] = $row["n_recibo"];
+        $sub_array[] = $row["forma_pago"];
         $sub_array[] = "$".number_format($row["monto_abono"],2,".",",");
                
         $data[] = $sub_array;
@@ -521,6 +678,7 @@ if ($_POST['sucursal']=="Empresarial") {
         if ($row['estado']==1){
           $estado = 'Aprobada';
         }
+        $sub_array[] = $row["id_orden"];
         $sub_array[] = $row["numero_orden"];
         $sub_array[] = $row["nombres"];
         $sub_array[] = $row["empresas"];
@@ -987,6 +1145,7 @@ if ($_POST["sucursal"]=="Empresarial") {
 
     $sub_array[] = $row["numero_venta"];
     $sub_array[] = $row["nombres"];
+    $sub_array[] = $row["telefono"];
     $sub_array[] = $row["empresas"];
     $sub_array[] = $row["sucursal"];
     $sub_array[] = date("d-m-Y",strtotime($row["fecha_inicio"]));

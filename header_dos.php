@@ -35,8 +35,9 @@
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-
-
+<!--Datatables-->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
 
 <style type="text/css">
 <?php 
@@ -230,7 +231,7 @@ $level_user = $_SESSION["id_user_emp"];
         
 
         <?php 
-        if ($level_user=="Admin") {
+        if ($_SESSION["Bodega central"]) {
           echo '
           <li class="nav-item">
             <a href="aros-inv.php" class="nav-link">
@@ -275,6 +276,18 @@ $level_user = $_SESSION["id_user_emp"];
             ';
           }
         ?>
+        <?php if ($_SESSION["reportes_admin"]==1) {
+           echo '
+          <li class="nav-item">
+            <a href="reporte_ventas_admin.php" class="nav-link">
+              <i class="fas fa-chart-line"></i>
+              <p>
+                Reportes Adminsitrativos
+                <span class="right badge badge-danger" style="visibility:hidden">New</span>
+              </p>
+            </a>
+          </li>';
+        }?>
         
         </ul>
       </nav>

@@ -194,17 +194,19 @@ case "ingresoIndividualBodega":
 
     break;
 
+    case "ingreso_agrupado":
+      $n_compra = $compras->get_numero_compras();
+      $n_ingreso = $bodegas->get_numero_ingreso();
+      $bodegas->ingresoAgrupado($_POST["ubicacion"],$_POST["usuario"],$_POST["sucursal"],$n_compra,$n_ingreso,$_POST["costo_u"],$_POST["pventa"]);
+  
+      break;
+  
+
   case 'listar_aros_bodega':
     require_once '../modelos/Productos.php';
     $productos = new Productos();
 
     $aros = $productos->get_aros();
-    /*$lista_aros = Array();
-    foreach($aros as $a){
-      array_push($lista_aros,array('id'=>$a["id_producto"],'text'=>"Mod.:".$a["modelo"]." ".$a["marca"]." C.:".$a["color"]." Med.:".$a["medidas"]));
-    }
-    echo json_encode($lista_aros);  */ 
-
     $data= Array();
       foreach($aros as $row){
         $sub_array = array();
@@ -232,9 +234,20 @@ case "ingresoIndividualBodega":
     case "get_inventario_bdcentral":
       $datos=$bodegas->getStockBdCentral();
       $data= Array();
+      $cont = 1;
       foreach($datos as $row){
         $sub_array = array();
         $sub_array[] = $row["id_ingreso"];
+        $sub_array[] = "<input type='checkbox' class='form-check-input env-sucursales' id=item-dist".$row['id_producto'].$row['id_producto'].$cont."  onClick='agregarItemBodegaDist(this.id)' style='margin-left:auto; margin-right:auto'
+        data-idprod=".$row["id_producto"]."
+        data-modelo=\"".$row["modelo"]."\"
+        data-marca=\"".$row["marca"]."\"
+        data-medidas=\"".$row["medidas"]."\"
+        data-color=\"".$row["color"]."\"
+        data-stock=\"".$row["stock"]."\"
+        data-compra=\"".$row["num_compra"]."\"
+        data-pventa=\"".$row["precio_venta"]."\"
+        >.</td>";
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["marca"];
         $sub_array[] = $row["color"];
@@ -244,6 +257,7 @@ case "ingresoIndividualBodega":
         $sub_array[] = $row["stock"];
         $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="modalDistribuir('.$row["id_producto"].',\''.$row["num_compra"].'\',\''.$row["stock"].'\',\''.$row["precio_venta"].'\',\''.$row["marca"]." - Mod.: ".$row["modelo"]." - Color.: ".$row["color"].'\')"><i class="fas fa-dolly" aria-hidden="true" style="color:blue"></i></button>';
         $data[] = $sub_array;
+        $cont++;
       }
   
         $results = array(
@@ -258,5 +272,10 @@ case "ingresoIndividualBodega":
       case "distribuir_aros_sucursal":
         $bodegas->distribuirArosSucursal($_POST["id_producto"],$_POST["cantidad"],$_POST["numero_compra"],$_POST["usuario"],$_POST["sucursal"],$_POST["precio_venta"]);
         break;
+
+      case "ingreso_productos_lote":
+          $correlativo = $bodegas->getCorrelativoDistribucion();
+          $bodegas->distribuirArosLote($correlativo);
+      break;
 
 }

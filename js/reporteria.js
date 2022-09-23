@@ -64,4 +64,150 @@ function emitir_ccf(id_paciente,numero_venta,nombres){
 
   }
 
+
+  var sucursales = [];
+  var empresarial = [];
+  var data = [];
+  document.querySelectorAll(".chk_ventas_rep").forEach(i => i.addEventListener("click", e => {
+    sucursales = [];
+    empresarial = [];
+    data = [];
+
+    let rango_fecha = document.getElementById("rango-cobro").value;
+    let rango = rango_fecha.replace(" hasta ","*");
+
+    let checkbox_emp = document.getElementById('chk_emp');
+    let check_state_emp = checkbox_emp.checked; 
+
+    let checkbox_solo = document.getElementById('chk_emp_solo');
+    let check_state_solo = checkbox_solo.checked;
+
+    let checkbox_consolidado = document.getElementById('consolidados_ventas');
+    let check_state_consolidado = checkbox_consolidado.checked;
+
+       
+    $("input[name='sucursales_chk']:checked").each(function (){
+      sucursales.push(($(this).attr("value")));
+    });
+
+    for (i = 0; i < sucursales.length; i++) {
+      empresarial.push("Empresarial-"+sucursales[i])
+    } 
+
+    if(check_state_emp==true && check_state_solo==false){
+      data  = sucursales.concat(empresarial);
+    }else if(check_state_emp==false && check_state_solo==true){
+      data = empresarial;
+    }else if(check_state_emp==false && check_state_solo==false){
+      data = sucursales;
+    }
+    let data_ventas = data.toString();
+       
+    dtTemplateReporteria("reporte_ventas_admin","reporteria_ventas_global",rango,data_ventas,check_state_consolidado)
+
+  }));
+
+  function dtTemplateReporteria(table,route,...Args){
+  
+    tabla = $('#'+table).DataTable({      
+      "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [     
+        'excelHtml5',
+      ],
+  
+      "ajax":{
+        url:"ajax/reporteria.php?op="+ route,
+        type : "POST",
+        data: {Args:Args},
+        dataType : "json",
+         
+        error: function(e){
+        console.log(e.responseText);
+      },      
+    },
+  
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
+      "iDisplayLength": 2000,//Por cada 10 registros hace una paginación
+        "order": [[ 0, "asc" ]],//Ordenar (columna,orden)
+        "language": { 
+        "sProcessing":     "Procesando...",       
+        "sLengthMenu":     "Mostrar _MENU_ registros",       
+        "sZeroRecords":    "No se encontraron resultados",       
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",       
+        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",       
+        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",       
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",    
+        "sInfoPostFix":    "",       
+        "sSearch":         "Buscar:",       
+        "sUrl":            "",       
+        "sInfoThousands":  ",",       
+        "sLoadingRecords": "Cargando...",       
+        "oPaginate": {       
+            "sFirst":    "Primero",       
+            "sLast":     "Último",       
+            "sNext":     "Siguiente",       
+            "sPrevious": "Anterior"       
+        },   
+        "oAria": {       
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",       
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"   
+        }}, //cerrando language
+    });
+
+     
+}
+
+document.querySelectorAll(".chk_corte_admin").forEach(i => i.addEventListener("click", e => {
+  let sucursal_chk = $("input[type='radio'][name='rep_corte_chk']:checked").val();
+  let checkbox_emp = document.getElementById('chk_corte_emp');
+  let check_state_emp = checkbox_emp.checked;
+  let sucursal_corte = '';
+  let fecha = document.getElementById("fecha_corte").value;
+  check_state_emp ? sucursal_corte = `Empresarial-${sucursal_chk}` : sucursal_corte=sucursal_chk;
+  if(sucursal_chk != undefined){
+    $("#sucursal_corte").html(sucursal_corte)
+  }else{
+    Swal.fire('Seleccione una sucursal!','','error'); return false;
+  }
+  
+}));
+
+function ImprimirCorteAdmin(){
+  let sucursal_chk = $("#sucursal_corte").html();
+  let fecha = document.getElementById("fecha_corte").value;
+  if (sucursal_chk != undefined && fecha !=""){
+
+    let form = document.createElement("form");
+    form.target = "_blank";
+    form.method = "POST";
+    form.action = "admin_corte_diario.php";
+    form.id = 'imp_corte_diario';
+
+    let input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "fecha_corte";
+    input.value = fecha;
+    form.appendChild(input);
+
+    let sucursal = document.createElement("input");
+    sucursal.type = "hidden";
+    sucursal.name = "sucursal_corte";
+    sucursal.value = sucursal_chk;
+    form.appendChild(sucursal);
+
+    document.body.appendChild(form);
+    const formulario = document.getElementById("imp_corte_diario");
+    formulario.submit();
+    document.body.removeChild(form);   
+  }else{
+    Swal.fire('Seleccione una sucursal y fecha!','','error'); return false;
+  }
+  
+}
+
+
 init();

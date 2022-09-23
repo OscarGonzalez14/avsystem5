@@ -119,7 +119,7 @@ if ($_POST["sucursal_correlativo"]=="Empresarial") {
   $prefijo="SM";
   }elseif ($sucursal_usuario=="Chalatenango") {
   $prefijo="CH";
-  }elseif ($sucursal_usuario=="Ahuachapán") {
+  }elseif ($sucursal_usuario=="Ahuachapan") {
   $prefijo="AH";
   }elseif ($sucursal_usuario=="Cascadas") {
   $prefijo="CA";
@@ -147,7 +147,7 @@ if ($sucursal=="Metrocentro") {
   $prefijo="SM";
 }elseif ($sucursal=="Chalatenango") {
   $prefijo="CH";
-}elseif ($sucursal=="Ahuachapán") {
+}elseif ($sucursal=="Ahuachapan") {
   $prefijo="AH";
 }elseif ($sucursal=="Cascadas") {
   $prefijo="CA";
@@ -469,7 +469,7 @@ if ($_POST["tipo_pago"]=="Cargo Automatico") {
     $prefijo = "SM";
   }elseif($sucursal == "Chalatenango") {
     $prefijo = "CH";
-  }elseif($sucursal == "Ahuachapán") {
+  }elseif($sucursal == "Ahuachapan") {
     $prefijo = "AH";
   }elseif($sucursal == "Cascadas") {
     $prefijo = "CA";
@@ -495,7 +495,7 @@ if ($_POST["tipo_pago"]=="Cargo Automatico") {
     $prefijo="SM";
   }elseif ($sucursal=="Chalatenango") {
     $prefijo="CH";
-  }elseif ($sucursal=="Ahuachapán") {
+  }elseif ($sucursal=="Ahuachapan") {
     $prefijo="AH";
   }elseif ($sucursal=="Cascadas") {
     $prefijo="CA";

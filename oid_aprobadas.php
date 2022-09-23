@@ -46,6 +46,7 @@ if(isset($_SESSION["usuario"])){
           <table id="oid_aprobadas" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
             <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
               <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
+                <td>Id</td>  
                 <td># Orden</td>
                 <td>Titular</td>
                 <td>Empresa</td>

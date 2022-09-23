@@ -124,16 +124,15 @@ public function buscar_aros_ventas($sucursal){
 
 }
 
-public function buscar_aros_ventas_emp($sucursal,$sucursal_usuario){
+public function buscar_aros_ventas_emp($sucursal){
   $conectar= parent::conexion();
-  $suscursal=$_POST["sucursal"];
+
   $sql="select p.desc_producto,e.precio_venta,e.stock,e.categoria_ub,e.num_compra,e.fecha_ingreso,e.id_ingreso,p.id_producto from
   productos as p inner join existencias as e on p.id_producto=e.id_producto
   where e.bodega=? and e.stock>0 and p.categoria_producto='aros'";
 
   $sql = $conectar->prepare($sql);
-  //$sql->bindValue(1,$sucursal);
-  $sql->bindValue(1,$sucursal_usuario);
+  $sql->bindValue(1,$sucursal);
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 

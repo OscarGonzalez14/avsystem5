@@ -29,50 +29,47 @@ if(isset($_SESSION["usuario"])){
       </div><!-- /.container-fluid -->
     </section>
 
-    <div class="invoice p-3 mb-3" style="margin-top:12px;">
-      <div class="row row2" style="background:#E0E0E0;border-radius: 5px">
-        <div class="form-group col-sm-3">
-          <label for="">Verificar créditos:</label>
-          <select class="form-control input-dark" id="ver_credito">
-            <option value=''>Seleccionar...</option>
-            <option value='Creditos_Finalizados'>Creditos Finalizados</option>
-            <option value='Creditos_Pendientes'>Creditos Pendientes</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-2" style="margin-top:32px;">
-          <button type="button" class=" btn btn-light visualizar" onClick="listar_contado_creditos();"><i class="fas fa-search" style="color: green; border:gray;"></i> Filtrar</button>
-        </div>
-      </div>
-    </div>
     <!-- Main content -->
-    <section class="content" style="border-right:50px">
-      <div class="container-fluid">
-        <div class="col-md-12">
-          <div class="card" style="margin: 1px">
-            <div class="card-body">
-              <!--ESTE DATATABLE SE RECARGA DESDE  credit-->
-              <table id="creditos_de_contado" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
-                <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
-                  <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
+    <section class="content" style="margin-top:5px">
+      <div class="row">
+       <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <section class="content">
+              <div class="container_fluid">
+                <div>
+                  <div class="col-sm-10">
+                    <ol class="breadcrumb float-xs-left">
+                      <li class="breadcrumb-item" class="bg-primary" class="" onClick=""><a class="bg-warning cat_contado" style="background:#FCFAF9;padding: 5px;border-radius: 8px" name="contado_pendientes">Pendientes</a></li>
+                      <li class="breadcrumb-item" class="bg-primary" class="" onclick=""><a class="bg-success cat_contado" style="background:#FCFAF9;padding: 5px;border-radius: 8px" name="contado_finalizados">Finalizados</a></li>
+                    </ol> 
+                  </div>
+                </div>
+
+
+                <table id="creditos_de_contado" class="table-hover table-bordered display nowrap" width="100%">
+                  <thead style="background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">
+                   <tr>
                     <td># Venta</td>
-                    <td>Titular</td>
-                    <td>Paciente evaluado</td>
-                    <td>Contacto</td>
                     <td>Fecha venta</td>
+                    <td>Titular</td>
+                    <td>Contacto</td>
+                    <td>Paciente evaluado</td>
                     <td>Sucursal</td>
                     <td>Monto</td>
-                    <!--<td>Cobrado</td>-->
                     <td>Saldo</td>
                     <td>Acciones</td>
                   </tr>
                 </thead>
-                <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">     
-                </tbody>
-              </table>
-            </div>
+                <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
+                </table> 
+              </div>
+            </section>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
       <?php require_once("footer.php");?>
       <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>

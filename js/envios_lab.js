@@ -81,15 +81,13 @@ function registrarEnvioLab(){
   let sucursal = $("#sucursal_orden_lab").val();
   let prioridad = $("#prioridad_orden_lab").val();
   let observaciones = $("#observaciones_orden_lab").val();
-  let sucursal_usuario = $("#sucursal_usuario").val();
-  let sucursal = $("#sucursal").val();
 
   //if (cod_orden != "" && paciente) {}
     $.ajax({
       url:"ajax/laboratorios.php?op=registrarEnvioLab",
       method:"POST",
       cache:false,
-      data: {cod_orden:cod_orden,paciente:paciente,empresa:empresa,laboratorio:laboratorio,lente:lente,modelo_aro:modelo_aro,marca_aro:marca_aro,color_aro:color_aro,diseno_aro:diseno_aro,usuario:usuario,sucursal:sucursal,prioridad:prioridad,observaciones:observaciones,sucursal:sucursal,sucursal_usuario:sucursal_usuario},
+      data: {cod_orden:cod_orden,paciente:paciente,empresa:empresa,laboratorio:laboratorio,lente:lente,modelo_aro:modelo_aro,marca_aro:marca_aro,color_aro:color_aro,diseno_aro:diseno_aro,usuario:usuario,sucursal:sucursal,prioridad:prioridad,observaciones:observaciones},
       dataType:"json",
       success:function(data){
        console.log(data)   
@@ -155,7 +153,7 @@ function listar_ordenes_enviadas(){
   document.getElementById("btn_send_lab").style.display = "none";
   document.getElementById("btn_entregar_lab").style.display = "none";
   document.getElementById("btn_receive_lab").style.display = "block";
-  get_ordenes_enviadas_data(tabla);
+  get_ordenes_enviadas_data();
 }
 
 function listado_ordenes_recibidas(){
@@ -234,7 +232,7 @@ get_ordenes_general_data();
 }
 /////////////////////LISTAR ORDENES CREADAS - PENDIENTES
 function listar_ordenes(tabla,estado,titulo){
-
+let sucursal = $("#sucursal").val();
 $("#header_title").html(titulo);
 tabla_envios_gral=$('#'+tabla).dataTable(
   {
@@ -245,11 +243,11 @@ tabla_envios_gral=$('#'+tabla).dataTable(
                 'excelHtml5'
             ],
     "ajax":
-        {
+      {
           url: 'ajax/laboratorios.php?op=listar_ordenes',
           type : "post",
           dataType : "json",
-          data:{estado:estado},
+          data:{estado:estado,sucursal:sucursal},
           error: function(e){
             console.log(e.responseText);
           }
@@ -314,6 +312,7 @@ document.getElementById("btn_send_lab").style.display = "block";
 
 /////////////////////   LISTAR ORDENES ENVIADAS ///////////////
 function get_ordenes_enviadas_data(){
+  let sucursal = $("#sucursal").val();
   tabla_envios_gral=$('#data_orders_lab').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
@@ -327,7 +326,7 @@ function get_ordenes_enviadas_data(){
           url: 'ajax/laboratorios.php?op=listar_ordenes_enviadas',
           type : "post",
           dataType : "json",
-          //data:{estado:estado},
+          data:{sucursal:sucursal},
           error: function(e){
             console.log(e.responseText);
           }
@@ -1072,6 +1071,7 @@ function listar_historial_orden(){
 }
 
 function get_ordenes_general_data(){
+  let sucursal_act = $("#sucursal").val();
   tabla_envios_gral=$('#data_orders_lab').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
@@ -1083,7 +1083,7 @@ function get_ordenes_general_data(){
           url: 'ajax/laboratorios.php?op=listar_ordenes_general',
           type : "post",
           dataType : "json",
-          //data:{estado:estado},
+          data:{sucursal_act:sucursal_act},
           error: function(e){
             console.log(e.responseText);}
         },

@@ -19,7 +19,7 @@
     $prefijo="SM";
   }elseif ($sucursal=="Chalatenango"){
     $prefijo="CH";
-  }elseif ($sucursal=="Ahuachapán"){
+  }elseif ($sucursal=="Ahuachapan"){
     $prefijo="AH";
   }elseif ($sucursal=="Cascadas"){
     $prefijo="CA";
@@ -40,7 +40,7 @@
     $sufijo = "SA";
   }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Chalantenango"){
     $sufijo = "CH";
-  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Ahuachapán"){
+  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Ahuachapan"){
     $sufijo = "AH";
   }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Cascadas"){
     $sufijo = "CA";

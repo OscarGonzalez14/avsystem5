@@ -38,8 +38,35 @@ switch ($_GET["op"]) {
          "aaData"=>$data);
 	echo json_encode($results);
 	break;
-	
-	default:
-		// code...
-	break;
+    
+	case 'reporteria_ventas_global':
+		$args = $_POST["Args"];
+		$rango = $args[0];
+		$sucursales = $args[1];
+		$consolidado = $args[2];
+		
+		$datos = $reportes->reporte_general_ventas_admin($sucursales,$rango,$consolidado);
+        $data= Array();
+		foreach($datos as $row){
+			$sub_array = array();
+
+			$sub_array[] = $row["numero_venta"];
+			$sub_array[] = $row["fecha_venta"];
+			$sub_array[] = $row["forma_pago"];
+			$sub_array[] = $row["paciente"];
+			$sub_array[] = $row["sucursal"];
+			$sub_array[] = "$".number_format(($row["monto"]),2,".",",");
+			$sub_array[] = "$".number_format(($row["saldo"]),2,".",",");
+
+			$data[] = $sub_array;
+	    }
+
+	$results = array(
+         "sEcho"=>1, //Información para el datatables
+         "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+         "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+         "aaData"=>$data);
+	echo json_encode($results);
+
+		break;
 }

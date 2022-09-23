@@ -27,7 +27,7 @@ switch ($_GET["op"]) {
         $prefijo="SM";
       }elseif ($sucursal_usuario == "Chalatenango") {
         $prefijo="CH";
-      }elseif ($sucursal_usuario == "Ahuachapán") {
+      }elseif ($sucursal_usuario == "Ahuachapan") {
         $prefijo="AH";
       }elseif ($sucursal_usuario == "Cascadas") {
         $prefijo="CA";
@@ -53,7 +53,7 @@ switch ($_GET["op"]) {
         $prefijo="SM";
       }elseif ($sucursal=="Chalatenango") {
         $prefijo="CH";
-      }elseif ($sucursal=="Ahuachapán") {
+      }elseif ($sucursal=="Ahuachapan") {
         $prefijo="AH";
       }elseif ($sucursal=="Cascadas") {
         $prefijo="CA";

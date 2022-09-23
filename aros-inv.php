@@ -9,7 +9,8 @@ require_once('modals/modal_ingreso_bodega.php');
 html, body 
 { 
  height: 100%;
- overflow: hidden
+ overflow: hidden;
+ overflow-y: visible;
 }
 </style>
 <div class="content-wrapper" >
@@ -20,11 +21,12 @@ html, body
         <?php include 'sources-view/nav-bar-aros.php'?>             
     </div>	
 </div>
-
+<b><span id="aros-sel-suc" style=" float:right;font-size:16px;margin-right: 5px"></span></b>
 <table width="100%" class="table-bordered table-hover" id="data_stock_bdcentral" data-order='[[ 0, "desc" ]]' style="margin:5px">
       <thead style="background:#0b1118;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
           <tr>
           <th>ID</th>
+          <th><input type="checkbox" id="select-all-enviarsuc" class="form-check-label" onClick="seleccionarEnviarSucursal(this.id)"></th>
           <th>Modelo</th>
           <th>Marca</th>
           <th>Color</th>
@@ -40,6 +42,7 @@ html, body
 
         <tfoot>
         <tr>
+          <th></th>
           <th></th>
           <th></th>
           <th></th>
@@ -71,6 +74,7 @@ html, body
 </style>
 
 
+
 <!--MODAL DISTRIBUCION DE PRODUCTOS-->
 
 
@@ -94,7 +98,9 @@ html, body
                 <option value="Metrocentro">Metrocentro</option>
                 <option value="Chalatenango">Chalatenango</option>
                 <option value="Cascadas">Cascadas</option>
-                <option value="Ahuachapán">Ahuachapán</option>
+                <option value="Ahuachapan">Ahuachapan</option>
+                <option value="Santa Ana">Santa Ana</option>
+                <option value="Empresarial">Empresarial</option>
             </select>
         </div>
 
@@ -182,6 +188,8 @@ html, body
 </div>
 
 
+
+
 <!--MODAL MODAL INGRESAR AROS -->
 
 <div class="modal" id="agregar-aros-ingresar-bdcentral">
@@ -266,14 +274,92 @@ require_once('modals/nueva_marca.php');
     </div>
   </div>
 </div>
+</div>
 
 <!--MODAL RESUMEN INGRESOS BODEGA -->
+<!--INGRESOS AGRUPADOS-->
+<div class="modal fade" id="ingreso-agrupado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">INGRESOS AGRUPADOS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 style="text-align:center; font-size:18px"><b>Total aros: <span id="total-aros-agrupados" style="color:blue"></span></b></h5>
 
+        <div class="form-row" autocomplete="off">
+          <div class="form-group col-md-6">
+            <label for="ubicacion">$ Costo unitario</label>
+            <input type="number" class="form-control clear_i" id="costo_ind_agrupados">
+        </div>
 
+        <div class="form-group col-md-6">
+            <label for="ubicacion">P. venta(Unidad)</label>
+            <input type="number" class="form-control clear_i" id="pventa_agrupados">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-block"  OnClick="IngresarAgrupados()">Ingresar a bodega</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
+<!--MODAL PARA ENVIAR A SUCURSAL LOTE-->
 
+<div class="modal" id="env-suc-lote">
+  <div class="modal-dialog" style="max-width:45%">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header bg-dark" style="padding:8px;font-size:18px">
+        <h5 class="modal-title w-100 text-center position-absolute"><u><span id="sum-aros-enviar"></span></u></h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <div class="row" style="display:flex;flex-wrap: wrap;">
+        <div class="col-sm-8">
+        <select name="" id="ubicacion_distrib_lote" class="form-control clear_i select2-primary" style="border: 1px solid #7A92A1;margin:5px">
+                <option value="0" selected>Seleccionar Sucursal...</option>
+                <option value="Metrocentro">Metrocentro</option>
+                <option value="Chalatenango">Chalatenango</option>
+                <option value="Cascadas">Cascadas</option>
+                <option value="Ahuachapán">Ahuachapán</option>
+                <option value="Santa Ana">Santa Ana</option>
+                <option value="Empresarial">Empresarial</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+        <button type="button" class="btn btn-outline-success btn-flat float-right" style="margin-top:5px" onClick="distribuirProductosLote()"><i class="fas fa-dolly"></i> Enviar a sucursal</button>
+        </div>
+      </div>
+      
+       <table  width="100%" style="text-align: center:margin-top:5px" class="table-bordered">
+       <thead class="bg-info">
+          <tr>
+            <th style='width:60%'>Descripcion</th>
+            <th style='width:20%'>Stock actual</th>
+            <th style='width:20%'>Cant. enviar</th>
+          </tr>
+        </thead>
+        <tbody id="data-aros-env-lote"></tbody>
+       </table>
+      </div>
+
+      <!-- Modal footer -->
+
+    </div>
+  </div>
+</div>
 
 <input type="hidden" id="usuario" value="<?php echo $_SESSION["usuario"];?>">
+<input type="hidden" id="usuariouser_id" value="<?php echo $_SESSION["id_usuario"];?>">
 <input type="hidden" id="sucursal" value="Bodega Central">
 <input type="hidden" id="idx-prod">
 

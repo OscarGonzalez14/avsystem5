@@ -110,8 +110,12 @@ break;
 ///////////////////////////AROS EN EXISTENCIAS
 case "buscar_aros_venta":
 
-  if ($_POST["sucursal"]=="Empresarial") {
-    $datos=$productos->buscar_aros_ventas_emp($_POST["sucursal"],$_POST["sucursal_usuario"]);  
+ if($_POST["sucursal"]=="Empresarial" and $_POST["sucursal_usuario"]=='San Miguel') {
+    $suc=$_POST['sucursal_usuario'];
+    $datos=$productos->buscar_aros_ventas_emp($suc);  
+  }elseif($_POST["sucursal"] == "Empresarial" and $_POST["sucursal_usuario"] != 'San Miguel'){
+    $suc='Empresarial';
+    $datos=$productos->buscar_aros_ventas_emp($suc);  
   }else{
     $datos=$productos->buscar_aros_ventas($_POST["sucursal"]);
   }
@@ -136,7 +140,7 @@ case "buscar_aros_venta":
       "iTotalRecords"=>count($data), //enviamos el total registros al datatable
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
-    echo json_encode($results);
+     echo json_encode($results);
      break;
 
 

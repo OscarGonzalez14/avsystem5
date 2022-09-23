@@ -13,12 +13,14 @@ $fecha_imp = date("d-m-Y H:i:s a");
 $reporteria=new Reporteria();
 $categoria = $_SESSION["categoria"];
 //echo $categoria;
+
 if ($categoria == "administrador") {
   $sucursal = $_SESSION["sucursal"];
 }elseif($_SESSION["sucursal"]=="Empresarial"){
     $sucursal="Empresarial-".$_SESSION["sucursal_usuario"];
 }elseif($_SESSION["sucursal"]!="Empresarial" and $categoria != "administrador"){
   $sucursal = $_SESSION["sucursal_usuario"];
+}
 }
 
 //$sucursal = $_POST["sucursal_user"];

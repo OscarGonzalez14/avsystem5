@@ -469,6 +469,8 @@ $(document).on("click","#btn_aros_venta", function(){
   let sucursal= $("#sucursal").val();
   let sucursal_usuario = $("#sucursal_usuario").val();
 
+  console.log(sucursal,sucursal_usuario);
+
   tabla_aros_venta = $('#lista_aros_ventas_data').DataTable({      
     "aProcessing": true,//Activamos el procesamiento del datatables
     "aServerSide": true,//Paginación y filtrado realizados por el servidor

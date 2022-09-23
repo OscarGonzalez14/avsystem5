@@ -36,7 +36,7 @@ if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
 }elseif ($sucursal == "Chalatenango"  or  $sucursal == "Empresarial-Chalatenango"){
     $encabezado = "OPTICA AV PLUS S.A DE C.V.";
     $direccion = "Carr. Troncal Del Nte. 48 ½, Plaza Don Yon, local #6, 3<sup>ra</sup> Etapa, Coyolito, Chalatenango";
-    $telefono = "-";
+    $telefono = "2309-3853";
     $wha = "-";
     $dir2="Chalatenango";
 }elseif ($sucursal == "Ahuachapán"  or  $sucursal == "Empresarial-Ahuachapán"){
@@ -49,8 +49,8 @@ if ($sucursal == "Metrocentro" or $sucursal == "Empresarial-Metrocentro") {
 }elseif ($sucursal == "Cascadas"  or  $sucursal == "Empresarial-Cascadas"){
     $encabezado = "OPTICA AV PLUS S.A DE C.V.";
     $direccion = "Centro Comercial Las Cascadas, La Libertad Hiper local#219";
-    $telefono = "-";
-    $wha = "-";
+    $telefono = "2511-8794";
+    $wha = "7469-6801";
     $correo = "cascadas@opticasavplus.com";
     $dir2="Cascadas";
 }

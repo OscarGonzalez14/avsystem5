@@ -76,19 +76,21 @@ public function editarEnvioLab($cod_orden,$paciente,$empresa,$laboratorio,$lente
 
   }   
 
-public function get_ordenes_creadas(){
+public function get_ordenes_creadas($sucursal){
 	$conectar = parent::conexion();
-	$sql = "select*from ordenes_lab where estado='0' or estado = '4' order by id_orden_lab DESC;";
+	$sql = "select*from ordenes_lab where (estado='0' or estado = '4') and sucursal=? order by id_orden_lab DESC;";
 	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1,$sucursal);
 	$sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /////////////////////////////////  ORDENES ENVIADAS  ////////////////////
-public function get_ordenes_enviadas(){
+public function get_ordenes_enviadas($sucursal){
 	$conectar = parent::conexion();
-	$sql = "select a.id_accion,a.fecha as fecha_envio,o.cod_orden,o.estado,o.paciente,o.empresa,o.sucursal,o.prioridad,o.laboratorio,o.fecha_creacion,o.id_orden_lab from acciones_ordenes_envios as a inner join ordenes_lab as o on a.id_orden_lab=o.id_orden_lab where o.estado='1' or estado = '6'and a.tipo_accion='Envio';";
+	$sql = "select a.id_accion,a.fecha as fecha_envio,o.cod_orden,o.estado,o.paciente,o.empresa,o.sucursal,o.prioridad,o.laboratorio,o.fecha_creacion,o.id_orden_lab from acciones_ordenes_envios as a inner join ordenes_lab as o on a.id_orden_lab=o.id_orden_lab where (o.estado='1' or estado = '6') and sucursal = ? and a.tipo_accion='Envio';";
 	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1,$sucursal);
 	$sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -356,10 +358,11 @@ public function state_order($codigo){
 }
 
 ////////// ORDENES EN GENERAL ////
-public function get_ordenes_general(){
+public function get_ordenes_general($sucursal){
 	$conectar = parent::conexion();
-	$sql = "select estado,paciente,empresa,sucursal,laboratorio,id_orden_lab,cod_orden,fecha_creacion from ordenes_lab group by id_orden_lab;";
+	$sql = "select estado,paciente,empresa,sucursal,laboratorio,id_orden_lab,cod_orden,fecha_creacion from ordenes_lab where sucursal=? group by id_orden_lab;";
 	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1, $sucursal);
 	$sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }

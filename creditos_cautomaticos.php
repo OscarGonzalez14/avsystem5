@@ -33,19 +33,30 @@ require_once("modals/modal_correlativo_factura.php");
  		<div class="card-body">
  		  <section class="content">
  			<div class="container_fluid"><!--inicio del contenido-->
+
+       <div>
+          <div class="col-sm-10">
+            <ol class="breadcrumb float-xs-left">
+              <li class="breadcrumb-item" class="bg-primary" class="" onClick=""><a class="bg-warning cat_cauto" style="background:#FCFAF9;padding: 5px;border-radius: 8px" name="cautos_pendientes">Pendientes</a></li>
+              <li class="breadcrumb-item" class="bg-primary" class="" onclick=""><a class="bg-success cat_cauto" style="background:#FCFAF9;padding: 5px;border-radius: 8px" name="cautos_finalizados">Finalizados</a></li>
+            </ol> 
+          </div>
+        </div>
+        
         <input type="hidden" name="sucursal_usuario" id="sucursal_usuario" value="<?php echo $_SESSION["sucursal_usuario"];?>"/>   
         <table id="creditos_cauto" class="table-hover table-bordered" width="100%">
            <thead style="background:#034f84;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">
             <tr>
             <th style='text-align: center;'>No. Venta</th>
+            <th style='text-align: center;'>Fecha aprobación</th>
             <th style='text-align: center;'>Titular de cuenta</th>
+            <th style='text-align: center;'>Teléfono</th>
             <th style='text-align: center;'>Empresa</th>
-            <th style='text-align: center;'>Paciente Evaluado</th>        
+            <th style='text-align: center;'>Paciente Evaluado</th>
+            <th style='text-align: center;'>Plazo</th>
             <th style='text-align: center;'>Monto</th>
             <th style='text-align: center;'>Saldo</th>
-            <th style='text-align: center;'>Abonar</th>
-            <th style='text-align: center;'>Historial</th>
-            <th style='text-align: center;'>Factura</th>
+            <th style='text-align: center;'>Acciones</th>
           </tr>
      </thead>
      <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
