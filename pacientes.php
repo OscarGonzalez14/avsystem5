@@ -130,7 +130,17 @@ require_once("modals/modal_consultas.php");
     })
         $(".select2").select2({
     maximumSelectionLength: 1
-});
+   });
+
+    //Initialize Select2 Elements
+    $('#patologias').select2()
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+    $("#patologias").select2({
+    maximumSelectionLength: 4
+   });
       })
 </script>  
 <script>

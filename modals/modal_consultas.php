@@ -66,10 +66,16 @@ body.modal-open {
             <textarea cols="80" class="form-control" rows="1" id="motivo" name="motivo"></textarea>
             </div>
 
-            <div class="col-sm-12">
-              <label for="comment">Patologias</label>
-              <textarea cols="80" class="form-control" rows="1" id="patologias" name="patologias"></textarea>
-            </div>
+          <div class="col-sm-12 select2-purple">
+           <label for="ex3">Patologia</label>
+            <select class="select2 form-control" id="patologias" multiple="multiple"  data-dropdown-css-class="select2-purple" style="width: 100%;height: ">              
+              <option value="0">Ninguna....</option>
+              <option value="Astigmatismo">Astigmatismo</option>
+              <option value="Presbicia">Presbicia</option>
+              <option value="Hipermetropia">Hipermetropia</option>
+              <option value="Miopia">Miopia</option>                  
+            </select>              
+          </div>
 
           <div class="dropdown-divider"></div>
           <div class="lens-auto" style="display:flex">

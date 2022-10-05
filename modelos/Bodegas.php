@@ -704,12 +704,13 @@ public function ingresoAgrupado($ubicacion,$usuario,$sucursal,$numero_compra,$nu
    
     if(is_array($resultado)==true and count($resultado)>0) {                     
      
-    $sql4 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?";
+    $sql4 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=? and num_compra=?";
     $sql4 = $conectar->prepare($sql4);
     $sql4->bindValue(1,$nuevo_stock);
     $sql4->bindValue(2,$id_producto);
     $sql4->bindValue(3,$sucursal);
     $sql4->bindValue(4,$ubicacion);
+    $sql4->bindValue(5,$numero_compra);
     $sql4->execute();
 
   }else{
@@ -729,7 +730,6 @@ public function ingresoAgrupado($ubicacion,$usuario,$sucursal,$numero_compra,$nu
   $total_compra = $cantidad_ingreso * $costo_u;
   
   $detCompra = $this->registrarDetalleCompra($numero_compra,"-",$cantidad_ingreso,$costo_u,$precio_venta,$total_compra,"0",$usuario,$id_producto,$hoy,$cantidad_ingreso);
-
   $detIngreso = $this->registrarDetalleIngreso($id_producto,$cantidad_ingreso,$sucursal,$ubicacion,$hoy,$usuario,$numero_compra,$costo_u,$precio_venta,$numero_ingreso);
 
   }//FIN FOREACH 

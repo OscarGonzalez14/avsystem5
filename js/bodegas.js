@@ -874,7 +874,7 @@ let obj = {
   costo: 0,pventa:0
 }
 aros_bodega.push(obj);
-$("#agregar-aros-ingresar-bdcentral").modal('hide')
+//$("#agregar-aros-ingresar-bdcentral").modal('hide')
 listarArosUbicarBodega();
 };
 

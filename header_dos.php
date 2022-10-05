@@ -275,11 +275,11 @@ $level_user = $_SESSION["id_user_emp"];
             ';
           }
         ?>
-        <?php if ($_SESSION["reportes_admin"]) {
+        <?php if ($_SESSION["reportes_admin"]==1) {
            echo '
           <li class="nav-item">
             <a href="reporte_ventas_admin.php" class="nav-link">
-              <i class="nav-icon fas fa-box"></i>
+              <i class="fas fa-chart-line"></i>
               <p>
                 Reportes Adminsitrativos
                 <span class="right badge badge-danger" style="visibility:hidden">New</span>

@@ -11,7 +11,7 @@ function init(){
 
 //Función Listar
 function listar(){
-	var sucursal=$("#sucursal_usuario").val();
+	var sucursal=$("#sucursal").val();
 	tabla=$('#consultas_data').dataTable({
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -340,7 +340,8 @@ var parentesco_evaluado=$("#parentesco_evaluado").val();
 var tel_evaluado = $("#tel_evaluado").val();
 var fecha_consulta=$("#fecha_consulta").val();
 var motivo=$("#motivo").val();
-var patologias = $("#patologias").val();
+var patologia = $("#patologias").val();
+var patologias = patologia.toString();
 ///////LENSOMETRIA
 var odesferasl=$("#odesferasl").val();
 var odcilndrosl=$("#odcilndrosl").val();

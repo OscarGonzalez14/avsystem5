@@ -80,7 +80,6 @@
         $output["oiavejesf"]=$row["oiavejesf"];
         $output["oiavprismaf"]=$row["oiavprismaf"];
         $output["oiavadicionf"]=$row["oiavadicionf"];
-
         ////////////////////RX FINAL oI
         $output["oiesferasf"]=$row["oiesferasf"];
         $output["oicolindrosf"]=$row["oicolindrosf"];
@@ -89,17 +88,15 @@
         $output["oiadicionf"]=$row["oiadicionf"];
         $output["prisoicorrige"]=$row["prisoicorrige"];
         $output["addoicorrige"]=$row["addoicorrige"];
-////////////////////RX FINAL oD
+        ////////////////////RX FINAL oD
         $output["odesferasf"]=$row["odesferasf"];
         $output["odcilindrosf"]=$row["odcilindrosf"];
         $output["odejesf"]=$row["odejesf"];
         $output["dprismaf"]=$row["dprismaf"];
         $output["oddicionf"]=$row["oddicionf"];
         $output["addodcorrige"]=$row["addodcorrige"];
-        $output["prisodcorrige"]=$row["prisodcorrige"];
-        
+        $output["prisodcorrige"]=$row["prisodcorrige"];        
         ////////////////FIN RX FINAL 
-
         $output["sugeridos"]=$row["sugeridos"];
         $output["diagnostico"]=$row["diagnostico"];
         $output["medicamento"]=$row["medicamento"];
@@ -117,7 +114,7 @@
         $output["fecha_consulta"]=$row["fecha_consulta"];
         $output["motivo"]=$row["motivo"];
         $output["patologias"]=$row["patologias"];
-///////////////////////////////DISTANCIA INTERPUPILAR***************
+        //////////////////////DISTANCIA INTERPUPILAR***************
         $output["dip"]=$row["dip"];
         $output["oddip"]=$row["oddip"];
         $output["oidip"]=$row["oidip"];
@@ -138,21 +135,17 @@
         $output["telefono_beneficiario"]=$row["telefono_beneficiario"];
         $output["edad"]=$row["edad"];
         $output["id_paciente"]=$row["id_paciente"];  
-
-    }    
+      }    
           
       echo json_encode($output);
 
-          } else {
-                 
-                 //si no existe el registro entonces no recorre el array
-                $errors[]="no existe";
+      } else {              
+        $errors[]="no existe";
+      }
 
-          }
-
-        if (isset($errors)){
+      if (isset($errors)){
       
-          ?>
+      ?>
           <div class="alert alert-danger" role="alert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
               <strong>Error!</strong> 
