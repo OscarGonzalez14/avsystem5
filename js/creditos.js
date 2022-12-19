@@ -925,9 +925,9 @@ function get_finaliza(){
   let categoria_usuario = $('#cat_user').val();
   //console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
   $("#detalle_oid").modal("show");
-  if (categoria_usuario != "administrador") {
+  /* if (categoria_usuario != "administrador") {
     document.getElementById("btns_orden").style.display = "none";
-  }
+  } */
   /////////////ajax data detalles del  orden
   //$("#nnn").val(numero_orden)
   $.ajax({

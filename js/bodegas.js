@@ -1380,8 +1380,7 @@ function enviarArosSucursalLote(){
     filas = filas +    
     "<tr style='text-align:center' id='item_t"+i+"'>"+ 
     "<td style='width:60%'>"+arosEnviarSucursal[i].desc+"</td>"+
-    "<td style='width:20%'>"+arosEnviarSucursal[i].stock+"</td>"+
-    "<td style='width:20%'><input type='text' class='form-control next-input' id=itemdist"+i+" value="+arosEnviarSucursal[i].cantidad+" onkeyup='validaCantidadDist(this.id,event, this, "+(i)+");'></td>"+
+    "<td style='width:20%'>"+arosEnviarSucursal[i].stock+"</td>"+  
     "</tr>";
     
   }

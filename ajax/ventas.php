@@ -123,6 +123,8 @@ if ($_POST["sucursal_correlativo"]=="Empresarial") {
   $prefijo="AH";
   }elseif ($sucursal_usuario=="Cascadas") {
   $prefijo="CA";
+  }elseif ($sucursal_usuario=="Ciudad Arce") {
+    $prefijo="AR";
   }
 
   if(is_array($datos)==true and count($datos)>0){
@@ -151,6 +153,8 @@ if ($sucursal=="Metrocentro") {
   $prefijo="AH";
 }elseif ($sucursal=="Cascadas") {
   $prefijo="CA";
+}elseif ($sucursal_usuario=="Ciudad Arce") {
+  $prefijo="AR";
 }
 if(is_array($datos)==true and count($datos)>0){
   foreach($datos as $row){                  

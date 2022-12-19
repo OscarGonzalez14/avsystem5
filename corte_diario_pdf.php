@@ -14,7 +14,7 @@ $reporteria=new Reporteria();
 $categoria = $_SESSION["categoria"];
 //echo $categoria;
 if ($categoria == "administrador") {
-  $sucursal = $_SESSION["sucursal"];
+  $sucursal = $_SESSION["sucursal"]."-";
 }elseif($_SESSION["sucursal"]=="Empresarial"){
     $sucursal="Empresarial-".$_SESSION["sucursal_usuario"];
 }elseif($_SESSION["sucursal"]!="Empresarial" and $categoria != "administrador"){

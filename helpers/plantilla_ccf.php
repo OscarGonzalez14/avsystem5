@@ -28,24 +28,32 @@
 <tr style="height:50px;">
   <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;margin:20px;height: 95px">
  <?php 
-    for ($i=0; $i < sizeof($datos_factura_cantidad); $i++) {
-     echo $datos_factura_cantidad[$i]["cantidad_venta"]?><br>
-     <?php } ?>     
+  echo "
+30
+  "  
+  ;
+ ?>     
   </td>
  
   <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: left;margin:20px">
      <?php 
-    for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
-     echo $datos_factura_producto[$i]["producto"]?><br>
-     <?php } ?>    
+
+     echo "
+     SERVICIOS PROFESIONALES DE FISIOTERAPIA<br>  
+     ";
+     ?>    
   </td>
  
   <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:10px;text-align: right;margin:20px">
 
     <?php 
-    for ($i=0; $i < sizeof($datos_factura_precio_u); $i++) {
-     echo "$".number_format(($datos_factura_precio_u[$i]["precio_final"]),2,".",",");?><br>
-     <?php } ?> 
+
+    echo "
+10.00
+
+    
+    ";
+    ?> 
     
   </td>
   <td colspan="10" style="border: 1px solid black">
@@ -57,42 +65,25 @@
   <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:10px;text-align: right;margin:20px">
 
     <?php 
-    $subtotal=0;
-    for ($i=0; $i < sizeof($datos_factura_subtotal); $i++) {
-      $subtotal=$subtotal+$datos_factura_subtotal[$i]["subtotal"];
-     echo "$".number_format(($datos_factura_subtotal[$i]["subtotal"]),2,".",",");?><br>
-
-     <?php } ?>
+echo "
+300.00
+";
+?>
    
   </td>
 </tr>
-<?php
-//$iva = $subtotal*0.13;
-//$retenido = $subtotal*0.01;
-//$total = ($subtotal+$iva)-$retenido;
-$sumas = $subtotal/(1.13);
-$iva = $sumas*(0.13);
-$subtotal_ccf = $sumas+$iva;
-if ($tipo_contribuyente==1) {
-  $retenido = $sumas*0.01;
-}else{
-  $retenido = 0;
-}
-if ($retenido>0) {
-  $total = ($subtotal_ccf)-$retenido;
-}else{
-  $total= $subtotal_ccf;
-}
 
-$total_t = 21020;
-?>
+
+
 <tr>
-  <td colspan="60" rowspan="2" class="stilot1" style="width: 60%;text-align: left"><b>SON</b>: <?php echo numletras(number_format($total,2,".",""),$_moneda);?> </td>
+  <td colspan="60" rowspan="2" class="stilot1" style="width: 60%;text-align: left"><b>SON</b>: TRES CIENTOS TREINTA Y SEIS DOLARES CON 00/100</td>
   <td colspan="10" class="stilot1" style="font-size:8px">SUMAS</td>
   <td colspan="10" class="stilot1"></td>
   <td colspan="10" class="stilot1"></td>
-  <td colspan="10" class="stilot1" style="font-size:10px;;text-align: right;"><?php echo "$".number_format($sumas,2,".",","); ?></td>
+  <td colspan="10" class="stilot1" style="font-size:10px;;text-align: right;">  $300.00 
+</td>
 </tr>
+
 <tr>
   <td colspan="20" class="stilot1" style="font-size:8px">VENTA EXENTA</td>
   <td colspan="10" class="stilot1"></td>
@@ -103,7 +94,8 @@ $total_t = 21020;
   <td colspan="60" class="stilot1" style="font-size:8px">LLENAR SI LA OPERACIÓN IGUAL O MAYOR A $11,428.58</td>
   <td colspan="20" class="stilot1" style="font-size:8px">IVA 13%</td>
    <td colspan="10" class="stilot1" style="font-size:8px"></td>
-  <td colspan="10" class="stilot1" style="text-align: right;font-size:10px"> <?php echo "$".number_format($iva,2,".",",");?></td>
+  <td colspan="10" class="stilot1" style="text-align: right;font-size:10px">$39.00
+</td>
 </tr>
 
 <tr>
@@ -121,12 +113,14 @@ $total_t = 21020;
   </td>
   <td colspan="20" class="stilot1" style="font-size:8px; height:8px">SUBTOTAL</td>
   <td colspan="10" class="stilot1" style="height:8px"></td>
-  <td colspan="10" class="stilot1" style="height:8px;font-size:10px;text-align: right;"><?php echo "$".number_format($subtotal_ccf,2,".",",");?></td>
+  <td colspan="10" class="stilot1" style="height:8px;font-size:10px;text-align: right;">  $339.00
+
+</td>
 </tr>
 <tr>
   <td colspan="20" class="stilot1" style="font-size:8px">IVA RETENIDO (1%)</td>
   <td colspan="10" class="stilot1"></td>
-  <td colspan="10" class="stilot1" style="text-align: center;font-size:10px;text-align: right;"><?php echo "$".number_format($retenido,2,".",",");?></td>
+  <td colspan="10" class="stilot1" style="text-align: center;font-size:10px;text-align: right;">$3.00</td>
 </tr>
 <tr>
   <td colspan="20" class="stilot1" style="font-size:8px">VENTA NO SUJETA</td>
@@ -136,6 +130,8 @@ $total_t = 21020;
 
 <tr>
   <td colspan="20" class="stilot1" style="font-size:8px"><strong>TOTAL</strong></td>
-  <td colspan="20" class="stilot1" style="text-align: right;font-size:11px"><strong><?php echo "$".number_format($total,2,".",",");?></strong></td>
+  <td colspan="20" class="stilot1" style="text-align: right;font-size:11px"><strong>  $336.00
+
+</strong></td>
 </tr>
 </table>

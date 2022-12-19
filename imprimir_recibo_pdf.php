@@ -62,6 +62,13 @@ if ($sucursal == "Metrocentro"  or  $sucursal == "Empresarial-Metrocentro") {
     $telefono = "2260-1653";
     $wha = "7469-2542";
     $correo = "cascadas@opticasavplus.com";
+}elseif ($sucursal == "Ciudad Arce"  or  $sucursal == "Empresarial-Ciudad Arce") {
+  $giro = "OTROS SERVICIO RELACIONADOS CON LA SALUD";
+  $encabezado = "OPTICA AV PLUS S.A DE C.V.";
+  $direccion = "Calle Francisco Gavidia Local #9 A, ciudad Arce La Libertad";
+  $telefono = "2330-9801";
+  $wha = "";
+  $correo = "";
 }
 
 $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);

@@ -23,10 +23,22 @@
     <th bgcolor="#0061a9" colspan="10" style="color:white;font-size:8px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width: 10%"><span class="Estilo11">VENTAS AFECTAS</span></th>
 </tr>
 
+
+
 <tr style="height:50px;">
   <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;margin:20px;height: 95px">
  <?php 
-   echo $total_items;?>     
+   echo 
+   "203<>br
+   264<>br
+   125<>br
+   255<>br
+   204<>br
+   264<>br
+   61
+   "
+   
+   ;?>     
   </td>
  
   <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: left;margin:20px">

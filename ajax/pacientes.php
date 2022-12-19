@@ -23,6 +23,8 @@
     $prefijo="AH";
   }elseif ($sucursal=="Cascadas"){
     $prefijo="CA";
+  }elseif ($sucursal=="Ciudad Arce"){
+    $prefijo="AR";
   }
   if ($sucursal=="Empresarial") {
    $sucursal_correlativo = "Empresarial-".$sucursal_usuario;
@@ -44,6 +46,8 @@
     $sufijo = "AH";
   }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Cascadas"){
     $sufijo = "CA";
+  }elseif ($sucursal == "Empresarial" and $sucursal_usuario=="Ciudad Arce"){
+    $prefijo="AR";
   }
 
   if ($sucursal == "Empresarial") {

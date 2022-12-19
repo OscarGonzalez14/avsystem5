@@ -52,6 +52,7 @@ $(document).ready(function(){
 function get_correlativo_venta(){
   let sucursal_correlativo = $("#sucursal").val();
   let sucursal_usuario = $("#sucursal_usuario").val();
+  console.log(sucursal_correlativo,sucursal_usuario)
 
   $.ajax({
     url:"ajax/ventas.php?op=get_numero_venta",

@@ -31,6 +31,8 @@ switch ($_GET["op"]) {
         $prefijo="AH";
       }elseif ($sucursal_usuario == "Cascadas") {
         $prefijo="CA";
+      }elseif ($sucursal_usuario == "Ciudad Arce") {
+        $prefijo="AR";
       }
         if(is_array($datos)==true and count($datos)>0){
         foreach($datos as $row){                  
@@ -57,6 +59,8 @@ switch ($_GET["op"]) {
         $prefijo="AH";
       }elseif ($sucursal=="Cascadas") {
         $prefijo="CA";
+      }elseif ($sucursal=="Ciudad Arce") {
+        $prefijo="AR";
       }
         if(is_array($datos)==true and count($datos)>0){
         foreach($datos as $row){                  
