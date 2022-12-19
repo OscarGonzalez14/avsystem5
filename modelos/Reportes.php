@@ -25,7 +25,7 @@ public function reporte_general_ventas_admin($sucursales,$rango,$consolidado){
     $fin = $rango_fecha[1];
     $in_suc = explode(',',$sucursales);
     if($consolidado=='false'){
-    $sql="select v.id_ventas,v.numero_venta,v.fecha_venta,c.forma_pago,c.monto,c.saldo,v.paciente,v.sucursal from ventas as v INNER join creditos as c on v.numero_venta=c.numero_venta where STR_TO_DATE(substr(v.fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE(?,'%d-%m-%Y') AND STR_TO_DATE(?,'%d-%m-%Y') and v.sucursal in('".implode("','",$in_suc)."') ORDER BY id_ventas DESC;";
+    $sql="select v.id_ventas,v.numero_venta,v.fecha_venta,c.forma_pago,c.monto,c.saldo,c.plazo,c.monto/c.plazo as cuota,v.paciente,v.sucursal from ventas as v INNER join creditos as c on v.numero_venta=c.numero_venta where STR_TO_DATE(substr(v.fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE(?,'%d-%m-%Y') AND STR_TO_DATE(?,'%d-%m-%Y') and v.sucursal in('".implode("','",$in_suc)."') ORDER BY id_ventas DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$inicio);
     $sql->bindValue(2,$fin);
@@ -33,7 +33,7 @@ public function reporte_general_ventas_admin($sucursales,$rango,$consolidado){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     }else{
-        $sql="select v.id_ventas,v.numero_venta,v.fecha_venta,c.forma_pago,sum(c.monto) as monto,sum(c.saldo) as saldo,v.paciente,v.sucursal from ventas as v INNER join creditos as c on v.numero_venta=c.numero_venta where STR_TO_DATE(substr(v.fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE(?,'%d-%m-%Y') AND STR_TO_DATE(?,'%d-%m-%Y') and v.sucursal in('".implode("','",$in_suc)."') group by v.sucursal ORDER BY id_ventas DESC;";
+        $sql="select v.id_ventas,v.numero_venta,v.fecha_venta,c.forma_pago,sum(c.monto) as monto,sum(c.saldo) as saldo,v.paciente,c.plazo,c.monto/c.plazo as cuota,v.sucursal from ventas as v INNER join creditos as c on v.numero_venta=c.numero_venta where STR_TO_DATE(substr(v.fecha_venta,1,10), '%d-%m-%Y' ) BETWEEN STR_TO_DATE(?,'%d-%m-%Y') AND STR_TO_DATE(?,'%d-%m-%Y') and v.sucursal in('".implode("','",$in_suc)."') group by v.sucursal ORDER BY id_ventas DESC;";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1,$inicio);
         $sql->bindValue(2,$fin);
