@@ -72,8 +72,6 @@ if(isset($_SESSION["usuario"])){
                     <td>Sucursal</td>
                     <td>Monto</td>
                     <td>Saldo</td>
-                    <td>Cuota</td>
-                    <td>Plazo</td>
                   </tr>
                 </thead>
                 <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">     

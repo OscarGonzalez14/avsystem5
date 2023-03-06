@@ -57,8 +57,6 @@ switch ($_GET["op"]) {
 			$sub_array[] = $row["sucursal"];
 			$sub_array[] = "$".number_format(($row["monto"]),2,".",",");
 			$sub_array[] = "$".number_format(($row["saldo"]),2,".",",");
-			$sub_array[] = "$".number_format(($row["cuota"]),2,".",",");
-			$sub_array[] = $row["plazo"];
 
 			$data[] = $sub_array;
 	    }

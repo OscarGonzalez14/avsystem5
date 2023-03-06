@@ -85,36 +85,21 @@ function save_paciente() {
     let nombres=$("#nombres").val();
     let telefono=$("#telefono").val();
 	let edad=$("#edad").val();
-	let dui= "---";
-	let ocupacion = "---";
-	let correo = "";
-	let empresa= "---";	
+	let genero = $("#genero_p").val();
 	let usuario = $("#usuario").val();    
 	let sucursal = $("#sucursal").val();
-	let nit = "---";
-	let tel_oficina = "";
-	let direccion_completa = "---";
-	let tipo_paciente = "Sucursal";
-	let fecha = "0";
-	let empresa_paciente = "---";
-    let codigo_emp = $("#codigo_emp").val();
-    let departamento = "---";
-    let sucursal_usuario = $("#sucursal_usuario").val();
+	let depto = $("#departamento").val();
+	let municipio = $("#munic_pac");
+
 
     if(edad !=""){
     $.ajax({
     url:"ajax/pacientes.php?op=guardar_paciente",
     method:"POST",
-    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,usuario:usuario,empresa:empresa,nit:nit,direccion_completa:direccion_completa,tel_oficina:tel_oficina,tipo_paciente:tipo_paciente,fecha:fecha,empresa_paciente:empresa_paciente,codigo_emp:codigo_emp,departamento:departamento,sucursal_usuario:sucursal_usuario},
+    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,genero:genero,usuario:usuario,sucursal:sucursal,depto:depto,municipio:municipio},
     cache: false,
     dataType:"json",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    },        
-      
-  success:function(data){
+    success:function(data){
   	console.log(data);
 
   if(data=='ok'){

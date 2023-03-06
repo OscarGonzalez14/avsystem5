@@ -140,15 +140,13 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
     data:{marca_aros:marca_aros,modelo_aro:modelo_aro,color_aro:color_aro,medidas_aro:medidas_aro,diseno_aro:diseno_aro,materiales_aro:materiales_aro,cat_venta_aros:cat_venta_aros,categoria_producto:categoria_producto},
     cache: false,
     dataType:"json",
-    success:function(data){
-      
+    success:function(data){     
       
       if(data.result=="yes") {
         //Swal.fire('Se creado un nuevo aro!','','success')
-        $("#nuevo_aro").modal("hide")
-
+        $("#nuevo_aro").modal("hide");
         ubicarArosInvidividual();
-        clear_inputs_inv();
+        //clear_inputs_inv();
         $("#aros-agregar-bdcentral").DataTable().ajax.reload();
         //listarArosIngresoMultiple()
       }else if(data.result=='not'){

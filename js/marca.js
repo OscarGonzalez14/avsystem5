@@ -33,26 +33,25 @@ function guardarMarca(){
 	}
 }
 
-function cargar_marca(){
-	
+
+function cargar_marca(){	
 	$.ajax({
 		url:"ajax/marca.php?op=get_marcas",
       	method:"POST",
       	cache:false,
       	dataType:"json",
       	success:function(info){
-			$("#marca_aros").empty();
-			
+			//$("#marca_aros").empty();			
 			$("#marca_aros").select2({ 
 				data: info,
 				sorter: function(data) {
 					return data.sort();
 				}
 			})
-
         }
 	}); 
 }
+
 
 function cargar_marca_creada(marca){
 	$.ajax({
