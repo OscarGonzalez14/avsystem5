@@ -81,48 +81,40 @@ function get_correlativo_paciente(){
 
 function save_paciente() {
 
-	let codigo_paciente =$("#codigo_paciente").val();
-    let nombres=$("#nombres").val();
-    let telefono=$("#telefono").val();
-	let edad=$("#edad").val();
-	let genero = $("#genero_p").val();
-	let usuario = $("#usuario").val();    
-	let sucursal = $("#sucursal").val();
-	let depto = $("#departamento").val();
-	let municipio = $("#munic_pac");
-
-
-    if(edad !=""){
+	let valores = {
+		nombres: { id: 'nombres', title: 'Por favor, ingrese nombre', value: null },
+		telefono: { id: 'telefono', title: 'Por favor, ingrese número de teléfono', value: null },
+		edad: { id: 'edad', title: 'Por favor, ingrese edad', value: null },
+		genero: { id: 'genero_p', title: 'Por favor, seleccione género', value: null },
+		usuario: { id: 'usuario', title: 'Por favor, ingrese nombre de usuario', value: null },
+		sucursal: { id: 'sucursal', title: 'Por favor, ingrese sucursal', value: null },
+		depto: { id: 'departamento', title: 'Por favor, ingrese departamento', value: null },
+		municipio: { id: 'munic_pac', title: 'Por favor, ingrese municipio', value: null }
+	};
+	for (let key in valores) {
+		let campo = valores[key];
+		let input = document.getElementById(campo.id);
+		let valor = input.value;
+		if (valor == "") {
+		  alert(campo.title);
+		  return false;
+		} else {
+		  campo.value = valor;
+		}
+	  }
+	let dataSend = JSON.stringify(valores);
     $.ajax({
     url:"ajax/pacientes.php?op=guardar_paciente",
     method:"POST",
-    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,genero:genero,usuario:usuario,sucursal:sucursal,depto:depto,municipio:municipio},
+    data:{dataSend:dataSend},
     cache: false,
-    dataType:"json",
+   // dataType:"json",
     success:function(data){
-  	console.log(data);
-
-  if(data=='ok'){
-    setTimeout ("Swal.fire('Paciente guardado Existosamente','','success')", 100);
-    $("#data_pacientes").DataTable().ajax.reload();
-    $("#newPaciente").modal('hide');
-  }else if(data=='codigo'){
-    setTimeout ("Swal.fire('Error al guardar el paciente Intente nuevamente','','error')", 100);
-    return false;
-  }else if(data=='dui'){
-    setTimeout ("Swal.fire('El DUI ya existe en la base de Datos','','error')", 100);
-    return false;           
- }else if(data="editado"){
-	setTimeout ("Swal.fire('Editado Existosamente','','success')", 100);
-    $("#data_pacientes").DataTable().ajax.reload();
-    $("#newPaciente").modal('hide');
-}
-}
-});
-}else{
-	setTimeout ("Swal.fire('Edad es un campo obligatorio','','error')", 100);
-}
-//cierre del condicional de validacion de los campos del paciente
+		console.log('Ok')
+	}
+   });
+   
+   //cierre del condicional de validacion de los campos del paciente
 }
 
   function explode(){

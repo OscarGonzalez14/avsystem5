@@ -24,21 +24,19 @@
             </div>
             <div class="modal-body">
 
-              <div class="form-group row ">
-
-              <input type="hidden" class="form-control" id="codigo_paciente" name="codigo_paciente" value="" >              
+              <div class="form-group row ">                 
 
                 <div class="col-sm-5 input-field">                  
-                  <input class="" id="nombres" name="nombres" type="text"  required onkeyup="mayus(this);"> 
+                  <input class="" id="nombres" name="nombres" type="text"  title='Nombres'> 
                   <label for="nombres">Nombre<span style="color:red">*</span></label>     
                 </div>
 
                 <div class="col-sm-2 input-field">                
-                  <input class="" id="edad" type="number" name="edad"  required pattern='^[0-9]+'>
+                  <input class="" id="edad" type="number" name="edad"  title='Edad'>
                   <label for="edad">Edad</label>
                 </div>
 
-                <div class="col-sm-2 input-field" style='margin-top:4px'>  
+                <div class="col-sm-2 input-field" style='margin-top:4px' title='Genero'>  
                 <select class="" id="genero_p" name="genero_p">
                   <option value="">Seleccionar..</option>
                   <option value="M">Masculino</option>
@@ -48,12 +46,12 @@
                 </div>
                 
                 <div class="col-sm-3 input-field">
-                  <input class="" id="telefono" type="text" name="telefono" required pattern='^[0-9]+'>
+                  <input class="" id="telefono" type="text" name="telefono" required pattern='^[0-9]+' title='Telefono'>
                   <label for="telefono">Teléfono<span>*</span></label>
                 </div> 
 
                 <div class="col-sm-5 input-field">
-                <select class="" id="departamento" name="departamento" onchange='get_municipios(this.value)'>
+                <select class="" id="departamento" name="departamento" onchange='get_municipios(this.value)' title='Departamento'>
                  <option value="">Seleccionar..</option>
                   <option value="San Salvador">San Salvador</option>
                   <option value="La Libertad">La Libertad</option>
