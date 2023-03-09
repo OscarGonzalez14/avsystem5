@@ -8,52 +8,51 @@
   
 </head>  
 <style>
-.input-field {
-  position: relative;
-  margin-bottom: 45px;
-}
-
-.input-field input {
-  font-size: 14px;
-  padding: 10px 10px 10px 5px;
-  display: block;
-  width: 100%;
+.btn-mds {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  padding: 12px 24px;
+  background-color: #2196F3;
   border: none;
-  border-bottom: 1px solid #474747;
-  background: transparent;
+  border-radius: 50px; /* Bordes redondeados */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* Sombra que simula profundidad */
 }
 
-.input-field input:focus {
-  outline: none;
-  border-bottom: 2px solid #355C7D;
-}
-
-.input-field label {
-  color: #474747;
-  font-size: 14px;
-  font-weight: normal;
+.btn-mds:before {
+  content: "";
+  display: block;
   position: absolute;
-  pointer-events: none;
-  left: 5px;
-  top: 10px;
-  transition: 0.2s ease all;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
 }
 
-.input-field input:focus ~ label,
-.input-field input:valid ~ label {
-  top: -10px;
-  font-size: 14px;
-  color: #355C7D;
+.btn-mds:active:before {
+  width: 120%;
+  height: 120%;
+  opacity: 1;
+  transition: all 0.3s ease-out;
 }
+
+.btn-mds:focus {
+  outline: none;
+}
+
 
 
 </style>
-<body>    
 
-<div class="input-field" style='margin-top:50px'>
-  <input type="search" id="username" required>
-  <label for="username">Nombre de usuario</label>
-</div>
+<button class="btn-mds">Save</button>
 
 
 </body>  

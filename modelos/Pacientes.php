@@ -15,34 +15,36 @@ class Paciente extends Conectar{
     }
 
 
-	public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$usuario,$empresa,$nit,$tel_oficina,$direccion_completa,$tipo_paciente,$fecha,$empresa_paciente,$codigo_emp,$departamento){
+	public function registrar_paciente(){
 
-      $fecha_nac = "0"; 
-      $conectar= parent::conexion();
+      $data =  json_decode($_POST["dataSend"]);
+      $conectar = parent::conexion();
       parent::set_names();
+      date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
+
       $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         
       $sql=$conectar->prepare($sql);
 
-        $sql->bindValue(1, $_POST["codigo_paciente"]);
-        $sql->bindValue(2, $_POST["nombres"]);
-        $sql->bindValue(3, $_POST["telefono"]);
-        $sql->bindValue(4, $_POST["edad"]);
-        $sql->bindValue(5, $_POST["ocupacion"]);
-        $sql->bindValue(6, $sucursal);
-        $sql->bindValue(7, $_POST["dui"]);
-        $sql->bindValue(8, $_POST["correo"]);
-        $sql->bindValue(9, $_POST["fecha"]);
-        $sql->bindValue(10, $_POST["usuario"]);
-        $sql->bindValue(11, $_POST["empresa"]);
-        $sql->bindValue(12, $_POST["nit"]);
-        $sql->bindValue(13, $_POST["tel_oficina"]);
-        $sql->bindValue(14, $_POST["direccion_completa"]);
-        $sql->bindValue(15, $_POST["tipo_paciente"]);
-        $sql->bindValue(16, $fecha_nac);
-        $sql->bindValue(17, $_POST["empresa_paciente"]);
-        $sql->bindValue(18, $_POST["codigo_emp"]);
-        $sql->bindValue(19, $_POST["departamento"]);
+        $sql->bindValue(1, "-");
+        $sql->bindValue(2, $data->nombres->value);
+        $sql->bindValue(3, $data->telefono->value);
+        $sql->bindValue(4, $data->edad->value);
+        $sql->bindValue(5, '');
+        $sql->bindValue(6, $_SESSION["sucursal"]);
+        $sql->bindValue(7, NULL);
+        $sql->bindValue(8, NULL);
+        $sql->bindValue(9, $hoy);
+        $sql->bindValue(10, $_SESSION["usuario"]);
+        $sql->bindValue(11, NULL);
+        $sql->bindValue(12, NULL);
+        $sql->bindValue(13, NULL);
+        $sql->bindValue(14, NULL);
+        $sql->bindValue(15, NULL);
+        $sql->bindValue(16, NULL);
+        $sql->bindValue(17, NULL);
+        $sql->bindValue(18, NULL);
+        $sql->bindValue(19, NULL);
 
         $sql->execute();      
 }

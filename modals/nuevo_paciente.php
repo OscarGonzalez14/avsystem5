@@ -1,6 +1,6 @@
   <style>
     #pac_tamano{
-      max-width: 65% !important;
+      max-width: 85% !important;
       margin: auto;
     }
     #head_pac{
@@ -52,7 +52,7 @@
 
                 <div class="col-sm-5 input-field">
                 <select class="" id="departamento" name="departamento" onchange='get_municipios(this.value)' title='Departamento'>
-                 <option value="">Seleccionar..</option>
+                 <option value="">Seleccionar...</option>
                   <option value="San Salvador">San Salvador</option>
                   <option value="La Libertad">La Libertad</option>
                   <option value="Santa Ana">Santa Ana</option>
@@ -77,7 +77,7 @@
                 </div>
 
                 <button class="btn btn-primary btn-block" onClick="save_paciente();" id="save_paciente"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>Guardar</button>
-                <button class="btn btn-primary btn-block" onClick="save_paciente();" id="edit_paci">Editar</button>  
+               <!--  <button class="btn btn-primary btn-block" onClick="save_paciente();" id="edit_paci">Editar</button>   -->
               </div>
               
             </div>

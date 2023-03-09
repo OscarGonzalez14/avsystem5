@@ -20,27 +20,15 @@ require_once("modals/modal_consultas.php");
     <!-- Main content -->
     <section class="content" style="margin-top: 5px">
     <input type="hidden" name="sucursal_usuario" id="sucursal_usuario" value="<?php echo $_SESSION["sucursal_usuario"];?>"/>
-    <div class="row">
-    <div class="col-12">
-    <div class="card">
-    <span class="right badge badge-light" style="text-align: right;float: right;"><i class=" fas fa-trophy" id="win"></i>Ganadores <span id="count_win"></span></span>
-    <div class="card-body"><!--CONTENIDO-->
-    <div class="invoice p-3 mb-3" style="margin: 3px;border-radius: 5px">
-      <div class="row">
-      <div class="col-sm-3">
-      <button type="button" class="btn btn-block btn-outline-primary btn-flat" data-toggle="modal" data-target="#newPaciente" onClick="clear_campos();"><i class="fas fas fa-user-plus"></i>Crear Pac.</button>
-      </div>
-      <input type="hidden" value="<?php echo $ganadores;?>" id="ganadores">
-      <div class="col-sm-3">
-      <a href="consultas.php"><button type="button" class="btn btn-block btn-outline-success btn-flat"><i class="fas fa-clipboard-list"></i> Ver Consultas</button></a>
-      </div>
-      <div>
-    
-      </div>
-      </div>
 
+    <div class="card">    
+    <div class="card-body"><!--CONTENIDO-->
+    <button class="btn-mds mds-primary" data-toggle="modal" data-target="#newPaciente" onClick="clear_campos();"><i class='fas fa-user'></i> Nuevo Paciente</button>
+    <a href="consultas.php"><button class="btn-mds mds-success"><i class='fas fa-clipboard-list'></i> Consultas</button></a>
+    <div class="invoice p-3 mb-3" style="margin: 3px;border-radius: 5px">
+      
       <table id="data_pacientes" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered">
-        <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 13px" class="bg-info">
+        <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 13px" class="bg-dark">
           <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 13px">
             <th style="text-align:center">ID</th>
             <th style="text-align:center">Paciente</th>

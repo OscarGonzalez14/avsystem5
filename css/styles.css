@@ -177,3 +177,52 @@
   background: #fff;
   cursor: pointer;
 }
+
+.btn-mds {
+  margin-top: 0px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border: none;
+  border-radius: 50px; /* Bordes redondeados */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* Sombra que simula profundidad */
+}
+
+.mds-primary{
+  color: #fff;
+  background-color: #2196F3;
+}
+
+.mds-success{
+  color: #fff;
+  background-color: #2c8d60;
+}
+
+.btn-mds:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+}
+
+.btn-mds:active:before {
+  width: 120%;
+  height: 120%;
+  opacity: 1;
+  transition: all 0.3s ease-out;
+}
+
+.btn-mds:focus {
+  outline: none;
+}

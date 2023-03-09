@@ -64,20 +64,6 @@ $(document).on('click', '#tipo_paciente', function(){
  }
 });
 
-function get_correlativo_paciente(){
-	var sucursal_correlativo = $("#sucursal").val();
-	let sucursal_usuario = $("#sucursal_usuario").val();
-	$.ajax({
-    url:"ajax/pacientes.php?op=get_numero_paciente",
-    method:"POST",
-    data:{sucursal_correlativo:sucursal_correlativo,sucursal_usuario:sucursal_usuario},
-    cache:false,
-    dataType:"json",
-      success:function(data){
-    	$("#codigo_paciente").val(data.correlativo);             
-      }
-    })
-}
 
 function save_paciente() {
 
@@ -96,8 +82,9 @@ function save_paciente() {
 		let input = document.getElementById(campo.id);
 		let valor = input.value;
 		if (valor == "") {
-		  alert(campo.title);
-		  return false;
+			Swal.fire(campo.title,'','error');
+			  return false;		
+
 		} else {
 		  campo.value = valor;
 		}
@@ -108,9 +95,9 @@ function save_paciente() {
     method:"POST",
     data:{dataSend:dataSend},
     cache: false,
-   // dataType:"json",
+    //dataType:"json",
     success:function(data){
-		console.log('Ok')
+		console.log(data)		
 	}
    });
    

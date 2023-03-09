@@ -76,50 +76,8 @@
 
   break;
 
-  case "guardar_paciente":
-   
-    $codigo=$pacientes->validar_codigo_paciente($_POST["codigo_paciente"]);
-    $valida_pacientes = $pacientes->valida_paciente($_POST["codigo_paciente"]);
-    $sucursal = $_POST["sucursal"];
-    $sucursal_usuario = $_POST["sucursal_usuario"];
-
-    if ($sucursal == "Empresarial") {
-      $sucursal_paciente = "Empresarial-".$sucursal_usuario;
-    }else{
-      $sucursal_paciente = $_POST["sucursal"];
-    }
-
-   if(is_array($codigo)==true and count($codigo)==0){
-      $pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$sucursal_paciente,$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["empresa_paciente"],$_POST["codigo_emp"],$_POST["departamento"]);
-    $messages[]="ok";
-    }else{
-    $pacientes->editar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$sucursal_paciente,$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["empresa_paciente"],$_POST["codigo_emp"],$_POST["departamento"]);
-    $messages[]="editado";
-        
-  }
-  if (isset($messages)){
-     ?>
-       <?php
-         foreach ($messages as $message) {
-             echo json_encode($message);
-           }
-         ?>
-   <?php
- }
-    //mensaje error
-      if (isset($errors)){
-
-   ?>
-
-         <?php
-           foreach ($errors as $error) {
-               echo json_encode($error);
-             }
-           ?>
-   <?php
-   }
-
- 
+  case "guardar_paciente":   
+    $pacientes->registrar_paciente(); 
     break;
 
 /////////////////////listado general pacintes
