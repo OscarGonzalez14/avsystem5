@@ -22,10 +22,12 @@ class Paciente extends Conectar{
       parent::set_names();
       date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 
-      $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      try {
+        $conectar->beginTransaction();
         
-      $sql=$conectar->prepare($sql);
-
+        $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        $sql=$conectar->prepare($sql);
+    
         $sql->bindValue(1, "-");
         $sql->bindValue(2, $data->nombres->value);
         $sql->bindValue(3, $data->telefono->value);
@@ -45,8 +47,23 @@ class Paciente extends Conectar{
         $sql->bindValue(17, NULL);
         $sql->bindValue(18, NULL);
         $sql->bindValue(19, NULL);
-
-        $sql->execute();      
+    
+        $sql->execute();    
+        // Confirmar la transacción si no ha habido errores
+        $conectar->commit();
+        if ($sql->rowCount()>0) {
+          $msj = "InsertPac";          
+        }else{
+          $msj = "ErrorInsertPac";
+        }
+        echo json_encode($msj);
+        
+    } catch(PDOException $e) {
+        // Revertir la transacción si ha habido algún error
+        $conectar->rollBack();        
+        echo "Error: " . $e->getMessage();
+    }
+          
 }
 
 //////////////////VALIDAR SI EXISTE PACIENTE

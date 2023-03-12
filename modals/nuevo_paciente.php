@@ -27,7 +27,7 @@
               <div class="form-group row ">                 
 
                 <div class="col-sm-5 input-field">                  
-                  <input class="" id="nombres" name="nombres" type="text"  title='Nombres'> 
+                  <input class="" id="nombres" name="nombres" type="text"  title='Nombres' style='text-transform: capitalize;'> 
                   <label for="nombres">Nombre<span style="color:red">*</span></label>     
                 </div>
 
@@ -76,7 +76,7 @@
                  </select>
                 </div>
 
-                <button class="btn btn-primary btn-block" onClick="save_paciente();" id="save_paciente"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>Guardar</button>
+                <button class="btn mds-success btn-block" onClick="save_paciente();" id="save_paciente"><i class='fas fa-save'></i> Crear paciente</button>
                <!--  <button class="btn btn-primary btn-block" onClick="save_paciente();" id="edit_paci">Editar</button>   -->
               </div>
               
@@ -93,7 +93,6 @@
 
 
 /***************MUNICIPIOS ***************/
-
 var ahuachapan = ["Ahuachapán", "Apaneca", "Atiquizaya", "Concepción de Ataco", "El Refugio", "Guaymango", "Jujutla", "San Francisco Menéndez", "San Lorenzo", "San Pedro Puxtla", "Tacuba", "Turín"];
 var cabanas = ["Cinquera", "Dolores (Villa Doleres)", "Guacotecti", "Ilobasco", "Jutiapa", "San Isidro", "Sensuntepeque", "Tejutepeque", "Victoria"];
 var chalatenango = ["Agua Caliente", "Arcatao", "Azacualpa", "Chalatenango", "Citalá", "Comalapa", "Concepción Quezaltepeque", "Dulce Nombre de María", "El Carrizal", "El Paraíso", "La Laguna", "La Palma", "La Reina", "Las Vueltas", "Nombre de Jesús", "Nueva Concepción", "Nueva Trinidad", "Ojos de Agua", "Potonico", "San Antonio de la Cruz", "San Antonio Los Ranchos", "San Fernando", "San Francisco Lempa", "San Francisco Morazán", "San Ignacio", "San Isidro Labrador", "San José Cancasque (Cancasque)", "San José Las Flores", "San Luis del Carmen", "San Miguel de Mercedes", "San Rafael", "Santa Rita", "Tejutla"];

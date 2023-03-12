@@ -1,83 +1,13 @@
 <?php
+
   require_once("../config/conexion.php");
   require_once("../modelos/Pacientes.php");
-      //llamo al modelo Ventas
-  //require_once("../modelos/Ventas.php");  
   $pacientes = new Paciente();
-    switch($_GET["op"]){
-
-  case "get_numero_paciente":
-  
-  $sucursal = $_POST["sucursal_correlativo"];
-  $sucursal_usuario = $_POST["sucursal_usuario"];
-  $prefijo = "";
-  if ($sucursal=="Metrocentro"){
-    $prefijo="ME";
-  }elseif ($sucursal=="Santa Ana"){
-    $prefijo="SA";
-  }elseif ($sucursal=="San Miguel"){
-    $prefijo="SM";
-  }elseif ($sucursal=="Chalatenango"){
-    $prefijo="CH";
-  }elseif ($sucursal=="Ahuachapán"){
-    $prefijo="AH";
-  }elseif ($sucursal=="Cascadas"){
-    $prefijo="CA";
-  }elseif ($sucursal=="Ciudad Arce"){
-    $prefijo="AR";
-  }
-  if ($sucursal=="Empresarial") {
-   $sucursal_correlativo = "Empresarial-".$sucursal_usuario;
-  }else{
-    $sucursal_correlativo = $sucursal;
-  }
-
-  $datos = $pacientes->get_numero_paciente($sucursal_correlativo);
-
-  if ($sucursal == "Empresarial" and $sucursal_usuario=="Metrocentro") {
-    $sufijo = "MT";
-  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="San Miguel"){
-    $sufijo = "SM";
-  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Santa Ana"){
-    $sufijo = "SA";
-  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Chalantenango"){
-    $sufijo = "CH";
-  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Ahuachapán"){
-    $sufijo = "AH";
-  }elseif($sucursal == "Empresarial" and $sucursal_usuario=="Cascadas"){
-    $sufijo = "CA";
-  }elseif ($sucursal == "Empresarial" and $sucursal_usuario=="Ciudad Arce"){
-    $prefijo="AR";
-  }
-
-  if ($sucursal == "Empresarial") {
-    if(is_array($datos)==true and count($datos)>0){
-    foreach($datos as $row){                  
-      $codigo=$row["codigo"];
-      $cod=substr($codigo,5,11)+1;
-      $output["correlativo"]="EM".$sufijo."-".$cod;
-    }             
-  }else{
-      $output["correlativo"] = "EM".$sufijo."-1";
-  }
-  }else{
-  if(is_array($datos)==true and count($datos)>0){
-    foreach($datos as $row){                  
-      $codigo=$row["codigo"];
-      $cod=substr($codigo,5,11)+1;
-      $output["correlativo"]="AV".$prefijo."-".$cod;
-    }             
-  }else{
-      $output["correlativo"] = "AV".$prefijo."-1";
-  }
-}
-
-   echo json_encode($output);
-
-  break;
+    
+  switch($_GET["op"]){ 
 
   case "guardar_paciente":   
-    $pacientes->registrar_paciente(); 
+      $pacientes->registrar_paciente(); 
     break;
 
 /////////////////////listado general pacintes
@@ -175,28 +105,7 @@
     $messages[]="ok";
   }else{
     $errors[]="existe";
-  }
-  if (isset($messages)){
-     ?>
-       <?php
-         foreach ($messages as $message) {
-             echo json_encode($message);
-           }
-         ?>
-   <?php
- }
-    //mensaje error
-      if (isset($errors)){
-
-   ?>
-
-         <?php
-           foreach ($errors as $error) {
-               echo json_encode($error);
-             }
-           ?>
-   <?php
-   }
+  }  
 //fin 
   break;
 

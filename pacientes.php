@@ -18,11 +18,10 @@ require_once("modals/modal_consultas.php");
   <div class="content-wrapper">
 
     <!-- Main content -->
-    <section class="content" style="margin-top: 5px">
-    <input type="hidden" name="sucursal_usuario" id="sucursal_usuario" value="<?php echo $_SESSION["sucursal_usuario"];?>"/>
+    <section class="content" style="margin-top: 5px">    
 
     <div class="card">    
-    <div class="card-body"><!--CONTENIDO-->
+    <div class="card-body"><!--CONTENIDO-->   
     <button class="btn-mds mds-primary" data-toggle="modal" data-target="#newPaciente" onClick="clear_campos();"><i class='fas fa-user'></i> Nuevo Paciente</button>
     <a href="consultas.php"><button class="btn-mds mds-success"><i class='fas fa-clipboard-list'></i> Consultas</button></a>
     <div class="invoice p-3 mb-3" style="margin: 3px;border-radius: 5px">
@@ -35,10 +34,8 @@ require_once("modals/modal_consultas.php");
             <th style="text-align:center">Edad</th>
             <th style="text-align:center">Telefono</th>
             <th style="text-align:center">Consulta</th>
-            <th style="text-align:center">Editar</th>
+            <th style="text-align:center">Ver y editar</th>
             <th style="text-align:center">Eliminar</th>
-            <th style="text-align:center">Información</th>
-            <th style="text-align:center">Referidos</th>
           </tr>
         </thead>
         <tbody style="text-align:center;color: black;font-size: 12px">                                        
@@ -80,8 +77,7 @@ require_once("modals/modal_consultas.php");
 <?php require_once("footer.php");?>
 <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <input type="hidden" name="id_usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
-<input type="hidden" name="sucursal_usuario" id="sucursal_usuario" value="<?php echo $_SESSION["sucursal_usuario"];?>"/>
+
 <input type="hidden" id="fecha" value="<?php echo $hoy;?>">
 <input type="hidden" id="name_pag" value="MODULO PACIENTES & CONSULTAS">
 
@@ -129,8 +125,12 @@ require_once("modals/modal_consultas.php");
     $("#patologias").select2({
     maximumSelectionLength: 4
    });
-      })
+  })
+  
+var sucursal_session = "<?php echo $_SESSION['sucursal']; ?>";
+
 </script>  
+
 <script>
 
 function mayus(e) {
@@ -161,45 +161,8 @@ var telefono = new Cleave('#telefono', {
     blocks: [4,4],
     uppercase: true
 });
-</script>
 
-
-<script>
-    $(function(){
-      $('.btn[data-toggle=modal]').on('click', function(){
-        var $btn = $(this);
-        var currentDialog = $btn.closest('.modal-dialog'),
-        targetDialog = $($btn.attr('data-target'));;
-        if (!currentDialog.length)
-          return;
-        targetDialog.data('previous-dialog', currentDialog);
-        currentDialog.addClass('aside');
-        var stackedDialogCount = $('.modal.in .modal-dialog.aside').length;
-        if (stackedDialogCount <= 5){
-          currentDialog.addClass('aside-' + stackedDialogCount);
-        }
-      });
-
-      $('.modal').on('hide.bs.modal', function(){
-        var $dialog = $(this);  
-        var previousDialog = $dialog.data('previous-dialog');
-        if (previousDialog){
-          previousDialog.removeClass('aside');
-          $dialog.data('previous-dialog', undefined);
-        }
-      });
-    })
-  </script>
-<script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-
-<script type="text/javascript">
-  $(function () {
-      $("input[data-bootstrap-switch]").each(function(){
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    });
-   })
-
-  const Toast = Swal.mixin({
+const Toast = Swal.mixin({
     toast: true,
     position: 'center',
     showConfirmButton: false,

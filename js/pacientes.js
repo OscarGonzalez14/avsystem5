@@ -95,9 +95,13 @@ function save_paciente() {
     method:"POST",
     data:{dataSend:dataSend},
     cache: false,
-    //dataType:"json",
+    dataType:"json",
     success:function(data){
-		console.log(data)		
+		if(data=='InsertPac'){
+			Swal.fire('Paciente creado Exitosamente','','success');
+		}else{
+			Swal.fire('Ha ocurrido un error intenta nuevamente','','error');
+		}		
 	}
    });
    
